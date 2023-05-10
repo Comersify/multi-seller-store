@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
-import { Banner } from "@/components/Banner";
+import { Ads } from "@/components/Ads";
 import { ProductCard } from "@/components/ProductCard";
 import { Title } from "@/components/Title";
 import { StoreCard } from "@/components/StoreCard";
@@ -83,7 +83,7 @@ export default function Home() {
         <title>Home</title>
       </Head>
       <main>
-        <Banner />
+        <Ads />
         <section className="py-4 px-16">
           <Title text="Big Deals" emoji="&#x1F947;" />
           <BigDeals />
