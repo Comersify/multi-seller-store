@@ -1,76 +1,71 @@
-import { useState, useEffect } from "react";
-
-export const Banner = () => {
-  const images = [
-    "https://picsum.photos/id/1015/1200/500",
-    "https://picsum.photos/id/1013/1200/500",
-    "https://picsum.photos/id/1018/1200/500",
-  ];
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      handleNext();
-    }, 2500);
-    return () => clearInterval(intervalId);
-  }, [currentIndex]);
-
-  function handleNext() {
-    setCurrentIndex(currentIndex === images.length - 1 ? 0 : currentIndex + 1);
-  }
-  function handlePrev() {
-    setCurrentIndex(currentIndex === 0 ? images.length - 1 : currentIndex - 1);
-  }
-
+export function Banner() {
   return (
-    <div class="relative">
-      <div class="overflow-hidden">
-        <div class="flex relative max-h-[30rem]">
-          <button
-            className="absolute font-bold hover:opacity-100 text-lg top-[35%] mx-4 p-4 opacity-75 rounded-full bg-gray-100 text-black"
-            onClick={handlePrev}
+    <div className="relative isolate flex items-center gap-x-6 overflow-hidden bg-gray-50 px-6 py-2.5 sm:px-3.5 sm:before:flex-1">
+      <div
+        className="absolute left-[max(-7rem,calc(50%-52rem))] top-1/2 -z-10 -translate-y-1/2 transform-gpu blur-2xl"
+        aria-hidden="true"
+      >
+        <div
+          className="aspect-[577/310] w-[36.0625rem] bg-gradient-to-r from-[#ff80b5] to-[#9089fc] opacity-30"
+          style={{
+            clipPath:
+              "polygon(74.8% 41.9%, 97.2% 73.2%, 100% 34.9%, 92.5% 0.4%, 87.5% 0%, 75% 28.6%, 58.5% 54.6%, 50.1% 56.8%, 46.9% 44%, 48.3% 17.4%, 24.7% 53.9%, 0% 27.9%, 11.9% 74.2%, 24.9% 54.1%, 68.6% 100%, 74.8% 41.9%)",
+          }}
+        />
+      </div>
+      <div
+        className="absolute left-[max(45rem,calc(50%+8rem))] top-1/2 -z-10 -translate-y-1/2 transform-gpu blur-2xl"
+        aria-hidden="true"
+      >
+        <div
+          className="aspect-[577/310] w-[36.0625rem] bg-gradient-to-r from-[#ff80b5] to-[#9089fc] opacity-30"
+          style={{
+            clipPath:
+              "polygon(74.8% 41.9%, 97.2% 73.2%, 100% 34.9%, 92.5% 0.4%, 87.5% 0%, 75% 28.6%, 58.5% 54.6%, 50.1% 56.8%, 46.9% 44%, 48.3% 17.4%, 24.7% 53.9%, 0% 27.9%, 11.9% 74.2%, 24.9% 54.1%, 68.6% 100%, 74.8% 41.9%)",
+          }}
+        />
+      </div>
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+        <p className="text-sm leading-6 text-gray-900">
+          <strong className="font-semibold">GeneriCon 2023</strong>
+          <svg
+            viewBox="0 0 2 2"
+            className="mx-2 inline h-0.5 w-0.5 fill-current"
+            aria-hidden="true"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="w-6 h-6"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M15.75 19.5L8.25 12l7.5-7.5"
-              />
-            </svg>
-          </button>
-          <img
-            class="w-screen max-h-[30rem]"
-            src={images[currentIndex]}
-            alt="Image 1"
-          />
-          <button
-            className="absolute font-bold text-lg top-[35%] right-0 mx-4 p-4 opacity-75 hover:opacity-100 rounded-full bg-gray-100 text-black"
-            onClick={handleNext}
+            <circle cx={1} cy={1} r={1} />
+          </svg>
+          Join us in Denver from June 7 – 9 to see what’s coming next.
+        </p>
+        <a
+          href="#"
+          className="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900"
+        >
+          Register now <span aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+      <div className="flex flex-1 justify-end">
+        <button
+          type="button"
+          className="-m-3 p-3 text-gray-900 focus-visible:outline-offset-[-4px]"
+        >
+          <span className="sr-only">Dismiss</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M8.25 4.5l7.5 7.5-7.5 7.5"
-              />
-            </svg>
-          </button>
-        </div>
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
       </div>
     </div>
   );
-};
+}
