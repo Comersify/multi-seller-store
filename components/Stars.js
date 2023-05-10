@@ -1,20 +1,70 @@
 export const Stars = ({ num }) => {
   return (
     <div class="flex items-center">
-      <svg class="text-gray-600 w-4 h-4 fill-current mr-1" viewBox="0 0 24 24">
-        <path d="M12 15.4L18.3 19l-1.4-7.7L22 9.3l-7.7-1L12 1.7 9.7 8.3 2 9.3l5.1 5L5 22l7-3.3z" />
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+        aria-hidden="true"
+        class="text-yellow-300 w-4 h-4 fill-current mr-1"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
+          clip-rule="evenodd"
+        ></path>
       </svg>
-      <svg class="text-gray-600 w-4 h-4 fill-current mr-1" viewBox="0 0 24 24">
-        <path d="M12 15.4L18.3 19l-1.4-7.7L22 9.3l-7.7-1L12 1.7 9.7 8.3 2 9.3l5.1 5L5 22l7-3.3z" />
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+        aria-hidden="true"
+        class="text-yellow-300 w-4 h-4 fill-current mr-1"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
+          clip-rule="evenodd"
+        ></path>
       </svg>
-      <svg class="text-gray-600 w-4 h-4 fill-current mr-1" viewBox="0 0 24 24">
-        <path d="M12 15.4L18.3 19l-1.4-7.7L22 9.3l-7.7-1L12 1.7 9.7 8.3 2 9.3l5.1 5L5 22l7-3.3z" />
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+        aria-hidden="true"
+        class="text-yellow-300 w-4 h-4 fill-current mr-1"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
+          clip-rule="evenodd"
+        ></path>
       </svg>
-      <svg class="text-gray-600 w-4 h-4 fill-current mr-1" viewBox="0 0 24 24">
-        <path d="M12 15.4L18.3 19l-1.4-7.7L22 9.3l-7.7-1L12 1.7 9.7 8.3 2 9.3l5.1 5L5 22l7-3.3z" />
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+        aria-hidden="true"
+        class="text-gray-400 w-4 h-4 fill-current mr-1"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
+          clip-rule="evenodd"
+        ></path>
       </svg>
-      <svg class="text-gray-600 w-4 h-4 fill-current" viewBox="0 0 24 24">
-        <path d="M12 15.4L18.3 19l-1.4-7.7L22 9.3l-7.7-1L12 1.7 9.7 8.3 2 9.3l5.1 5L5 22l7-3.3z" />
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+        aria-hidden="true"
+        class="text-gray-400 w-4 h-4 fill-current mr-1"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
+          clip-rule="evenodd"
+        ></path>
       </svg>
     </div>
   );
