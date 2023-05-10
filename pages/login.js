@@ -1,4 +1,6 @@
+import { Title } from "@/components/Title";
 import Head from "next/head";
+import { LoginForm } from "@/forms/LoginForm";
 
 export default function Login() {
   return (
@@ -6,7 +8,7 @@ export default function Login() {
       <Head>
         <title>Login</title>
       </Head>
-      <div>Login</div>
+      <LoginForm />
     </>
   );
 }

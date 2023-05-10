@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { SignUpForm } from "@/forms/SignUpForm";
 
 export default function SignUp() {
   return (
@@ -6,7 +7,7 @@ export default function SignUp() {
       <Head>
         <title>Sign Up</title>
       </Head>
-      <div>SignUp</div>
+      <SignUpForm />
     </>
   );
 }
