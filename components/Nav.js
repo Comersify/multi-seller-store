@@ -60,7 +60,7 @@ const MenuLink = ({ href, title }) => {
   return (
     <Link
       href={href}
-      className="text-gray-800 font-bold hover:bg-orange-300 hover:text-white rounded-md px-3 py-2 text-sm"
+      className="text-gray-800 font-bold hover:bg-gradient-to-r from-[#ff80b5] to-[#9089fc] hover:text-white rounded-md px-3 py-2 text-sm"
       aria-current="page"
     >
       {title}
