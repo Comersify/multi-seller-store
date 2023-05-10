@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
-import { Banner } from "../components/Banner";
+import { Banner } from "@/components/Banner";
 import { ProductCard } from "@/components/ProductCard";
 import { Title } from "@/components/Title";
 import { StoreCard } from "@/components/StoreCard";
