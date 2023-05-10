@@ -127,10 +127,10 @@ const DropDownMenu = () => {
           className="absolute  right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
           id="menu"
         >
-          <DropDownLink href="/profile" title="Your Profile" />
-          <DropDownLink href="#" title="Your Orders" />
-          <DropDownLink href="#" title="Settings" />
-          <DropDownLink href="#" title="Sign out" />
+          <DropDownLink href="/account" title="Your Profile" />
+          <DropDownLink href="/account/orders" title="Your Orders" />
+          <DropDownLink href="/account/settings" title="Settings" />
+          <DropDownLink href="/sign-out" title="Sign out" />
         </div>
       )}
     </div>
