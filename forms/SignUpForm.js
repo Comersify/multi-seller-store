@@ -4,12 +4,12 @@ import { Input } from "./Input";
 
 export const SignUpForm = () => {
   return (
-    <div class="flex flex-col justify-center items-center h-[45rem] w-[50rem]">
+    <div class="flex p-4 flex-col justify-center items-center h-[45rem] w-[50rem]">
       <Title text="Sign Up" />
-      <form class=" mt-4 p-8 border rounded-lg border-gray-200 w-[30rem]">
-        <div class="mb-4 flex justify-between">
+      <form class=" mt-4 py-8 px-16  border rounded-lg border-gray-200 w-[30rem]">
+        <div class="mb-4 block md:flex justify-between">
           <Input label="First Name" type="text" />
-          <span className="p-4"></span>
+          <span className="px-4"></span>
           <Input label="Last Name" type="text" />
         </div>
         <div class="mb-4">
