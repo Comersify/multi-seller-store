@@ -9,7 +9,7 @@ import { HomeReviewCard } from "@/components/ReviewCards";
 
 const BigDeals = () => {
   return (
-    <div class="flex flex-wrap gap-4 justify-center pt-8">
+    <div className="flex flex-wrap gap-4 justify-center pt-8">
       <Link href="/products/1">
         <ProductCard />
       </Link>
@@ -37,7 +37,7 @@ const BigDeals = () => {
 
 const FeaturedStores = () => {
   return (
-    <div class="flex flex-wrap gap-4 justify-center pt-8">
+    <div className="flex flex-wrap gap-4 justify-center pt-8">
       <Link href="/stores/1">
         <StoreCard />
       </Link>
@@ -56,7 +56,7 @@ const FeaturedStores = () => {
 
 const HotCategories = () => {
   return (
-    <div class="flex flex-wrap gap-6 justify-center pt-8">
+    <div className="flex flex-wrap gap-6 justify-center pt-8">
       <CategoriesCard />
       <CategoriesCard />
       <CategoriesCard />
@@ -67,7 +67,7 @@ const HotCategories = () => {
 
 const Reviews = () => {
   return (
-    <div class="flex flex-wrap gap-6 justify-center mt-14 ">
+    <div className="flex flex-wrap gap-6 justify-center mt-14 ">
       <HomeReviewCard />
       <HomeReviewCard />
       <HomeReviewCard />

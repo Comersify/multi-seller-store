@@ -23,9 +23,9 @@ export const Ads = () => {
   }
 
   return (
-    <div class="relative">
-      <div class="overflow-hidden">
-        <div class="flex relative max-h-[30rem]">
+    <div className="relative">
+      <div className="overflow-hidden">
+        <div className="flex relative max-h-[30rem]">
           <button
             className="absolute font-bold hover:opacity-100 text-lg top-[35%] mx-4 p-4 opacity-75 rounded-full bg-gray-100 text-black"
             onClick={handlePrev}
@@ -34,19 +34,19 @@ export const Ads = () => {
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
-              stroke-width="1.5"
+              strokeWidth="1.5"
               stroke="currentColor"
-              class="w-6 h-6"
+              className="w-6 h-6"
             >
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 d="M15.75 19.5L8.25 12l7.5-7.5"
               />
             </svg>
           </button>
           <img
-            class="w-screen max-h-[30rem]"
+            className="w-screen max-h-[30rem]"
             src={images[currentIndex]}
             alt="Image 1"
           />
@@ -58,13 +58,13 @@ export const Ads = () => {
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
-              stroke-width="1.5"
+              strokeWidth="1.5"
               stroke="currentColor"
               className="w-6 h-6"
             >
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 d="M8.25 4.5l7.5 7.5-7.5 7.5"
               />
             </svg>

@@ -1,7 +1,7 @@
 export const Title = ({ text, emoji }) => {
   return (
     <h1
-      class="
+      className="
         text-center
         text-3xl 
         font-bold 
