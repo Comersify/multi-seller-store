@@ -4,7 +4,7 @@ import { Title } from "@/components/Title";
 
 export const LoginForm = () => {
   return (
-    <div class="flex flex-col justify-center items-center h-[45rem]">
+    <div class="flex flex-col justify-center items-center h-[40rem]">
       <Title text="Login" emoji="&#x1F512;" />
       <form className="w-full mt-4 p-8 max-w-sm border rounded-lg border-gray-200">
         <div className="mb-4">
