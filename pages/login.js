@@ -1,4 +1,3 @@
-import { Title } from "@/components/Title";
 import Head from "next/head";
 import { LoginForm } from "@/forms/LoginForm";
 
