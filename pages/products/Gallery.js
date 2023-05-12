@@ -1,27 +1,42 @@
+import { useEffect, useState } from "react";
+
 export const Gallery = () => {
+  const images = [
+    "https://via.placeholder.com/450",
+    "https://via.placeholder.com/250",
+    "https://via.placeholder.com/150",
+    "https://via.placeholder.com/550",
+  ];
+  const [bigImage, setBigImage] = useState(images[0]);
+  const [smallImages, setSmallImages] = useState([
+    images[1],
+    images[2],
+    images[3],
+  ]);
+  const showImage = (image) => {
+    setSmallImages(images.filter((im) => im != image));
+    setBigImage(image);
+    console.log(smallImages);
+    console.log(bigImage);
+  };
   return (
-    <section class="mx-auto h-90 py-16 sm:col-span-1 md:col-span-2 lg:col-span-2 relative lg:gap-x-8 lg:px-8">
-      <div class="flex justify-center">
-        <div class="block space-y-4 mr-2">
-          <img
-            src="https://via.placeholder.com/450"
-            class="max-w-[60px] max-h-[60px] cursor-pointer md:mb-2"
-            onclick="showImage('small-image-1.jpg')"
-          />
-          <img
-            src="https://via.placeholder.com/450"
-            class="max-w-[60px] max-h-[60px] cursor-pointer md:mb-2"
-            onclick="showImage('small-image-2.jpg')"
-          />
-          <img
-            src="https://via.placeholder.com/450"
-            class="max-w-[60px] max-h-[60px] cursor-pointer ring-2 ring-yellow-500 ring-offset-2"
-            onclick="showImage('small-image-3.jpg')"
-          />
+    <section className="mx-auto h-90 py-16 sm:col-span-1 md:col-span-2 lg:col-span-2 relative lg:gap-x-8 lg:px-8">
+      <div className="flex justify-center">
+        <div className="block space-y-4 mr-2">
+          {smallImages.map((image, i) => {
+            return (
+              <img
+                key={i}
+                src={image}
+                className="max-w-[60px] max-h-[60px] cursor-pointer md:mb-2"
+                onClick={() => showImage(image)}
+              />
+            );
+          })}
         </div>
         <img
-          src="https://via.placeholder.com/450"
-          class="max-sm:max-w-[300px] max-sm:max-h-[300px] max-md:max-w-[400px] max-h-[400px]"
+          src={bigImage}
+          className="max-sm:max-w-[300px] max-sm:max-h-[300px] max-md:max-w-[400px] max-h-[400px]"
         />
       </div>
     </section>
