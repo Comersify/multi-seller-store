@@ -9,8 +9,8 @@ export default function ProductDetails() {
       <Head>
         <title>Title</title>
       </Head>
-      <main class="px-6 md:px-20 lg:px-34">
-        <div class="px-6 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-5 lg:px-8">
+      <main className="px-6 md:px-20 lg:px-34">
+        <div className="px-6 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-5 lg:px-8">
           <Gallery />
           <ProductDetailsCard />
           <ReviewCard />
