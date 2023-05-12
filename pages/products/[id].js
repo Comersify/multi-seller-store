@@ -1,6 +1,7 @@
 import { Gallery } from "./Gallery";
 import { ReviewCard } from "@/components/ReviewCards";
 import { ProductDetailsCard } from "./ProductDetailsCard";
+import { ShippingCard } from "./ShippingCard";
 import Head from "next/head";
 
 export default function ProductDetails() {
@@ -13,8 +14,12 @@ export default function ProductDetails() {
         <div className="px-6 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-5 lg:px-8">
           <Gallery />
           <ProductDetailsCard />
-          <ReviewCard />
         </div>
+        <div className="md:flex sm:block mb-12 items-center justify-center">
+          <ShippingCard />
+          <ShippingCard />
+        </div>
+        <ReviewCard />
       </main>
     </>
   );
