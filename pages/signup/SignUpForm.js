@@ -1,6 +1,6 @@
 import { Title } from "@/components/shared/Title";
 import Link from "next/link";
-import { Input } from "./Input";
+import { Input } from "@/forms/Input";
 
 export const SignUpForm = () => {
   return (

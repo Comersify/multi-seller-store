@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { LeftArrow, RightArrow } from "./shared/Icons";
 
 export const Ads = () => {
   const images = [
@@ -30,20 +31,7 @@ export const Ads = () => {
             className="absolute font-bold hover:opacity-100 text-lg top-[35%] mx-4 p-4 opacity-75 rounded-full bg-gray-100 text-black"
             onClick={handlePrev}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M15.75 19.5L8.25 12l7.5-7.5"
-              />
-            </svg>
+            <LeftArrow />
           </button>
           <img
             className="w-screen max-h-[30rem]"
@@ -54,20 +42,7 @@ export const Ads = () => {
             className="absolute font-bold text-lg top-[35%] right-0 mx-4 p-4 opacity-75 hover:opacity-100 rounded-full bg-gray-100 text-black"
             onClick={handleNext}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M8.25 4.5l7.5 7.5-7.5 7.5"
-              />
-            </svg>
+            <RightArrow />
           </button>
         </div>
       </div>

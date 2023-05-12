@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import { StarsInput } from "./Stars";
-import { ToggleSideBarButton } from "./shared/Buttons";
+import { StarsInput } from "@/components/Stars";
+import { ToggleSideBarButton } from "@/components/shared/Buttons";
 
 const SubCategoryItem = ({ open, name, id }) => {
   const [checked, setChecked] = useState(false && open);
