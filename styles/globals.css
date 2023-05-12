@@ -20,3 +20,11 @@ body {
   color: rgb(var(--foreground-rgb));
   background: #fff;
 }
+
+.hidden-side {
+  transition: ease-in-out 0.3s;
+  transform: translateX(-256px);
+}
+.animation {
+  transition: ease-in-out 0.3s;
+}
