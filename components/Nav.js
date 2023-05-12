@@ -1,12 +1,12 @@
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   AuthButtons,
   CartButton,
   MobileMenuButtons,
   NotificationButton,
   ProfileButoon,
-} from "./Button";
+} from "./shared/Buttons";
 
 const Logo = () => {
   return (
@@ -25,9 +25,10 @@ const Logo = () => {
   );
 };
 
-const DropDownLink = ({ href, title }) => {
+const DropDownLink = ({ href, title, action }) => {
   return (
     <Link
+      onClick={() => action()}
       href={href}
       className="block hover:bg-gray-100  px-4 py-2 text-sm text-gray-700"
     >
@@ -38,18 +39,46 @@ const DropDownLink = ({ href, title }) => {
 
 const DropDownMenu = () => {
   const [dropdown, setDropdown] = useState(false);
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdown(false);
+        document.removeEventListener("click", () => "");
+      }
+    }
+
+    document.addEventListener("click", (e) => handleClickOutside(e));
+  }, []);
   return (
-    <div className="relative ml-3">
+    <div ref={dropdownRef} className="relative ml-3">
       <ProfileButoon action={() => setDropdown(!dropdown)} />
       {dropdown && (
         <div
           className="absolute  right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
           id="menu"
         >
-          <DropDownLink href="/account" title="Your Profile" />
-          <DropDownLink href="/account/orders" title="Your Orders" />
-          <DropDownLink href="/account/settings" title="Settings" />
-          <DropDownLink href="/sign-out" title="Sign out" />
+          <DropDownLink
+            action={() => setDropdown(false)}
+            href="/account"
+            title="Your Profile"
+          />
+          <DropDownLink
+            action={() => setDropdown(false)}
+            href="/account/orders"
+            title="Your Orders"
+          />
+          <DropDownLink
+            action={() => setDropdown(false)}
+            href="/account/settings"
+            title="Settings"
+          />
+          <DropDownLink
+            action={() => setDropdown(false)}
+            href="/sign-out"
+            title="Sign out"
+          />
         </div>
       )}
     </div>
@@ -81,7 +110,8 @@ const Navigation = () => {
 
 export const Nav = () => {
   const [openMenu, setOpenMenu] = useState(false);
-  const [loggedIn, _] = useState(false);
+  const [loggedIn, _] = useState(true);
+
   return (
     <nav className="bg-gray-50">
       <div className="mx-auto max-w-full px-2 sm:px-6 lg:px-8">

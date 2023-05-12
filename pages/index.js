@@ -2,7 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { Ads } from "@/components/Ads";
 import { ProductCard } from "@/components/ProductCard";
-import { Title } from "@/components/Title";
+import { Title } from "@/components/shared/Title";
 import { StoreCard } from "@/components/StoreCard";
 import { CategoriesCard } from "@/components/CategoriesCard";
 import { HomeReviewCard } from "@/components/ReviewCards";

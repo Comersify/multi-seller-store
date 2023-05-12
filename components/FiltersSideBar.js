@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { StarsInput } from "./Stars";
-import { ToggleSideBarButton } from "./Button";
+import { ToggleSideBarButton } from "./shared/Buttons";
 
 const SubCategoryItem = ({ open, name, id }) => {
   const [checked, setChecked] = useState(false && open);
@@ -13,7 +13,7 @@ const SubCategoryItem = ({ open, name, id }) => {
     >
       <input
         checked={checked && open}
-        onClick={() => setChecked(!checked && open)}
+        onChange={() => setChecked(!checked && open)}
         type="checkbox"
         className="mr-2 w-4 h-4"
       />
@@ -33,7 +33,12 @@ const CategoryItem = ({ name, id, subCategories }) => {
           open ? "bg-gray-200" : "hover:bg-gray-200"
         } flex items-center justify-start`}
       >
-        <input checked={open} type="checkbox" className="mr-2 w-4 h-4" />
+        <input
+          onChange={() => setOpen(!open)}
+          checked={open}
+          type="checkbox"
+          className="mr-2 w-4 h-4"
+        />
         Category 1
       </a>
       <ul className={`list-none animation pl-5 ${!open && "hidden"}`}>
@@ -60,12 +65,12 @@ const RatingFilter = () => {
 const PriceFilter = () => {
   return (
     <li className="block p-3">
-      <label for="price" className="font-bold">
+      <label htmlFor="price" className="font-bold">
         Price:
       </label>
       <div className="block">
         <div className="flex items-center justify-start">
-          <label for="from" className="pr-1">
+          <label htmlFor="from" className="pr-1">
             From:{" "}
           </label>
           <input
@@ -74,7 +79,7 @@ const PriceFilter = () => {
           />
         </div>
         <div className="flex justify-start items-center mt-2">
-          <label for="from" className="px-2">
+          <label htmlFor="from" className="px-2">
             To:{" "}
           </label>
           <input
@@ -89,10 +94,22 @@ const PriceFilter = () => {
 
 export const FiltersSideBar = () => {
   const [open, setOpen] = useState(false);
+  const sideBarRef = useRef(null);
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (sideBarRef.current && sideBarRef.current.contains(event.target)) {
+        setOpen(false);
+        document.removeEventListener("click", () => "");
+      }
+    }
+
+    document.addEventListener("click", (e) => handleClickOutside(e));
+  }, []);
   return (
     <>
       <div
         id="paper"
+        ref={sideBarRef}
         className={`${
           !open && "hidden"
         } absolute z-20 w-[99vw] h-screen bg-gray-900 opacity-40`}

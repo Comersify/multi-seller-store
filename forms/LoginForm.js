@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Input } from "./Input";
-import { Title } from "@/components/Title";
+import { Title } from "@/components/shared/Title";
 
 export const LoginForm = () => {
   return (

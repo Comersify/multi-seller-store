@@ -82,7 +82,6 @@ export const NotificationButton = () => {
 };
 
 export const MobileMenuButtons = ({ onclick, open }) => {
-  console.log(open);
   return (
     <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
       <button
