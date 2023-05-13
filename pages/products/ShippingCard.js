@@ -6,7 +6,7 @@ const TruckIcon = () => {
       viewBox="0 0 24 24"
       stroke-width="1.5"
       stroke="currentColor"
-      class="w-6 h-6"
+      className="w-6 h-6"
     >
       <path
         stroke-linecap="round"
@@ -19,22 +19,23 @@ const TruckIcon = () => {
 
 export const ShippingCard = () => {
   return (
-    <div class="-max-w-[450px] rounded-md mb-4 mr-6 shadow-sm border border-gray-200 p-6 text-gray-900">
-      <div class="flex justify-between items-center mb-4">
-        <div class="text-lg font-bold flex items-center">
+    <div className="-max-w-[450px] rounded-md mb-4 mr-6 shadow-sm border border-gray-200 p-6 text-gray-900">
+      <div className="flex justify-between items-center mb-4">
+        <div className="text-lg font-bold flex items-center">
           <TruckIcon />
           <p className="px-2">Shipping Service</p>
         </div>
-        <div class="bg-gray-200 rounded-md px-2 py-1 text-xs">
-          <span class="text-gray-700">Free Shipping</span>
+        <div className="bg-gray-200 rounded-md px-2 py-1 text-xs">
+          <span className="text-gray-700">Free Shipping</span>
         </div>
       </div>
-      <div class="flex flex-col space-y-2">
+      <div className="flex flex-col space-y-2">
         <p>
-          <span class="font-medium">Estimated Delivery:</span> 3-5 business days
+          <span className="font-medium">Estimated Delivery:</span> 3-5 business
+          days
         </p>
         <p>
-          <span class="font-medium">Price:</span> $20
+          <span className="font-medium">Price:</span> $20
         </p>
       </div>
     </div>
