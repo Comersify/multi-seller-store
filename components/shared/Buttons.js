@@ -1,12 +1,14 @@
 import Link from "next/link";
 import {
   CloseMenuIcon,
+  HeartIcon,
   LeftArrow,
   NotificationIcon,
   OpenMenuIcon,
   RightArrow,
   ShoppingCartIcon,
 } from "./Icons";
+import { useState } from "react";
 
 export const ToggleSideBarButton = ({ open, setOpen }) => {
   return (
@@ -24,7 +26,14 @@ export const ToggleSideBarButton = ({ open, setOpen }) => {
 
 export const CartButton = () => {
   return (
-    <Link href="/cart">
+    <Link
+      href="/cart"
+      className="h-8 rounded-full hover:bg-gray-200 relative p-1 text-gray-900 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+    >
+      <span class="absolute top-0 -left-1 flex h-3 w-3">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+      </span>
       <ShoppingCartIcon />
     </Link>
   );
@@ -51,9 +60,26 @@ export const NotificationButton = ({ action }) => {
     <button
       onClick={() => action()}
       type="button"
-      className="rounded-full hover:bg-gray-200 p-1 text-gray-900 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+      className="rounded-full relative hover:bg-gray-200 p-1 text-gray-900 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
     >
+      <span class="absolute top-0 -left-1 flex h-3 w-3">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+      </span>
       <NotificationIcon />
+    </button>
+  );
+};
+
+export const SaveButton = () => {
+  const [saved, setSaved] = useState(false);
+  return (
+    <button
+      onClick={() => setSaved(!saved)}
+      type="button"
+      className="rounded-full hover:bg-red-100 p-1 text-red-600 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-red-600"
+    >
+      <HeartIcon saved={saved} />
     </button>
   );
 };
@@ -65,7 +91,7 @@ export const MobileMenuButtons = ({ onclick, open }) => {
         onClick={() => onclick()}
         type="button"
         id="dropdownBtn"
-        className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-200 text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+        className="inline-flex items-center justify-center rounded-md p-2 hover:bg-gray-200 text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
         aria-controls="mobile-menu"
         aria-expanded="false"
       >
