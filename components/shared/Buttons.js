@@ -36,9 +36,6 @@ export const ProfileButoon = ({ action }) => {
       onClick={() => action()}
       type="button"
       className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-      id="user-menu-button"
-      aria-expanded="false"
-      aria-haspopup="true"
     >
       <img
         className="h-8 w-8 rounded-full"
@@ -49,9 +46,10 @@ export const ProfileButoon = ({ action }) => {
   );
 };
 
-export const NotificationButton = () => {
+export const NotificationButton = ({ action }) => {
   return (
     <button
+      onClick={() => action()}
       type="button"
       className="rounded-full hover:bg-gray-200 p-1 text-gray-900 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
     >
