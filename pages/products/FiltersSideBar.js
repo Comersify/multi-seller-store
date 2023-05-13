@@ -25,7 +25,7 @@ const SubCategoryItem = ({ open, name, id }) => {
 const CategoryItem = ({ name, id, subCategories }) => {
   const [open, setOpen] = useState(false);
   return (
-    <li className="p-3">
+    <li className="p-2">
       <a
         onClick={() => setOpen(!open)}
         href="#"
@@ -55,7 +55,7 @@ const CategoryItem = ({ name, id, subCategories }) => {
 
 const RatingFilter = () => {
   return (
-    <li className="block px-3">
+    <li className="block px-3 mb-3">
       <p className="pr-2 font-bold mb-2">Ratings:</p>
       <StarsInput />
     </li>
@@ -70,7 +70,7 @@ const PriceFilter = () => {
       </label>
       <div className="block">
         <div className="flex items-center justify-start">
-          <label htmlFor="from" className="pr-1">
+          <label htmlFor="from" className=" w-12">
             From:{" "}
           </label>
           <input
@@ -79,7 +79,7 @@ const PriceFilter = () => {
           />
         </div>
         <div className="flex justify-start items-center mt-2">
-          <label htmlFor="from" className="px-2">
+          <label htmlFor="from" className="px-2 w-12">
             To:{" "}
           </label>
           <input
