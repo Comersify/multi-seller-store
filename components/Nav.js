@@ -25,10 +25,9 @@ const Logo = () => {
   );
 };
 
-const DropDownLink = ({ href, title, action }) => {
+const DropDownLink = ({ href, title }) => {
   return (
     <Link
-      onClick={() => action()}
       href={href}
       className="block hover:bg-gray-100  px-4 py-2 text-sm text-gray-700"
     >
@@ -37,7 +36,7 @@ const DropDownLink = ({ href, title, action }) => {
   );
 };
 
-const DropDownMenu = () => {
+const DropDownMenu = ({ Icon, children }) => {
   const [dropdown, setDropdown] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -53,32 +52,14 @@ const DropDownMenu = () => {
   }, []);
   return (
     <div ref={dropdownRef} className="relative ml-3">
-      <ProfileButoon action={() => setDropdown(!dropdown)} />
+      <Icon action={() => setDropdown(!dropdown)} />
       {dropdown && (
         <div
+          onClick={() => setDropdown(!dropdown)}
           className="absolute  right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
           id="menu"
         >
-          <DropDownLink
-            action={() => setDropdown(false)}
-            href="/account"
-            title="Your Profile"
-          />
-          <DropDownLink
-            action={() => setDropdown(false)}
-            href="/account/orders"
-            title="Your Orders"
-          />
-          <DropDownLink
-            action={() => setDropdown(false)}
-            href="/account/settings"
-            title="Settings"
-          />
-          <DropDownLink
-            action={() => setDropdown(false)}
-            href="/sign-out"
-            title="Sign out"
-          />
+          {children}
         </div>
       )}
     </div>
@@ -90,7 +71,6 @@ const MenuLink = ({ href, title }) => {
     <Link
       href={href}
       className="text-gray-800 font-bold hover:bg-gradient-to-r from-[#ff80b5] to-[#9089fc] hover:text-white rounded-md px-3 py-2 text-sm"
-      aria-current="page"
     >
       {title}
     </Link>
@@ -137,8 +117,18 @@ export const Nav = () => {
           {loggedIn && (
             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
               <CartButton />
-              <NotificationButton />
-              <DropDownMenu />
+              <DropDownMenu Icon={NotificationButton}>
+                <DropDownLink href="/account" title="Your Profile" />
+                <DropDownLink href="/account/orders" title="Your Orders" />
+                <DropDownLink href="/account/settings" title="Settings" />
+                <DropDownLink href="/sign-out" title="Sign out" />
+              </DropDownMenu>
+              <DropDownMenu Icon={ProfileButoon}>
+                <DropDownLink href="/account" title="Your Profile" />
+                <DropDownLink href="/account/orders" title="Your Orders" />
+                <DropDownLink href="/account/settings" title="Settings" />
+                <DropDownLink href="/sign-out" title="Sign out" />
+              </DropDownMenu>
             </div>
           )}
         </div>
