@@ -24,27 +24,25 @@ export const Ads = () => {
   }
 
   return (
-    <div className="relative">
-      <div className="overflow-hidden">
-        <div className="flex relative max-h-[30rem]">
-          <button
-            className="absolute font-bold hover:opacity-100 text-lg top-[35%] mx-4 p-4 opacity-75 rounded-full bg-gray-100 text-black"
-            onClick={handlePrev}
-          >
-            <LeftArrow />
-          </button>
-          <img
-            className="w-screen max-h-[30rem]"
-            src={images[currentIndex]}
-            alt="Image 1"
-          />
-          <button
-            className="absolute font-bold text-lg top-[35%] right-0 mx-4 p-4 opacity-75 hover:opacity-100 rounded-full bg-gray-100 text-black"
-            onClick={handleNext}
-          >
-            <RightArrow />
-          </button>
-        </div>
+    <div className="overflow-hidden p-16 flex items-center justify-center">
+      <div className="relative max-w-8xl">
+        <button
+          className="absolute font-bold hover:opacity-100 text-lg top-[41%] mx-4 p-4 opacity-75 rounded-full bg-gray-100 text-black"
+          onClick={handlePrev}
+        >
+          <LeftArrow />
+        </button>
+        <img
+          className="w-full rounded-lg max-h-[30rem]"
+          src={images[currentIndex]}
+          alt="Image 1"
+        />
+        <button
+          className="absolute font-bold text-lg top-[41%] right-0 mx-4 p-4 opacity-75 hover:opacity-100 rounded-full bg-gray-100 text-black"
+          onClick={handleNext}
+        >
+          <RightArrow />
+        </button>
       </div>
     </div>
   );
