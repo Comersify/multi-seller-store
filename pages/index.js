@@ -85,7 +85,7 @@ export default function Home() {
       <main>
         <Ads />
         <section className="py-4 px-16">
-          <Title text="Big Deals" emoji="&#x1F947;" />
+          <Title text="Super Deals" emoji="&#x1F947;" />
           <BigDeals />
         </section>
         <section className="py-4 px-16">
