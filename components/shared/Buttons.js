@@ -30,9 +30,9 @@ export const CartButton = () => {
       href="/cart"
       className="h-8 rounded-full hover:bg-gray-200 relative p-1 text-gray-900 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
     >
-      <span class="absolute top-0 -left-1 flex h-3 w-3">
-        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-        <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+      <span className="absolute top-0 -left-1 flex h-3 w-3">
+        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+        <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
       </span>
       <ShoppingCartIcon />
     </Link>
@@ -62,9 +62,9 @@ export const NotificationButton = ({ action }) => {
       type="button"
       className="rounded-full relative hover:bg-gray-200 p-1 text-gray-900 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
     >
-      <span class="absolute top-0 -left-1 flex h-3 w-3">
-        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-        <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+      <span className="absolute top-0 -left-1 flex h-3 w-3">
+        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+        <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
       </span>
       <NotificationIcon />
     </button>

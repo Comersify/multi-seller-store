@@ -17,7 +17,7 @@ const Logo = () => {
         viewBox="0 0 24 24"
         stroke-width="1.5"
         stroke="currentColor"
-        class="w-10 h-10 p-0.5 rounded-md  bg-gradient-to-r from-[#ff80b5] to-[#9089fc]"
+        className="w-10 h-10 p-0.5 rounded-md  bg-gradient-to-r from-[#ff80b5] to-[#9089fc]"
       >
         <path
           stroke-linecap="round"
