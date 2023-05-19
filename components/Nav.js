@@ -122,14 +122,13 @@ export const Nav = () => {
             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
               <CartButton />
               <DropDownMenu Icon={NotificationButton}>
-                <DropDownLink href="/account" title="Your Profile" />
                 <DropDownLink href="/account/orders" title="Your Orders" />
                 <DropDownLink href="/account/settings" title="Settings" />
                 <DropDownLink href="/sign-out" title="Sign out" />
               </DropDownMenu>
               <DropDownMenu Icon={ProfileButoon}>
-                <DropDownLink href="/account" title="Your Profile" />
-                <DropDownLink href="/account/orders" title="Your Orders" />
+                <DropDownLink href="/account/" title="My Wish List" />
+                <DropDownLink href="/account/orders" title="Orders" />
                 <DropDownLink href="/account/settings" title="Settings" />
                 <DropDownLink href="/sign-out" title="Sign out" />
               </DropDownMenu>
