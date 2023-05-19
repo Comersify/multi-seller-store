@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Input } from "@/forms/Input";
 import { Title } from "@/components/shared/Title";
+import { Button } from "@/components/shared/Buttons";
 
 export const LoginForm = () => {
   return (
@@ -14,12 +15,7 @@ export const LoginForm = () => {
           <Input label="Password" type="password" placeholder="Password" />
         </div>
         <div className="flex items-center justify-between">
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="button"
-          >
-            Sign In
-          </button>
+          <Button px="4">Sign In</Button>
           <Link
             className="align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
             href="#"
