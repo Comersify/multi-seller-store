@@ -10,6 +10,18 @@ import {
 } from "./Icons";
 import { useState } from "react";
 
+export const Button = ({ children, action, px }) => {
+  return (
+    <button
+      className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-${px} rounded focus:outline-none focus:shadow-outline`}
+      type="button"
+      onClick={() => action()}
+    >
+      {children}
+    </button>
+  );
+};
+
 export const ToggleSideBarButton = ({ open, setOpen }) => {
   return (
     <div className="absolute bg-gradient-to-r from-[#ff80b5] to-[#9089fc] top-16 border border-gray-300 hover:border-gray-500 border-l-0 rounded-md rounded-l-none bg-gray-50 -right-8 px-1 py-3">
