@@ -26,7 +26,7 @@ const CategoryItem = ({ name, id, subCategories }) => {
   const [open, setOpen] = useState(false);
   return (
     <li className="p-2">
-      <a
+      <div
         onClick={() => setOpen(!open)}
         href="#"
         className={`font-bold pl-2 py-1 rounded-md ${
@@ -40,7 +40,7 @@ const CategoryItem = ({ name, id, subCategories }) => {
           className="mr-2 w-4 h-4"
         />
         Category 1
-      </a>
+      </div>
       <ul className={`list-none animation pl-5 ${!open && "hidden"}`}>
         <SubCategoryItem open={open} />
         <SubCategoryItem open={open} />

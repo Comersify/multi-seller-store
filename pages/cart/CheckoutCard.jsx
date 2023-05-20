@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const ApplyCoupon = () => {
   return (
     <div className="flex items-center justify-between mb-2 py-4 border-b-2 border-gray-400">
@@ -31,12 +33,12 @@ export const CheckoutCard = () => {
           <p className="font-bold text-lg">Total:</p>
           <p className="text-lg font-bold">$300</p>
         </div>
-        <a
+        <Link
           href="checkout"
           className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
         >
           Checkout
-        </a>
+        </Link>
       </div>
     </div>
   );

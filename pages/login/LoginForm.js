@@ -26,12 +26,12 @@ export const LoginForm = () => {
       </form>
       <p className="text-gray-900 mt-4">
         You don't have an account
-        <a
+        <Link
           className="px-2 inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
           href="/signup"
         >
           Sign Up
-        </a>
+        </Link>
       </p>
     </div>
   );

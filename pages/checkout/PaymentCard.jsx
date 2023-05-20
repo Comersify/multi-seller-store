@@ -8,31 +8,31 @@ export const PaymentCard = ({ active }) => {
       }`}
     >
       <div className="flex flex-col mb-4 mr-4">
-        <label className="font-bold mb-2" for="full-name">
+        <label className="font-bold mb-2" htmlFor="full-name">
           Full Name
         </label>
         <span id="full-name">John Doe</span>
       </div>
       <div className="flex flex-col mb-4 mr-4">
-        <label className="font-bold mb-2" for="address">
+        <label className="font-bold mb-2" htmlFor="address">
           Address
         </label>
         <span id="address">123 Main Street</span>
       </div>
       <div className="flex flex-col mb-4 mr-4">
-        <label className="font-bold mb-2" for="phone-number">
+        <label className="font-bold mb-2" htmlFor="phone-number">
           Phone Number
         </label>
         <span id="phone-number">(123) 456-7890</span>
       </div>
       <div className="flex flex-col mb-4 mr-4">
-        <label className="font-bold mb-2" for="postal-code">
+        <label className="font-bold mb-2" htmlFor="postal-code">
           Postal Code
         </label>
         <span id="postal-code">A1B 2C3</span>
       </div>
       <div className="flex flex-col mb-4 mr-4">
-        <label className="font-bold mb-2" for="card-number">
+        <label className="font-bold mb-2" htmlFor="card-number">
           Visa Card Number
         </label>
         <span id="card-number">**** **** **** 1234</span>
