@@ -41,17 +41,17 @@ const HeaderColumn = ({ children, onSort }) => {
   );
 };
 
-const Row = ({ children, checked, onCheck }) => {
+const Row = ({ children, checked, onClick }) => {
   return (
     <tr
       className={`hover:bg-gray-50  ${
         checked && " bg-light-gray"
       } cursor-pointer`}
-      onClick={() => onCheck()}
+      onClick={() => onClick()}
     >
       <td className="px-4 py-2 whitespace-nowrap">
         <input
-          onChange={() => onCheck()}
+          onChange={() => onClick()}
           checked={checked}
           type="checkbox"
           className="form-checkbox h-[17px] w-[17px] text-indigo-600 className:text-indigo-400 outline-none"
@@ -141,10 +141,11 @@ const SearchIcon = () => {
   );
 };
 
-const SearchInput = () => {
+const SearchInput = ({ onChange }) => {
   return (
     <div className="flex items-center justify-between border-2 border-blue-600  rounded-md px-2">
       <input
+        onChange={(e) => onChange(e.target.value)}
         type="text"
         placeholder="Search ..."
         className="text-md className:text-white className:bg-secondary-className-bg py-1 outline-none w-full"
@@ -154,20 +155,71 @@ const SearchInput = () => {
   );
 };
 
-export function Table({ columns = ["id", "name", "email"], data }) {
+export function Table({
+  columns = ["trackingID", "product", "price", "quantity"],
+  data = [
+    {
+      id: 1,
+      trackingID: 1,
+      product: "salah",
+      price: "sad@gmail.com",
+      quantity: 20,
+    },
+    {
+      id: 2,
+      trackingID: 2,
+      product: "salah",
+      price: "sad@gmail.com",
+      quantity: 20,
+    },
+    {
+      id: 3,
+      trackingID: 3,
+      product: "salah",
+      price: "sad@gmail.com",
+      quantity: 20,
+    },
+    {
+      id: 4,
+      trackingID: 4,
+      product: "salah",
+      price: "sad@gmail.com",
+      quantity: 20,
+    },
+    {
+      id: 5,
+      trackingID: 5,
+      product: "salah",
+      price: "sad@gmail.com",
+      quantity: 20,
+    },
+    {
+      id: 6,
+      trackingID: 6,
+      product: "salah",
+      price: "sad@gmail.com",
+      quantity: 20,
+    },
+    {
+      id: 7,
+      trackingID: 7,
+      product: "salah",
+      price: "sad@gmail.com",
+      quantity: 20,
+    },
+    {
+      id: 8,
+      trackingID: 8,
+      product: "salah",
+      price: "sad@gmail.com",
+      quantity: 20,
+    },
+  ],
+}) {
   const [checkedRows, setCheckedRows] = useState([]);
-  const [cols, setCols] = useState(["id", "name", "email"]);
+  const [cols, setCols] = useState(columns);
   const [sortedBy, setSortedBy] = useState([]);
-  const [rows, setRows] = useState([
-    { id: 1, name: "salah", email: "sad@gmail.com" },
-    { id: 8, name: "kada", email: "sad@gmail.com" },
-    { id: 3, name: "otman", email: "sad@gmail.com" },
-    { id: 4, name: "ahmed", email: "sad@gmail.com" },
-    { id: 5, name: "reda", email: "sad@gmail.com" },
-    { id: 2, name: "rayan", email: "sad@gmail.com" },
-    { id: 7, name: "alaa", email: "sad@gmail.com" },
-    { id: 6, name: "mohamed", email: "sad@gmail.com" },
-  ]);
+  const [rows, setRows] = useState(data);
   const handleOnSelectAll = () => {
     if (checkedRows.length > 0) {
       setCheckedRows([]);
@@ -207,18 +259,21 @@ export function Table({ columns = ["id", "name", "email"], data }) {
       setRows(rows.sort(reverseOrder(orderBy(col))));
     }
   };
-
-  const handleOnSelectColumn = (column) => {
-    if (cols.includes(column)) {
-      setCols(cols.filter((col) => col != column));
+  const search = (val) => {
+    if (val == "") {
+      setRows(data);
     } else {
-      let s = [...cols, column];
-      setCols(columns.filter((column) => s.includes(column)));
+      setRows(
+        rows.filter((row) => {
+          let values = Object.values(row);
+          let found = values.filter((value) => {
+            return value.toString().includes(val);
+          });
+          console.log(found);
+          return found.length > 0;
+        })
+      );
     }
-  };
-
-  const search = () => {
-    return;
   };
 
   return (
@@ -246,10 +301,10 @@ export function Table({ columns = ["id", "name", "email"], data }) {
             {rows.map((row) => (
               <Row
                 key={row.id}
-                onCheck={() => handleOnSelect(row.id)}
+                onClick={() => handleOnSelect(row.id)}
                 checked={checkedRows.includes(row.id)}
               >
-                {Object.keys(row).map((key) => {
+                {Object.keys(row).map((key, i) => {
                   if (cols.includes(key))
                     return <Column key={`${key}_${row.id}`}>{row[key]}</Column>;
                 })}
@@ -257,6 +312,17 @@ export function Table({ columns = ["id", "name", "email"], data }) {
             ))}
           </Body>
         </table>
+        <footer className="border border-gray-200 p-4 w-full flex items-center justify-between">
+          <p className="font-bold text-md ">
+            {" "}
+            {checkedRows.length} Row{checkedRows.length > 1 && "s"} selected
+          </p>
+          <div className="flex items-end justify-center">
+            <span className="py-1 px-2 text-sm bg-gray-200 rounded-full">
+              1
+            </span>
+          </div>
+        </footer>
       </div>
     </div>
   );
