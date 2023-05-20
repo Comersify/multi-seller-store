@@ -4,5 +4,4 @@ COPY package.json .
 RUN yarn
 RUN yarn add package.json
 COPY . /app
-EXPOSE 3000
 CMD [ "npm", "run", "dev" ]
