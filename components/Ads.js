@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
 import { LeftArrow, RightArrow } from "./shared/Icons";
+import Image from "next/image";
+import { useGetAds } from "@/api/api";
 
 export const Ads = () => {
-  const images = [
+  var { images } = useGetAds();
+  var images = [
     "https://picsum.photos/id/1015/1200/500",
     "https://picsum.photos/id/1013/1200/500",
     "https://picsum.photos/id/1018/1200/500",
@@ -32,7 +35,9 @@ export const Ads = () => {
         >
           <LeftArrow />
         </button>
-        <img
+        <Image
+          width={1200}
+          height={1200}
           className="w-full rounded-lg max-h-[30rem]"
           src={images[currentIndex]}
           alt="Image 1"
