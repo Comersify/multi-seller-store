@@ -1,77 +1,151 @@
 import Head from "next/head";
-import Link from "next/link";
 import { Ads } from "@/components/Ads";
 import { ProductCard } from "@/components/ProductCard";
 import { Title } from "@/components/shared/Title";
 import { StoreCard } from "@/components/StoreCard";
 import { CategoriesCard } from "@/components/CategoriesCard";
 import { HomeReviewCard } from "@/components/ReviewCards";
+import {
+  useGetStores,
+  useGetProducts,
+  useGetCategories,
+  useGetCustomerReviews,
+} from "@/api/api";
 
 const BigDeals = () => {
+  const { products } = useGetProducts({ filter: "super-deals/" });
   return (
     <div className="flex flex-wrap gap-4 justify-center pt-8">
-      <Link href="/products/1">
-        <ProductCard />
-      </Link>
-      <Link href="/products/1">
-        <ProductCard />
-      </Link>
-      <Link href="/products/1">
-        <ProductCard />
-      </Link>
-      <Link href="/products/1">
-        <ProductCard />
-      </Link>
-      <Link href="/products/1">
-        <ProductCard />
-      </Link>
-      <Link href="/products/1">
-        <ProductCard />
-      </Link>
-      <Link href="/products/1">
-        <ProductCard />
-      </Link>
+      {products.map((product) => {
+        <ProductCard
+          id={product.id}
+          title={product.title}
+          rating={product.rating}
+          price={product.price}
+          image={product.image}
+          discount={product.discount}
+        />;
+      })}
+      <ProductCard
+        id={1}
+        title="product title"
+        rating={3}
+        price={98}
+        image="https://via.placeholder.com/150"
+        discount={10}
+      />
+      <ProductCard
+        id={1}
+        title="product title"
+        rating={3}
+        price={98}
+        image="https://via.placeholder.com/150"
+        discount={10}
+      />
+      <ProductCard
+        id={1}
+        title="product title"
+        rating={3}
+        price={98}
+        image="https://via.placeholder.com/150"
+        discount={10}
+      />
+      <ProductCard
+        id={1}
+        title="product title"
+        rating={3}
+        price={98}
+        image="https://via.placeholder.com/150"
+        discount={10}
+      />
     </div>
   );
 };
 
 const FeaturedStores = () => {
+  const { stores } = useGetStores({ filter: "top/" });
   return (
     <div className="flex flex-wrap gap-4 justify-center pt-8">
-      <Link href="/stores/1">
-        <StoreCard />
-      </Link>
-      <Link href="/stores/1">
-        <StoreCard />
-      </Link>
-      <Link href="/stores/1">
-        <StoreCard />
-      </Link>
-      <Link href="/stores/1">
-        <StoreCard />
-      </Link>
+      {stores.map((store) => {
+        <StoreCard
+          id={store.id}
+          image={store.image}
+          name={store.name}
+          rating={store.rating}
+          description={store.description}
+        />;
+      })}
+      <StoreCard
+        id={1}
+        image={"https://via.placeholder.com/450"}
+        name={"store"}
+        rating={4}
+        description="lorem ipsum dollar fulkqfnlsndl l  ljqs dksqd kqsjd kqsd mlsjqdkqss dkqh dkqsh dk "
+      />
+      <StoreCard
+        id={1}
+        image={"https://via.placeholder.com/450"}
+        name={"store"}
+        rating={4}
+        description="lorem ipsum dollar fulkqfnlsndl l  ljqs dksqd kqsjd kqsd mlsjqdkqss dkqh dkqsh dk "
+      />
+      <StoreCard
+        id={1}
+        image={"https://via.placeholder.com/450"}
+        name={"store"}
+        rating={4}
+        description="lorem ipsum dollar fulkqfnlsndl l  ljqs dksqd kqsjd kqsd mlsjqdkqss dkqh dkqsh dk "
+      />
+      <StoreCard
+        id={1}
+        image={"https://via.placeholder.com/450"}
+        name={"store"}
+        rating={4}
+        description="lorem ipsum dollar fulkqfnlsndl l  ljqs dksqd kqsjd kqsd mlsjqdkqss dkqh dkqsh dk "
+      />
     </div>
   );
 };
 
 const HotCategories = () => {
+  const { categories } = useGetCategories("top/");
   return (
     <div className="flex flex-wrap gap-6 justify-center pt-8">
-      <CategoriesCard />
-      <CategoriesCard />
-      <CategoriesCard />
-      <CategoriesCard />
+      {categories.map((category) => {
+        <CategoriesCard id={category.id} name={category.name} products={[]} />;
+      })}
+      <CategoriesCard id={1} name={"Catgeory 1"} products={[]} />
+      <CategoriesCard id={1} name={"Catgeory 1"} products={[]} />
+      <CategoriesCard id={1} name={"Catgeory 1"} products={[]} />
     </div>
   );
 };
 
 const Reviews = () => {
+  const { reviews } = useGetCustomerReviews();
   return (
-    <div className="flex flex-wrap gap-6 justify-center mt-14 ">
-      <HomeReviewCard />
-      <HomeReviewCard />
-      <HomeReviewCard />
-      <HomeReviewCard />
+    <div className="flex flex-wrap gap-x-6 justify-center mt-14 ">
+      {reviews.map((review) => {
+        <HomeReviewCard review={review.review} image={review.image} />;
+      })}
+      <HomeReviewCard
+        review={
+          "lorem ipl= ljdfl WFQSJFDPSQ OGF OUSGFOÛgf uoqgf oÛQG FÎUQGFÛQgfÛGFÎQUg i^qugfsîQGFIŶGjfhLD"
+        }
+        image={"https://via.placeholder.com/150"}
+      />
+      <HomeReviewCard
+        review={
+          "lorem ipl= ljdfl WFQSJFDPSQ OGF OUSGFOÛgf uoqgf oÛQG FÎUQGFÛQgfÛGFÎQUg i^qugfsîQGFIŶGjfhLD"
+        }
+        image={"https://via.placeholder.com/150"}
+      />
+      <HomeReviewCard
+        review={
+          "lorem ipl= ljdfl WFQSJFDPSQ OGF OUSGFOÛgf uoqgf oÛQG FÎUQGFÛQgfÛGFÎQUg i^qugfsîQGFIŶGjfhLD"
+        }
+        image={"https://via.placeholder.com/150"}
+      />
     </div>
   );
 };
