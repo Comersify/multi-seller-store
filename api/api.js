@@ -1,127 +1,159 @@
-import { GET, POST } from "./utils";
-
+import { useGET, usePOST } from "./utils";
+import { useState, useEffect } from "react";
+import { useStateContext } from "@/context/contextProvider";
 // orders done
 export const createOrder = (data) => {
-  const res = POST("products/create/", data);
+  const res = usePOST("products/create/", data);
   return res;
 };
 
 // product done
-export const getProduct = (params) => {
-  const res = GET("products/");
-  return res;
+export const useGetProducts = ({ params, filter = undefined }) => {
+  const [products, setProducts] = useState([]);
+  const { handleNotification } = useStateContext();
+  useEffect(() => {
+    const res = useGET(`products/${filter || ""}`);
+    if (res?.type == "error") handleNotification(res);
+    if (res?.typ == "success") setProducts(res?.data);
+  }, []);
+  return { products };
 };
 
-export const topCategories = () => {
-  const res = GET("categories/top/");
-  return res;
-};
-
-export const topDeals = () => {
-  const res = GET("products/top-deals/");
-  return res;
-};
-
-export const getCategories = () => {
-  const res = GET("categories/");
-  return res;
-};
-
-export const getProductDetails = (id) => {
-  const res = GET(`products/${id}/`);
-  return res;
+export const useGetCategories = (filter) => {
+  const [categories, setCategories] = useState([]);
+  const { handleNotification } = useStateContext();
+  useEffect(() => {
+    const res = useGET(`categories/${filter || ""}`);
+    if (res?.type == "error") handleNotification(res);
+    if (res?.typ == "success") setCategories(res?.data);
+  }, []);
+  return { categories };
 };
 
 export const getReviews = (id) => {
-  const res = GET(`products/${id}/reviews/`);
+  const res = useGET(`products/${id}/reviews/`);
   return res;
 };
 
 // cart
 export const getCartDetails = (id) => {
-  const res = GET(`cart/${id}/products/`);
+  const res = useGET(`cart/${id}/products/`);
   return res;
 };
 
 export const addProductToCart = (id) => {
-  const res = POST(`cart/${id}/add-products/`,{productID: id});
+  const res = usePOST(`cart/${id}/add-products/`, { productID: id });
   return res;
-}
+};
 
 export const deleteProductFromCart = (id) => {
-  const res = POST(`cart/${id}/add-products/`, {productID: id});
+  const res = usePOST(`cart/${id}/add-products/`, { productID: id });
   return res;
 };
 
 // wish list
 export const getWishListDetails = (id) => {
-  const res = GET(`wish-list/${id}/products/`);
+  const res = useGET(`wish-list/${id}/products/`);
   return res;
 };
 
 export const addProductToWishList = (id) => {
-  const res = POST(`wish-list/${id}/add-products/`,{productID: id});
-  return res;
-}
-
-export const deleteProductFromWishList = (id) => {
-  const res = POST(`wish-list/${id}/add-products/`, {productID: id});
+  const res = usePOST(`wish-list/${id}/add-products/`, { productID: id });
   return res;
 };
 
-
+export const deleteProductFromWishList = (id) => {
+  const res = usePOST(`wish-list/${id}/delete-products/`, { productID: id });
+  return res;
+};
 
 // coupon
 export const getCouponByID = (id) => {
-  const res = GET(`coupons/${id}/`);
+  const res = useGET(`coupons/${id}/`);
   return res;
 };
 
 // stores DONE
-export const topStores = () => {
-  const res = GET("stores/top/");
-  return res;
-};
-
-export const getStoreByID = (id) => {
-  const res = GET(`stores/${id}/`);
-  return res;
+export const useGetStores = ({ filter }) => {
+  const [stores, setStores] = useState([]);
+  const { handleNotification } = useStateContext();
+  useEffect(() => {
+    const res = useGET(`stores/${filter}`);
+    if (res?.type == "error") handleNotification(res);
+    if (res?.type == "success") setStores(res?.data);
+  }, []);
+  return { stores };
 };
 
 // account DONE
-export const updateSettings = (data) => {
-  const res = POST("account/update/", data);
-  return res;
+export const useSettings = () => {
+  const [settings, setSettings] = useState({
+    firstName: "salah",
+    lastName: "saadaoui",
+    email: "sad@gmail.com",
+    oldPassword: "56565",
+    password: "35465465",
+    passwordConfermation: "5465465",
+  });
+  const { handleNotification } = useStateContext();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const res = usePOST("account/info/", settings);
+    if (res?.type == "error") handleNotification(res);
+    if (res?.type == "success") handleNotification(res);
+  };
+  useEffect(() => {
+    const res = useGET("account/info/");
+    if (res?.type == "error") handleNotification(res);
+    if (res?.type == "success") setSettings(res?.data);
+  }, []);
+  return { settings, handleSubmit, setSettings };
 };
 
 export const login = (data) => {
-  const res = POST("login/", data);
+  const res = usePOST("login/", data);
   return res;
 };
 export const signup = (data) => {
-  const res = POST("signup/", data);
+  const res = usePOST("signup/", data);
   return res;
 };
-
+export const refreshToken = (data) => {
+  const res = usePOST("refresh/", data);
+  return res;
+};
 // shipping info done
 export const getMyAdresse = () => {
-  const res = GET(`shipping-info/`);
+  const res = useGET(`shipping-info/`);
   return res;
 };
 
 export const createAddress = (data) => {
-  const res = POST(`shipping-info/create/`, data);
+  const res = usePOST(`shipping-info/create/`, data);
   return res;
 };
 
 // app reviews done
-export const getCustomerReviews = () => {
-  const res = GET(`app-reviews/`);
-  return res;
+export const useGetCustomerReviews = () => {
+  const [reviews, setReviews] = useState([]);
+  const { handleNotification } = useStateContext();
+  useEffect(() => {
+    const res = useGET(`app-reviews/`);
+    if (res?.type == "error") handleNotification(res);
+    if (res?.type == "success") setReviews(res?.data);
+  }, []);
+  return { reviews };
 };
 
 // ads
-export const getAds = () => {
-  const res = GET(`ads/`);
-  return res;
+export const useGetAds = () => {
+  const [images, setImages] = useState([]);
+  const { handleNotification } = useStateContext();
+  useEffect(() => {
+    const res = useGET("ads/");
+    console.log(res);
+    if (res?.type == "error") handleNotification(res);
+    if (res?.type == "success") setImages(res?.data);
+  }, []);
+  return { images };
 };
