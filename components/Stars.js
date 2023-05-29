@@ -33,11 +33,11 @@ export const StarsInput = () => {
 export const Stars = ({ num }) => {
   return (
     <div className="flex items-center">
-      <Star active={true} />
-      <Star active={true} />
-      <Star active={true} />
-      <Star active={false} />
-      <Star active={false} />
+      <Star active={num >= 1} />
+      <Star active={num >= 2} />
+      <Star active={num >= 3} />
+      <Star active={num >= 4} />
+      <Star active={num == 5} />
     </div>
   );
 };
