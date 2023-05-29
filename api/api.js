@@ -1,6 +1,8 @@
 import { useGET, usePOST } from "./utils";
 import { useState, useEffect } from "react";
 import { useStateContext } from "@/context/contextProvider";
+import { useRouter } from "next/router";
+
 // orders done
 export const createOrder = (data) => {
   const res = usePOST("products/create/", data);
@@ -110,21 +112,37 @@ export const useSettings = () => {
   return { settings, handleSubmit, setSettings };
 };
 
-export const useLogin = (data) => {
+export const useLogin = () => {
   const [auth, setAuth] = useState({ username: "", password: "" });
   const { handleToken, handleNotification } = useStateContext();
 
   const handleSubmit = () => {
     e.preventDefault();
-    const res = usePOST("login/", data);
+    const res = usePOST("login/", auth);
     if (res.type == "error") handleNotification(res);
     if (res.type == "success") handleToken(res);
   };
   return { handleSubmit, setAuth, auth };
 };
-export const signup = (data) => {
-  const res = usePOST("signup/", data);
-  return res;
+export const useSignup = () => {
+  const router = useRouter();
+  const { handleNotification } = useStateContext();
+  const [form, setForm] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    passwordConfermation: "",
+  });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const res = usePOST("signup/", form);
+    if (res.type == "error") handleNotification(res);
+    if (res.type == "success") {
+      router.redirect("/login");
+    }
+  };
+  return { handleSubmit, form, setForm };
 };
 export const refreshToken = (data) => {
   const res = usePOST("refresh/", data);
