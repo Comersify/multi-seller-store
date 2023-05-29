@@ -67,7 +67,7 @@ export const useCart = () => {
   const handleDelete = (id) => {
     const res = usePOST(`cart/delete-product/`, { productID: id });
     handleNotification(res);
-    setRefresh(!refresh);
+    if (res?.type == "success") setRefresh(!refresh);
   };
 
   const handleUpdate = (id, quantity) => {
@@ -76,7 +76,7 @@ export const useCart = () => {
       quantity: quantity,
     });
     handleNotification(res);
-    setRefresh(!refresh);
+    if (res?.type == "success") setRefresh(!refresh);
   };
   return { products, handleUpdate, handleDelete };
 };
@@ -87,18 +87,30 @@ export const addProductToCart = (id) => {
 };
 
 // wish list
-export const getWishListDetails = (id) => {
-  const res = useGET(`wish-list/${id}/products/`);
-  return res;
+export const useWishList = () => {
+  const [refresh, setRefresh] = useState(false);
+  const [products, setProducts] = useState([]);
+  const { handleNotification } = useStateContext();
+
+  useEffect(() => {
+    const res = useGET(`wish-list/products/`);
+    if (res?.type == "error") handleNotification(res);
+    if (res?.typ == "success") setProducts(res?.data);
+  }, [refresh]);
+
+  const handleDelete = (id) => {
+    const res = usePOST(`wish-list/delete-products/`, { productID: id });
+    if (res?.type == "error") handleNotification(res);
+    if (res?.typ == "success") {
+      setRefresh(!refresh);
+    }
+  };
+
+  return { products, handleDelete };
 };
 
 export const addProductToWishList = (id) => {
   const res = usePOST(`wish-list/${id}/add-products/`, { productID: id });
-  return res;
-};
-
-export const deleteProductFromWishList = (id) => {
-  const res = usePOST(`wish-list/${id}/delete-products/`, { productID: id });
   return res;
 };
 
