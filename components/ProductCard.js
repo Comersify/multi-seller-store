@@ -120,15 +120,24 @@ export const ProductCard = ({ id, title, rating, price, image, discount }) => {
             {rating > 0 ? <Stars num={rating} /> : "Not rated yet"}
           </div>
           <div className="flex items-center justify-between">
-            <div className="flex items-ccenter py-2">
-              <div className="flex text-lg font-bold text-gray-900">
-                {price - (discount * price) / 100}
-                <div className="text-sm font-bold text-gray-900">$</div>
+            {discount ? (
+              <div className="flex items-ccenter py-2">
+                <div className="flex text-lg font-bold text-gray-900">
+                  {price - (discount * price) / 100}
+                  <div className="text-sm font-bold text-gray-900">$</div>
+                </div>
+                <div className="px-2 self-end text-sm line-through text-gray-500">
+                  ${price}
+                </div>
               </div>
-              <div className="px-2 self-end text-sm line-through text-gray-500">
-                ${price}
+            ) : (
+              <div className="flex items-ccenter py-2">
+                <div className="flex text-lg font-bold text-gray-900">
+                  {price}
+                  <div className="text-sm font-bold text-gray-900">$</div>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>
