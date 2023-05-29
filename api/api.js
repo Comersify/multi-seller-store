@@ -9,17 +9,32 @@ export const createOrder = (data) => {
   return res;
 };
 
-// product done
-export const useGetProducts = ({ params, filter = undefined }) => {
+/**
+ *
+ * @filters {
+ * super-deals
+ *  id/
+ *  /
+ * }
+ */
+
+export const useGetProducts = ({ params, filter }) => {
   const [products, setProducts] = useState([]);
   const { handleNotification } = useStateContext();
   useEffect(() => {
-    const res = useGET(`products/${filter || ""}`);
+    const res = useGET(`products/${filter || ""}`, params);
     if (res?.type == "error") handleNotification(res);
     if (res?.typ == "success") setProducts(res?.data);
   }, []);
   return { products };
 };
+
+/**
+ *  @filter {
+ *  top/
+ *  /
+ * }
+ */
 
 export const useGetCategories = (filter) => {
   const [categories, setCategories] = useState([]);
@@ -38,18 +53,36 @@ export const getReviews = (id) => {
 };
 
 // cart
-export const getCartDetails = (id) => {
-  const res = useGET(`cart/${id}/products/`);
-  return res;
+export const useCart = () => {
+  const [refresh, setRefresh] = useState(false);
+  const [products, setproducts] = useState([]);
+  const { handleNotification } = useStateContext();
+
+  useEffect(() => {
+    const res = useGET(`cart/products/`);
+    if (res?.type == "error") handleNotification(res);
+    if (res?.typ == "success") setproducts(res?.data);
+  }, [refresh]);
+
+  const handleDelete = (id) => {
+    const res = usePOST(`cart/delete-product/`, { productID: id });
+    handleNotification(res);
+    setRefresh(!refresh);
+  };
+
+  const handleUpdate = (id, quantity) => {
+    const res = usePOST(`cart/update-products/`, {
+      productID: id,
+      quantity: quantity,
+    });
+    handleNotification(res);
+    setRefresh(!refresh);
+  };
+  return { products, handleUpdate, handleDelete };
 };
 
 export const addProductToCart = (id) => {
-  const res = usePOST(`cart/${id}/add-products/`, { productID: id });
-  return res;
-};
-
-export const deleteProductFromCart = (id) => {
-  const res = usePOST(`cart/${id}/add-products/`, { productID: id });
+  const res = usePOST(`cart/add-products/`, { productID: id });
   return res;
 };
 
@@ -70,9 +103,35 @@ export const deleteProductFromWishList = (id) => {
 };
 
 // coupon
-export const getCouponByID = (id) => {
-  const res = useGET(`coupons/${id}/`);
-  return res;
+export const useGetCouponValue = () => {
+  const [coupon, setCoupon] = useState("");
+  const [values, setValues] = useState(0);
+  const [coupons, setCoupons] = useState([{ code: "SJPPJD", value: 20 }]);
+  const { handleNotification } = useStateContext();
+
+  const handleApply = (e) => {
+    e.preventDefault();
+    if (coupon == "") {
+      handleNotification({ type: "error", message: "Coupon Code is missing " });
+      return;
+    }
+    const res = useGET(`coupon/${coupon}/`);
+    if (res?.type == "error") handleNotification(res);
+    if (res?.type == "success") {
+      const found = coupons.filter((coupon) => coupon.code == res?.data?.code);
+      if (found.length > 0) {
+        handleNotification({
+          type: "error",
+          message: "This coupon already used",
+        });
+      }
+      if (found.length == 0) {
+        setValues(values + res?.data?.value);
+        setCoupons([...coupons, res.data]);
+      }
+    }
+  };
+  return { setCoupon, coupon, handleApply, coupons, values };
 };
 
 // stores DONE
@@ -116,7 +175,7 @@ export const useLogin = () => {
   const [auth, setAuth] = useState({ username: "", password: "" });
   const { handleToken, handleNotification } = useStateContext();
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const res = usePOST("login/", auth);
     if (res.type == "error") handleNotification(res);
@@ -144,6 +203,7 @@ export const useSignup = () => {
   };
   return { handleSubmit, form, setForm };
 };
+
 export const refreshToken = (data) => {
   const res = usePOST("refresh/", data);
   return res;
