@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export const Gallery = () => {
-  const images = [
+  var images = [
     "https://via.placeholder.com/450",
     "https://via.placeholder.com/250",
     "https://via.placeholder.com/150",
@@ -16,8 +16,6 @@ export const Gallery = () => {
   const showImage = (image) => {
     setSmallImages(images.filter((im) => im != image));
     setBigImage(image);
-    console.log(smallImages);
-    console.log(bigImage);
   };
   return (
     <section className="mx-auto h-90 py-16 sm:col-span-1 md:col-span-2 lg:col-span-2 relative lg:gap-x-8 lg:px-8">
