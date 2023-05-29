@@ -69,7 +69,7 @@ export default function Products() {
             />
           </div>
           <div className="overflow-y-scroll h-[90vh] p-4 max-sm:-mb-[71px]">
-            <div className="flex items-center justify-start flex-wrap gap-4 pb-32 relative -z-30">
+            <div className="flex items-center justify-start flex-wrap gap-4 pb-32 relative">
               {products.map((product) => {
                 return (
                   <ProductCard
@@ -82,6 +82,7 @@ export default function Products() {
                 );
               })}
               <ProductCard
+                id={4}
                 title="product title"
                 rating={3}
                 price={98}
@@ -89,6 +90,7 @@ export default function Products() {
                 discount={10}
               />
               <ProductCard
+                id={4}
                 title="product title"
                 rating={3}
                 price={98}
@@ -96,6 +98,7 @@ export default function Products() {
                 discount={10}
               />
               <ProductCard
+                id={4}
                 title="product title"
                 rating={3}
                 price={98}
@@ -103,6 +106,7 @@ export default function Products() {
                 discount={10}
               />
               <ProductCard
+                id={4}
                 title="product title"
                 rating={3}
                 price={98}
@@ -110,6 +114,7 @@ export default function Products() {
                 discount={10}
               />
               <ProductCard
+                id={4}
                 title="product title"
                 rating={3}
                 price={98}
@@ -117,6 +122,7 @@ export default function Products() {
                 discount={10}
               />
               <ProductCard
+                id={4}
                 title="product title"
                 rating={3}
                 price={98}
@@ -124,6 +130,7 @@ export default function Products() {
                 discount={10}
               />
               <ProductCard
+                id={4}
                 title="product title"
                 rating={3}
                 price={98}
@@ -131,6 +138,7 @@ export default function Products() {
                 discount={10}
               />
               <ProductCard
+                id={4}
                 title="product title"
                 rating={3}
                 price={98}
@@ -138,6 +146,7 @@ export default function Products() {
                 discount={10}
               />
               <ProductCard
+                id={4}
                 title="product title"
                 rating={3}
                 price={98}
@@ -145,6 +154,7 @@ export default function Products() {
                 discount={10}
               />
               <ProductCard
+                id={4}
                 title="product title"
                 rating={3}
                 price={98}
@@ -152,6 +162,7 @@ export default function Products() {
                 discount={10}
               />
               <ProductCard
+                id={4}
                 title="product title"
                 rating={3}
                 price={98}
@@ -159,6 +170,7 @@ export default function Products() {
                 discount={10}
               />
               <ProductCard
+                id={4}
                 title="product title"
                 rating={3}
                 price={98}
@@ -166,6 +178,7 @@ export default function Products() {
                 discount={10}
               />
               <ProductCard
+                id={4}
                 title="product title"
                 rating={3}
                 price={98}
@@ -173,6 +186,7 @@ export default function Products() {
                 discount={10}
               />
               <ProductCard
+                id={4}
                 title="product title"
                 rating={3}
                 price={98}
@@ -180,6 +194,7 @@ export default function Products() {
                 discount={10}
               />
               <ProductCard
+                id={4}
                 title="product title"
                 rating={3}
                 price={98}
