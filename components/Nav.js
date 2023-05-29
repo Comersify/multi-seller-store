@@ -113,12 +113,12 @@ export const Nav = () => {
               </div>
             </div>
           </div>
-          {!token && (
+          {token && (
             <div className="flex h-full items-center">
               <AuthButtons />
             </div>
           )}
-          {token && (
+          {!token && (
             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
               <CartButton />
               <DropDownMenu Icon={NotificationButton}>
