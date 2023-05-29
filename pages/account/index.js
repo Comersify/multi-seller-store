@@ -37,7 +37,7 @@ export default function Profile() {
           <div className="relative">
             <div className="absolute top-0 right-1 z-10">
               <button
-                onClick={() => handleDelete(product.id)}
+                onClick={() => {}}
                 className="text-sm text-red-400 hover:text-red-500 rounded-full p-1 bg-red-100 focus:outline-none mt-1"
               >
                 <XIcon />
@@ -55,7 +55,7 @@ export default function Profile() {
           <div className="relative">
             <div className="absolute top-0 right-1 z-10">
               <button
-                onClick={() => handleDelete(product.id)}
+                onClick={() => {}}
                 className="text-sm text-red-400 hover:text-red-500 rounded-full p-1 bg-red-100 focus:outline-none mt-1"
               >
                 <XIcon />
@@ -73,7 +73,7 @@ export default function Profile() {
           <div className="relative">
             <div className="absolute top-0 right-1 z-10">
               <button
-                onClick={() => handleDelete(product.id)}
+                onClick={() => {}}
                 className="text-sm text-red-400 hover:text-red-500 rounded-full p-1 bg-red-100 focus:outline-none mt-1"
               >
                 <XIcon />
@@ -91,7 +91,7 @@ export default function Profile() {
           <div className="relative">
             <div className="absolute top-0 right-1 z-10">
               <button
-                onClick={() => handleDelete(product.id)}
+                onClick={() => {}}
                 className="text-sm text-red-400 hover:text-red-500 rounded-full p-1 bg-red-100 focus:outline-none mt-1"
               >
                 <XIcon />
@@ -108,7 +108,7 @@ export default function Profile() {
           <div className="relative">
             <div className="absolute top-0 right-1 z-10">
               <button
-                onClick={() => handleDelete(product.id)}
+                onClick={() => {}}
                 className="text-sm text-red-400 hover:text-red-500 rounded-full p-1 bg-red-100 focus:outline-none mt-1"
               >
                 <XIcon />
@@ -126,7 +126,7 @@ export default function Profile() {
           <div className="relative">
             <div className="absolute top-0 right-1 z-10">
               <button
-                onClick={() => handleDelete(product.id)}
+                onClick={() => {}}
                 className="text-sm text-red-400 hover:text-red-500 rounded-full p-1 bg-red-100 focus:outline-none mt-1"
               >
                 <XIcon />
