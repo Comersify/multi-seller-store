@@ -68,7 +68,7 @@ export default function Products() {
               onChange={(e) => setFilter({ ...filter, q: e.target.value })}
             />
           </div>
-          <div className="overflow-y-scroll h-[90vh] p-4 max-sm:-mb-[71px]">
+          <div className="hover:overflow-y-auto overflow-hidden h-[90vh] p-4 max-sm:-mb-[71px]">
             <div className="flex items-center justify-start flex-wrap gap-4 pb-32 relative">
               {products.map((product) => {
                 return (
