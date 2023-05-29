@@ -11,15 +11,17 @@ export const ContextProvider = ({ children }) => {
 
   const handleToken = (data) => {
     localStorage.setItem("refresh", data.refresh);
-    setToken(data.access);
-    console.log(token);
+    setToken(res.token);
+    return;
   };
-
-  const handleNotification = (type, message) => {
-    setTimeout(() => {
-      setNotifiction({ type: null, message: null });
-    }, 2000);
+  const [cron, setCron] = useState(false);
+  const handleNotification = ({ type, message }) => {
     setNotifiction({ type: type, message: message });
+    if (cron) clearTimeout(cron);
+    const tim = setTimeout(() => {
+      setNotifiction({ type: null, message: null });
+    }, 10000);
+    setCron(tim);
   };
 
   return (
@@ -36,6 +38,7 @@ export const ContextProvider = ({ children }) => {
         <PushNotification
           type={notification.type}
           message={notification.message}
+          onClick={() => setNotifiction({ type: "", message: "" })}
         />
       )}
     </StateContext.Provider>
