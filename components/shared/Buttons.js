@@ -10,12 +10,12 @@ import {
 } from "./Icons";
 import { useState } from "react";
 
-export const Button = ({ children, action, px }) => {
+export const Button = ({ children, onClick, px }) => {
   return (
     <button
       className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-${px} rounded focus:outline-none focus:shadow-outline`}
       type="button"
-      onClick={() => action()}
+      onClick={(e) => onClick(e)}
     >
       {children}
     </button>
