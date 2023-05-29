@@ -12,6 +12,7 @@ services:
       - ./pages:/app/pages
       - ./forms:/app/forms
       - ./styles:/app/styles
+      - ./context:/app/context
       - ./node_modules:/app/node_modules
     ports:
       - "3000:3000"
