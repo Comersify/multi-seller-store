@@ -1,17 +1,11 @@
+import { useSettings } from "@/api/api";
 import { Button } from "@/components/shared/Buttons";
 import { Title } from "@/components/shared/Title";
 import { Input } from "@/forms/Input";
 import Head from "next/head";
-import { useState } from "react";
 
 export default function Settings() {
-  const [settings, setSettings] = useState({
-    firstName: "salah",
-    lastName: "saadaoui",
-    email: "sad@gmail.com",
-    password: "35465465",
-    passwordConfermation: "5465465",
-  });
+  const { setSettings, settings, handleSubmit } = useSettings();
   return (
     <>
       <Head>
@@ -59,11 +53,21 @@ export default function Settings() {
             <div className="mb-4">
               <Input
                 onChange={(e) =>
+                  setSettings({ ...settings, oldPassword: e.target.value })
+                }
+                value={settings.oldPassword}
+                type="password"
+                label="Old Password"
+              />
+            </div>
+            <div className="mb-4">
+              <Input
+                onChange={(e) =>
                   setSettings({ ...settings, password: e.target.value })
                 }
                 value={settings.password}
                 type="password"
-                label="Password"
+                label="New Password"
               />
             </div>
             <div className="mb-6">
@@ -81,7 +85,9 @@ export default function Settings() {
             </div>
           </div>
           <div className="flex w-full justify-center">
-            <Button px="8">Update</Button>
+            <Button onClick={(e) => handleSubmit(e)} px="8">
+              Update
+            </Button>
           </div>
         </form>
       </main>
