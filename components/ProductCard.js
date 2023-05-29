@@ -1,4 +1,7 @@
+import Image from "next/image";
 import { Stars } from "./Stars";
+import { useStateContext } from "@/context/contextProvider";
+import Link from "next/link";
 
 const DiscountTag = ({ value }) => {
   return (
@@ -98,33 +101,30 @@ export const ProductItem = () => {
   );
 };
 
-export const ProductCard = () => {
+export const ProductCard = ({ id, title, rating, price, image, discount }) => {
   return (
-    <div className="w-52 border border-gray-200 rounded relative overflow-hidden hover:shadow-sm">
-      <img
-        className="w-full h-36"
-        src="https://via.placeholder.com/150"
-        alt="Product Image"
-      />
-      <DiscountTag value={10} />
-      <div className="px-4 py-2">
-        <h2 className="font-bold text-lg text-gray-900">Product Title</h2>
-        <div className="flex justify-between items-center mt-1">
-          <Stars />
-        </div>
-        <div className="flex items-center justify-between">
-          <div className="flex items-ccenter py-2">
-            <div className="flex text-lg font-bold text-gray-900">
-              90
-              <div className="text-sm font-bold text-gray-900">$</div>
-            </div>
-            <div className="px-2 self-end text-sm line-through text-gray-500">
-              $98
+    <Link href={`/products/${id}`}>
+      <div className="w-52 border border-gray-200 rounded relative overflow-hidden hover:shadow-sm">
+        <Image width={600} height={600} src={image} alt="Product Image" />
+        {discount && <DiscountTag value={discount} />}
+        <div className="px-4 py-2">
+          <h2 className="font-bold text-lg text-gray-900">{title}</h2>
+          <div className="flex justify-between items-center mt-1 text-gray-500">
+            {rating > 0 ? <Stars num={rating} /> : "Not rated yet"}
+          </div>
+          <div className="flex items-center justify-between">
+            <div className="flex items-ccenter py-2">
+              <div className="flex text-lg font-bold text-gray-900">
+                {price - (discount * price) / 100}
+                <div className="text-sm font-bold text-gray-900">$</div>
+              </div>
+              <div className="px-2 self-end text-sm line-through text-gray-500">
+                ${price}
+              </div>
             </div>
           </div>
-          <p className="text-sm self-end text-gray-500">Shipping $23</p>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
