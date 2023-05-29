@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { Stars } from "./Stars";
-import { useStateContext } from "@/context/contextProvider";
 import Link from "next/link";
 
 const DiscountTag = ({ value }) => {
