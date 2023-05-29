@@ -110,9 +110,17 @@ export const useSettings = () => {
   return { settings, handleSubmit, setSettings };
 };
 
-export const login = (data) => {
-  const res = usePOST("login/", data);
-  return res;
+export const useLogin = (data) => {
+  const [auth, setAuth] = useState({ username: "", password: "" });
+  const { handleToken, handleNotification } = useStateContext();
+
+  const handleSubmit = () => {
+    e.preventDefault();
+    const res = usePOST("login/", data);
+    if (res.type == "error") handleNotification(res);
+    if (res.type == "success") handleToken(res);
+  };
+  return { handleSubmit, setAuth, auth };
 };
 export const signup = (data) => {
   const res = usePOST("signup/", data);
