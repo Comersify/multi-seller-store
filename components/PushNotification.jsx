@@ -1,6 +1,6 @@
 import { ErrorIcon, SuccessIcon, XIcon } from "./shared/Icons";
 
-export const PushNotification = ({ type, message }) => {
+export const PushNotification = ({ type, message, onClick }) => {
   return (
     <div
       className={`fixed bottom-4 right-2 z-50 ${
@@ -13,7 +13,7 @@ export const PushNotification = ({ type, message }) => {
         {type === "error" && <ErrorIcon />}
         <span>{message}</span>
         <button
-          onClick={() => {}}
+          onClick={() => onClick()}
           className={`float-right ml-2 p-2 ${
             (type === "error" && "text-red-600") ||
             (type === "success" && "text-green-600")
