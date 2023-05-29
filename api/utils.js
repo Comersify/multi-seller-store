@@ -1,12 +1,8 @@
-import { useStateContext } from "../contexts/ContextProvider";
+const BASE_URL = "http://127.0.0.1/api";
 
-const BASE_URL = "http://127.0.0.1/api"
-
-export const GET = async (url) => {
-  const { handleNotification } = useStateContext();
-
+export const useGET = async (url) => {
   const options = {
-    method: "POST",
+    method: "GET",
     headers: {
       "Content-Type": "application/json",
     },
@@ -15,10 +11,10 @@ export const GET = async (url) => {
   const results = await fetch(`${BASE_URL}/${url}`, options)
     .then((response) => {
       if (!response.ok) {
-        handleNotification({
+        return {
           type: "error",
           message: "Network response was not ok",
-        });
+        };
       }
       return response.json();
     })
@@ -26,15 +22,15 @@ export const GET = async (url) => {
       return data;
     })
     .catch((error) => {
-      handleNotification({
+      return {
         type: "error",
         message: error,
-      });
+      };
     });
   return results;
 };
 
-export const POST = async (url, data) => {
+export const usePOST = async (url, data) => {
   const options = {
     method: "POST",
     headers: {
@@ -46,10 +42,10 @@ export const POST = async (url, data) => {
   const results = await fetch(`${BASE_URL}/${url}`, options)
     .then((response) => {
       if (!response.ok) {
-        handleNotification({
+        return {
           type: "error",
           message: "Network response was not ok",
-        });
+        };
       }
       return response.json();
     })
@@ -57,10 +53,10 @@ export const POST = async (url, data) => {
       return data;
     })
     .catch((error) => {
-      handleNotification({
+      return {
         type: "error",
         message: error,
-      });
+      };
     });
   return results;
 };
