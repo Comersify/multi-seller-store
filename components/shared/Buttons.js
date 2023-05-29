@@ -24,11 +24,14 @@ export const Button = ({ children, onClick, px }) => {
 
 export const ToggleSideBarButton = ({ open, setOpen }) => {
   return (
-    <div className="absolute bg-gradient-to-r from-[#ff80b5] to-[#9089fc] top-16 border border-gray-300 hover:border-gray-500 border-l-0 rounded-md rounded-l-none bg-gray-50 -right-8 px-1 py-3">
+    <div
+      onClick={() => setOpen(!open)}
+      className="absolute cursor-pointer hover:animate-none animate-bounce bg-gradient-to-r from-[#ff80b5] to-[#9089fc] top-16 border border-gray-300 hover:border-gray-500 border-l-0 rounded-md rounded-l-none bg-gray-50 -right-8 px-1 py-3"
+    >
       <button
         id="toggleSidebar"
         onClick={() => setOpen(!open)}
-        className="flex items-center justify-center"
+        className="flex items-center  justify-center"
       >
         {open ? <LeftArrow /> : <RightArrow />}
       </button>
