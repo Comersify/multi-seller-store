@@ -7,6 +7,7 @@ import {
   NotificationButton,
   ProfileButoon,
 } from "./shared/Buttons";
+import { useStateContext } from "@/context/contextProvider";
 
 const Logo = () => {
   return (
@@ -94,8 +95,7 @@ const Navigation = () => {
 
 export const Nav = () => {
   const [openMenu, setOpenMenu] = useState(false);
-  const [loggedIn, _] = useState(true);
-
+  const { token } = useStateContext();
   return (
     <nav className="bg-gray-50">
       <div className="mx-auto max-w-full px-2 sm:px-6 lg:px-8">
@@ -113,12 +113,12 @@ export const Nav = () => {
               </div>
             </div>
           </div>
-          {!loggedIn && (
+          {!token && (
             <div className="flex h-full items-center">
               <AuthButtons />
             </div>
           )}
-          {loggedIn && (
+          {token && (
             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
               <CartButton />
               <DropDownMenu Icon={NotificationButton}>
