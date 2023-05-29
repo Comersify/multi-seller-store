@@ -29,15 +29,15 @@ export const LoginForm = () => {
           />
         </div>
         <div className="flex items-center justify-between">
-          <Button onClick={(e) => handleSubmit(e)} px="4">
-            Sign In
-          </Button>
           <Link
             className="align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
             href="#"
           >
             Forgot Password?
           </Link>
+          <Button onClick={(e) => handleSubmit(e)} px="8">
+            Sign In
+          </Button>
         </div>
       </form>
       <p className="text-gray-900 mt-4">
