@@ -12,7 +12,13 @@ function Checkout() {
         <h1 className="text-4xl mb-4">Pay Now</h1>
         <div className="flex flex-wrap justify-center items-center">
           <div className="mr-6 flex flex-col gap-6 max-sm:mr-0 mb-5">
-            <PaymentCard active />
+            <PaymentCard
+              /*             fullName={}
+            address={}
+            phoneNumber={}
+            postalCode={} */
+              active
+            />
             <PaymentCard />
             <PaymentCard />
           </div>

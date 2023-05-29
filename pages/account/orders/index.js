@@ -3,6 +3,7 @@ import { Input } from "@/forms/Input";
 import { Button } from "@/components/shared/Buttons";
 import { Title } from "@/components/shared/Title";
 import { Table } from "@/components/Table";
+import { useGetOrders } from "@/api/api";
 
 const TrackingPanel = () => {
   return (
@@ -62,6 +63,7 @@ const TrackingForm = () => {
 };
 
 export default function Orders() {
+  const { orders } = useGetOrders();
   return (
     <>
       <Head>
@@ -71,7 +73,7 @@ export default function Orders() {
         <Title text="Manage Your Orders" />
         <div className="p-16 flex flex-wrap gap-16 items-center justify-center">
           <TrackingForm />
-          <Table />
+          <Table /* data={orders} */ />
         </div>
       </main>
     </>
