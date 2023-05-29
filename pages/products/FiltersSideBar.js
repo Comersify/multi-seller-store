@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { StarsInput } from "@/components/Stars";
 import { ToggleSideBarButton } from "@/components/shared/Buttons";
+import { useGetCategories } from "@/api/api";
 
 const SubCategoryItem = ({ open, name, id }) => {
   const [checked, setChecked] = useState(false && open);
@@ -124,6 +125,7 @@ const PriceFilter = ({ setFilter, filter }) => {
 export const FiltersSideBar = ({ setFilter, filter }) => {
   const [open, setOpen] = useState(false);
   const sideBarRef = useRef(null);
+  const { categories } = useGetCategories({});
   useEffect(() => {
     function handleClickOutside(event) {
       if (sideBarRef.current && sideBarRef.current.contains(event.target)) {
@@ -155,12 +157,15 @@ export const FiltersSideBar = ({ setFilter, filter }) => {
             <ul className="list-none p-0 m-0">
               <PriceFilter filter={filter} setFilter={setFilter} />
               <RatingFilter filter={filter} setFilter={setFilter} />
-              <CategoryItem
-                id={1}
-                name="category"
-                filter={filter}
-                setFilter={setFilter}
-              />
+              {categories.map((category) => {
+                <CategoryItem
+                  id={category.id}
+                  name={category.name}
+                  filter={filter}
+                  setFilter={setFilter}
+                />;
+              })}
+
               <CategoryItem
                 id={2}
                 name="category"
