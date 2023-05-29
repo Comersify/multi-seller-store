@@ -4,9 +4,15 @@ import { useStateContext } from "@/context/contextProvider";
 import { useRouter } from "next/router";
 
 // orders done
-export const createOrder = (data) => {
-  const res = usePOST("products/create/", data);
-  return res;
+export const useGetOrders = () => {
+  const [orders, setOrders] = useState([]);
+  const { handleNotification } = useStateContext();
+  useEffect(() => {
+    const res = useGET("my-orders/");
+    if (res?.type == "error") handleNotification(res);
+    if (res?.typ == "success") setOrders(res?.data);
+  }, []);
+  return { orders };
 };
 
 /**
