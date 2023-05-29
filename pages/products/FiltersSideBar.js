@@ -22,33 +22,39 @@ const SubCategoryItem = ({ open, name, id }) => {
   );
 };
 
-const CategoryItem = ({ name, id, subCategories }) => {
+const CategoryItem = ({ setFilter, filter, name, id, subCategories }) => {
   const [open, setOpen] = useState(false);
+  const handleOnClick = () => {
+    console.log(filter.categories);
+    let categories;
+    if (!open) {
+      filter.categories.push(id);
+      categories = filter.categories;
+    } else {
+      categories = filter?.categories?.filter((catID) => catID != id);
+    }
+    setFilter((filter) => ({
+      ...filter,
+      categories: categories,
+    }));
+    setOpen(!open);
+  };
   return (
     <li className="p-2">
       <div
-        onClick={() => setOpen(!open)}
-        href="#"
+        onClick={() => handleOnClick()}
         className={`font-bold pl-2 py-1 rounded-md ${
           open ? "bg-gray-200" : "hover:bg-gray-200"
-        } flex items-center justify-start`}
+        } flex items-center justify-start cursor-pointer`}
       >
         <input
-          onChange={() => setOpen(!open)}
+          onChange={(e) => handleOnClick(e)}
           checked={open}
           type="checkbox"
           className="mr-2 w-4 h-4"
         />
-        Category 1
+        {name}
       </div>
-      <ul className={`list-none animation pl-5 ${!open && "hidden"}`}>
-        <SubCategoryItem open={open} />
-        <SubCategoryItem open={open} />
-        <SubCategoryItem open={open} />
-        <SubCategoryItem open={open} />
-        <SubCategoryItem open={open} />
-        <SubCategoryItem open={open} />
-      </ul>
     </li>
   );
 };
@@ -62,7 +68,24 @@ const RatingFilter = () => {
   );
 };
 
-const PriceFilter = () => {
+const PriceFilter = ({ setFilter, filter }) => {
+  const handleOnChange = (e) => {
+    if (parseInt(e.target.value) || e.target.value == "") {
+      e.target.className = e.target.className.replace(
+        "focus:border-red-500 focus:ring focus:ring-red-200",
+        "focus:border-blue-500 focus:ring focus:ring-blue-200"
+      );
+      setFilter((filter) => ({
+        ...filter,
+        [e.target.id]: parseInt(e.target.value) || "",
+      }));
+    } else {
+      e.target.className = e.target.className.replace(
+        "focus:border-blue-500 focus:ring focus:ring-blue-200",
+        "focus:border-red-500 focus:ring focus:ring-red-200"
+      );
+    }
+  };
   return (
     <li className="block p-3">
       <label htmlFor="price" className="font-bold">
@@ -74,8 +97,11 @@ const PriceFilter = () => {
             From:{" "}
           </label>
           <input
+            id="from"
             type="text"
-            className="p-1 ml-1 border w-full border-gray-300 rounded-md"
+            value={filter.from}
+            onChange={(e) => handleOnChange(e)}
+            className="p-1 ml-1 focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 appearance-none border w-full border-gray-300 rounded-md"
           />
         </div>
         <div className="flex justify-start items-center mt-2">
@@ -83,8 +109,11 @@ const PriceFilter = () => {
             To:{" "}
           </label>
           <input
+            id="to"
             type="text"
-            className="p-1 ml-1 w-full border border-gray-300 rounded-md"
+            value={filter.to}
+            onChange={(e) => handleOnChange(e)}
+            className="p-1 ml-1 w-full border focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 appearance-none border-gray-300 rounded-md"
           />
         </div>
       </div>
@@ -92,7 +121,7 @@ const PriceFilter = () => {
   );
 };
 
-export const FiltersSideBar = () => {
+export const FiltersSideBar = ({ setFilter, filter }) => {
   const [open, setOpen] = useState(false);
   const sideBarRef = useRef(null);
   useEffect(() => {
@@ -124,19 +153,74 @@ export const FiltersSideBar = () => {
         <div className="overflow-y-auto text-gray-900">
           <div className="p-2">
             <ul className="list-none p-0 m-0">
-              <PriceFilter />
-              <RatingFilter />
-              <CategoryItem />
-              <CategoryItem />
-              <CategoryItem />
-              <CategoryItem />
-              <CategoryItem />
-              <CategoryItem />
-              <CategoryItem />
-              <CategoryItem />
-              <CategoryItem />
-              <CategoryItem />
-              <CategoryItem />
+              <PriceFilter filter={filter} setFilter={setFilter} />
+              <RatingFilter filter={filter} setFilter={setFilter} />
+              <CategoryItem
+                id={1}
+                name="category"
+                filter={filter}
+                setFilter={setFilter}
+              />
+              <CategoryItem
+                id={2}
+                name="category"
+                filter={filter}
+                setFilter={setFilter}
+              />
+              <CategoryItem
+                id={3}
+                name="category"
+                filter={filter}
+                setFilter={setFilter}
+              />
+              <CategoryItem
+                id={4}
+                name="category"
+                filter={filter}
+                setFilter={setFilter}
+              />
+              <CategoryItem
+                id={5}
+                name="category"
+                filter={filter}
+                setFilter={setFilter}
+              />
+              <CategoryItem
+                id={6}
+                name="category"
+                filter={filter}
+                setFilter={setFilter}
+              />
+              <CategoryItem
+                id={7}
+                name="category"
+                filter={filter}
+                setFilter={setFilter}
+              />
+              <CategoryItem
+                id={8}
+                name="category"
+                filter={filter}
+                setFilter={setFilter}
+              />
+              <CategoryItem
+                id={9}
+                name="category"
+                filter={filter}
+                setFilter={setFilter}
+              />
+              <CategoryItem
+                id={10}
+                name="category"
+                filter={filter}
+                setFilter={setFilter}
+              />
+              <CategoryItem
+                id={11}
+                name="category"
+                filter={filter}
+                setFilter={setFilter}
+              />
             </ul>
           </div>
         </div>
