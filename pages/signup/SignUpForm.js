@@ -1,8 +1,8 @@
 import { Title } from "@/components/shared/Title";
 import Link from "next/link";
 import { Input } from "@/forms/Input";
-import { useSignup } from "@/api/api";
 import { Button } from "@/components/shared/Buttons";
+import { useSignup } from "@/api/auth";
 
 export const SignUpForm = () => {
   const { form, setForm, handleSubmit } = useSignup();

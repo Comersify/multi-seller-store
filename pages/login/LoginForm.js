@@ -2,10 +2,11 @@ import Link from "next/link";
 import { Input } from "@/forms/Input";
 import { Title } from "@/components/shared/Title";
 import { Button } from "@/components/shared/Buttons";
-import { useLogin } from "@/api/api";
+import { useLogin } from "@/api/auth";
 
 export const LoginForm = () => {
-  const { auth, handleSubmit, setAuth } = useLogin();
+  const { auth, handleSubmit, setAuth } =  useLogin();
+
   return (
     <div className="flex flex-col justify-center items-center h-[40rem]">
       <Title text="Login" emoji="&#x1F512;" />
