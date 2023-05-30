@@ -269,7 +269,6 @@ export function Table({
           let found = values.filter((value) => {
             return value.toString().includes(val);
           });
-          console.log(found);
           return found.length > 0;
         })
       );
