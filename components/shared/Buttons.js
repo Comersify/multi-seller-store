@@ -8,7 +8,6 @@ import {
   RightArrow,
   ShoppingCartIcon,
 } from "./Icons";
-import { useState } from "react";
 
 export const Button = ({ children, onClick, px }) => {
   return (
@@ -86,12 +85,14 @@ export const NotificationButton = ({ action }) => {
   );
 };
 
-export const SaveButton = () => {
-  const [saved, setSaved] = useState(false);
+export const SaveButton = ({ saved, onClick }) => {
   return (
     <button
-      onClick={() => setSaved(!saved)}
-      type="button"
+      onClick={(e) => {
+        e.preventDefault();
+        onClick();
+      }}
+      type="submit"
       className="rounded-full hover:bg-red-100 p-1 text-red-600 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-red-600"
     >
       <HeartIcon saved={saved} />
