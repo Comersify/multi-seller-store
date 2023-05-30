@@ -1,14 +1,16 @@
-const BASE_URL = "http://127.0.0.1/api";
+import { useStateContext } from "@/context/contextProvider";
 
-export const useGET = async (url) => {
-  const options = {
+const BASE_URL = "http://127.0.0.1:8000";
+
+export const useGET = async (url, conf) => {
+  const get = {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
     },
   };
-
-  const results = await fetch(`${BASE_URL}/${url}`, options)
+  if (conf.token) get.headers["Authorization"] =  conf.token
+  const results = await fetch(`${BASE_URL}/${url}`, get)
     .then((response) => {
       if (!response.ok) {
         return {
@@ -30,16 +32,16 @@ export const useGET = async (url) => {
   return results;
 };
 
-export const usePOST = async (url, data) => {
-  const options = {
+export const usePOST = async (url, conf) => {
+  const post = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      body: JSON.stringify(data),
     },
+    body: JSON.stringify(conf.data),
   };
-
-  const results = await fetch(`${BASE_URL}/${url}`, options)
+  if (conf.token) post.headers["Authorization"] =  conf.token
+  const results =  await fetch(`${BASE_URL}/${url}`, post)
     .then((response) => {
       if (!response.ok) {
         return {
