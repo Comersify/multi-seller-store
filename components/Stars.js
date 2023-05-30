@@ -1,13 +1,18 @@
-export const Star = ({ active, input, id }) => {
+export const Star = ({ active, onClick }) => {
+  const handleOnClick = () => {
+    if (onClick) onClick();
+    else return;
+  };
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 20 20"
       fill="currentColor"
       aria-hidden="true"
+      onClick={() => handleOnClick()}
       className={`${active ? "text-yellow-300" : "text-gray-400"} ${
-        input ? "hover:text-yellow-300 cursor-pointer w-6 h-6" : "w-5 h-5"
-      } fill-current mr-1 `}
+        onClick && "cursor-pointer"
+      } w-6 h-6 fill-current mr-1 `}
     >
       <path
         fillRule="evenodd"
@@ -18,14 +23,14 @@ export const Star = ({ active, input, id }) => {
   );
 };
 
-export const StarsInput = () => {
+export const StarsInput = ({ stars, setStars }) => {
   return (
     <div className="flex items-center">
-      <Star input={true} />
-      <Star input={true} />
-      <Star input={true} />
-      <Star input={true} />
-      <Star input={true} />
+      <Star onClick={() => setStars(stars == 1 ? 0 : 1)} active={stars >= 1} />
+      <Star onClick={() => setStars(2)} active={stars >= 2} />
+      <Star onClick={() => setStars(3)} active={stars >= 3} />
+      <Star onClick={() => setStars(4)} active={stars >= 4} />
+      <Star onClick={() => setStars(5)} active={stars >= 5} />
     </div>
   );
 };

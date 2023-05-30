@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Star } from "./Stars";
 
 export const HomeReviewCard = ({ image, review }) => {
   return (
@@ -35,48 +36,40 @@ const StarBar = ({ value, starNum }) => {
   );
 };
 
-const CustomerReview = () => {
+const CustomerReview = ({ image, stars, review, date }) => {
   return (
     <div className="border border-gray-200 rounded-lg p-4 mb-4">
       <div className="flex items-center mb-2">
-        <img
-          className="w-10 h-10 rounded-full mr-4"
-          src="user-avatar.jpg"
+        <Image
+          className="w-12 h-12 border border-gray-200 rounded-full mr-4"
+          width={40}
+          height={40}
+          src={image}
           alt="User Avatar"
         />
         <div>
           <h3 className="text-base font-medium text-gray-900">John Doe</h3>
           <div className="flex items-center">
-            <span className="text-yellow-400 mr-1">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                className="w-4 h-4"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 0l2.932 6.459 6.818.938-4.939 4.656 1.465 6.821L10 15.465l-6.276 3.349 1.465-6.82L.25 7.397l6.818-.939L10 0z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </span>
-            <span className="text-base font-medium text-gray-500">4.5</span>
+            <Star active />
+            <span className="text-base font-medium text-gray-500">{stars}</span>
           </div>
         </div>
       </div>
       <p className="text-gray-700 text-sm mb-2">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        {review ||
+          `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
         veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat.
+        commodo consequat.`}
       </p>
-      <div className="text-gray-500 text-xs mb-2">Reviewed on May 8, 2023</div>
+      <div className="text-gray-500 text-xs mb-2">
+        Reviewed on {date || "May 8, 2023"}
+      </div>
     </div>
   );
 };
 
-export const ReviewCard = () => {
+export const ReviewCard = ({ reviews }) => {
   return (
     <div className="flex flex-wrap gap-4 w-full justify-center">
       <div className="border border-gray-200 rounded-lg w-80 p-4 h-56">
@@ -90,7 +83,14 @@ export const ReviewCard = () => {
         <StarBar starNum={1} value={3} />
       </div>
       <div className="md:w-1/2">
-        <CustomerReview />
+        {reviews?.map((review) => {
+          <CustomerReview
+            image={review?.image}
+            review={review?.review}
+            fulllName={review?.fulllName}
+            date={review?.date}
+          />;
+        })}
         <CustomerReview />
         <CustomerReview />
         <CustomerReview />
