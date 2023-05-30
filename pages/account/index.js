@@ -1,10 +1,11 @@
-import { useWishList } from "@/api/api";
 import { ProductCard } from "@/components/ProductCard";
 import { XIcon } from "@/components/shared/Icons";
 import { Title } from "@/components/shared/Title";
 import Head from "next/head";
+import useWithAuth from "../_authRouter";
+import { useWishList } from "@/api/wish-list";
 
-export default function Profile() {
+function Profile() {
   const { handleDelete, products } = useWishList();
   return (
     <>
@@ -146,3 +147,5 @@ export default function Profile() {
     </>
   );
 }
+
+export default useWithAuth(Profile);

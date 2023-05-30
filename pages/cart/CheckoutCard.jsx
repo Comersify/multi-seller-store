@@ -1,4 +1,4 @@
-import { useGetCouponValue } from "@/api/api";
+import { useGetCouponValue } from "@/api/coupon";
 import Link from "next/link";
 
 const ApplyCoupon = ({ handleApply, setCoupon, coupon }) => {

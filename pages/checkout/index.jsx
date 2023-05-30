@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { PaymentCard } from "./PaymentCard";
 import { PaymentForm } from "./PaymentForm";
+import useWithAuth from "../_authRouter";
 
 function Checkout() {
   return (
@@ -28,4 +29,4 @@ function Checkout() {
     </>
   );
 }
-export default Checkout;
+export default useWithAuth(Checkout);

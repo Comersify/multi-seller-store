@@ -1,9 +1,9 @@
-import { getProduct, useGetProducts } from "@/api/api";
+import { useGetProducts } from "@/api/product";
 import { FiltersSideBar } from "./FiltersSideBar";
 import { ProductCard } from "@/components/ProductCard";
 import { OrderByIcon, SearchIcon } from "@/components/shared/Icons";
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const SearchInput = ({ onChange }) => {
   return (
@@ -35,12 +35,12 @@ export default function Products() {
   const [filter, setFilter] = useState({
     q: "",
     orderBy: "",
+    stars: 0,
     categories: [],
     from: "",
     to: "",
   });
   const { products } = useGetProducts({ params: filter });
-  console.log(filter);
   return (
     <>
       <Head>

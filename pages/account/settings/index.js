@@ -1,10 +1,11 @@
-import { useSettings } from "@/api/api";
+import { useSettings } from "@/api/auth";
 import { Button } from "@/components/shared/Buttons";
 import { Title } from "@/components/shared/Title";
 import { Input } from "@/forms/Input";
+import useWithAuth from "@/pages/_authRouter";
 import Head from "next/head";
 
-export default function Settings() {
+function Settings() {
   const { setSettings, settings, handleSubmit } = useSettings();
   return (
     <>
@@ -94,3 +95,5 @@ export default function Settings() {
     </>
   );
 }
+
+export default useWithAuth(Settings);

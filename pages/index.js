@@ -5,12 +5,11 @@ import { Title } from "@/components/shared/Title";
 import { StoreCard } from "@/components/StoreCard";
 import { CategoriesCard } from "@/components/CategoriesCard";
 import { HomeReviewCard } from "@/components/ReviewCards";
-import {
-  useGetStores,
-  useGetProducts,
-  useGetCategories,
-  useGetCustomerReviews,
-} from "@/api/api";
+import { useGetProducts } from "@/api/product";
+import { useGetStores } from "@/api/store";
+import { useGetCategories } from "@/api/category";
+import { useGetCustomerReviews } from "@/api/review";
+
 
 const BigDeals = () => {
   const { products } = useGetProducts({ filter: "super-deals/" });

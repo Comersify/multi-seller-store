@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { StarsInput } from "@/components/Stars";
 import { ToggleSideBarButton } from "@/components/shared/Buttons";
-import { useGetCategories } from "@/api/api";
+import { useGetCategories } from "@/api/category";
 
 const SubCategoryItem = ({ open, name, id }) => {
   const [checked, setChecked] = useState(false && open);
@@ -26,7 +26,6 @@ const SubCategoryItem = ({ open, name, id }) => {
 const CategoryItem = ({ setFilter, filter, name, id, subCategories }) => {
   const [open, setOpen] = useState(false);
   const handleOnClick = () => {
-    console.log(filter.categories);
     let categories;
     if (!open) {
       filter.categories.push(id);
@@ -60,11 +59,14 @@ const CategoryItem = ({ setFilter, filter, name, id, subCategories }) => {
   );
 };
 
-const RatingFilter = () => {
+const RatingFilter = ({ filter, setFilter }) => {
   return (
     <li className="block px-3 mb-3">
       <p className="pr-2 font-bold mb-2">Ratings:</p>
-      <StarsInput />
+      <StarsInput
+        stars={filter.stars}
+        setStars={(num) => setFilter({ ...filter, stars: num })}
+      />
     </li>
   );
 };
@@ -95,7 +97,7 @@ const PriceFilter = ({ setFilter, filter }) => {
       <div className="block">
         <div className="flex items-center justify-start">
           <label htmlFor="from" className=" w-12">
-            From:{" "}
+            From:
           </label>
           <input
             id="from"
@@ -107,7 +109,7 @@ const PriceFilter = ({ setFilter, filter }) => {
         </div>
         <div className="flex justify-start items-center mt-2">
           <label htmlFor="from" className="px-2 w-12">
-            To:{" "}
+            To:
           </label>
           <input
             id="to"
@@ -233,6 +235,3 @@ export const FiltersSideBar = ({ setFilter, filter }) => {
     </>
   );
 };
-
-{
-}

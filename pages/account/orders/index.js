@@ -3,7 +3,8 @@ import { Input } from "@/forms/Input";
 import { Button } from "@/components/shared/Buttons";
 import { Title } from "@/components/shared/Title";
 import { Table } from "@/components/Table";
-import { useGetOrders } from "@/api/api";
+import useWithAuth from "@/pages/_authRouter";
+import { useGetOrders } from "@/api/order";
 
 const TrackingPanel = () => {
   return (
@@ -62,7 +63,7 @@ const TrackingForm = () => {
   );
 };
 
-export default function Orders() {
+function Orders() {
   const { orders } = useGetOrders();
   return (
     <>
@@ -79,3 +80,5 @@ export default function Orders() {
     </>
   );
 }
+
+export default useWithAuth(Orders);

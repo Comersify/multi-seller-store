@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { LeftArrow, RightArrow } from "./shared/Icons";
 import Image from "next/image";
-import { useGetAds } from "@/api/api";
+import { useGetAds } from "@/api/ads";
 
 export const Ads = () => {
   var { images } = useGetAds();

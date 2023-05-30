@@ -1,10 +1,11 @@
 import Head from "next/head";
 import { ProductItem } from "@/components/ProductCard";
 import { CheckoutCard } from "./CheckoutCard";
-import { useCart } from "@/api/api";
 import { useState } from "react";
+import useWithAuth from "../_authRouter";
+import { useCart } from "@/api/cart";
 
-export default function Cart() {
+function Cart() {
   const { products, handleUpdate, handleDelete } = useCart();
   const [counter, setCounter] = useState({
     subTotal: 0,
@@ -86,3 +87,5 @@ export default function Cart() {
     </>
   );
 }
+
+export default useWithAuth(Cart);

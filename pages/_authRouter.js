@@ -1,22 +1,39 @@
 import { useEffect } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
+import { useStateContext } from "@/context/contextProvider";
+import { refreshToken } from "@/api/auth";
 
-const withAuth = (WrappedComponent) => {
+const useWithAuth = (WrappedComponent) => {
   return (props) => {
     const router = useRouter();
+    const { token, handleToken, handleNotification } = useStateContext();
+    if (token) return <WrappedComponent {...props} />;
 
-    // Check the user's authentication status
-    const isAuthenticated = // Your authentication logic to determine if the user is authenticated
-      useEffect(() => {
-        // If the user is not authenticated, redirect them to the login page
-        if (!isAuthenticated) {
-          router.replace("/login");
-        }
-      }, []);
+    useEffect(() => {
+      let access;
+      let data;
+      async function refresh(){
+        if (typeof window !== "undefined") {
+          access = localStorage.getItem("refresh");
+          if (access) {
+            data = await refreshToken({refresh: access});
+            if (data?.type == "success") {
+              handleToken(data);
+            } else {
+              if (data?.type == "error") handleNotification(data);
+              router.replace("/login");
+            }
+          } else {
+            router.replace("/login");
+          }
+      }
+      }
+      refresh()
+    }, []);
 
     // Render the wrapped component if the user is authenticated
-    return isAuthenticated ? <WrappedComponent {...props} /> : null;
+    return token ? <WrappedComponent {...props} /> : null;
   };
 };
 
-export default withAuth;
+export default useWithAuth;
