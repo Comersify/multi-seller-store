@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 import { PushNotification } from "../components/PushNotification";
-const StateContext = createContext();
+export const StateContext = createContext();
 
 export const ContextProvider = ({ children }) => {
   const [token, setToken] = useState(false);
@@ -10,10 +10,11 @@ export const ContextProvider = ({ children }) => {
   });
 
   const handleToken = (data) => {
-    localStorage.setItem("refresh", data.refresh);
-    setToken(res.token);
+    localStorage.setItem("refresh", data?.refresh);
+    setToken(data?.access);
     return;
   };
+
   const [cron, setCron] = useState(false);
   const handleNotification = ({ type, message }) => {
     setNotifiction({ type: type, message: message });
