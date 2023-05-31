@@ -4,8 +4,31 @@ import { useStateContext } from "@/context/contextProvider";
 import { useEffect, useState } from "react";
 
 export const refreshToken = async (data) => {
-  const res =  await usePOST("refresh/", {data: data});
+  const res = await usePOST("refresh/", { data: data });
   return res;
+};
+
+export const useRefresh = () => {
+  const { handleToken, handleNotification } = useStateContext();
+
+  let access;
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      access = localStorage.getItem("refresh");
+    }
+    if (access) {
+      refreshToken({ refresh: access }).then((data) => {
+        if (data?.type == "success") {
+          handleToken(data);
+        } else {
+          if (data?.type == "error") handleNotification(data);
+          router.replace("/login");
+        }
+      });
+    } else {
+      router.replace("/login");
+    }
+  }, []);
 };
 
 export const useSettings = () => {
@@ -13,64 +36,81 @@ export const useSettings = () => {
     firstName: "",
     lastName: "",
     email: "",
+    phoneNumber: "",
+    image: "",
     oldPassword: "",
     password: "",
     passwordConfermation: "",
   });
   const { handleNotification, token } = useStateContext();
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const res =  await usePOST("account/info/", {data:settings, token:token});
-    if (res?.type == "error") handleNotification(res);
-    if (res?.type == "success") handleNotification(res);
-  };
-  useEffect( () => {
-      useGET("account/info/", {token: token}).then((res)=>{
+    usePOST("account/update/", { data: settings, token: token })
+      .then((res) => {
         if (res?.type == "error") handleNotification(res);
-        if (res?.type == "success") setSettings({
-          ...settings, 
+        if (res?.type == "success") handleNotification(res);
+      })
+      .catch(() => {});
+  };
+  useEffect(() => {
+    useGET("account/info/", { token: token }).then((res) => {
+      if (res?.type == "error") handleNotification(res);
+      if (res?.type == "success") {
+        setSettings({
+          ...setSettings,
           firstName: res.data.first_name,
           lastName: res.data.last_name,
           email: res.data.email,
+          phoneNumber: res.data.phone_number,
+          image: res.data.image,
         });
-      });    
+      }
+    });
+    return;
   }, []);
   return { settings, handleSubmit, setSettings };
 };
 
 export const useLogin = () => {
   const [auth, setAuth] = useState({ username: "", password: "" });
-  const { handleToken, handleNotification } = useStateContext();
+  const { handleToken, handleNotification, token } = useStateContext();
   const router = useRouter();
-
-  const handleSubmit = async (e) => {
+  if (token) router.replace("/products");
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const res = await usePOST("login/", auth)
-    if (res?.type == "error") handleNotification(res);
-    if (res?.type == "success") {
-      router.replace("/products")
-      handleToken(res);}
-    
+    const res = usePOST("login/", { data: auth }).then((res) => {
+      if (res?.type == "error") handleNotification(res);
+      if (res?.type == "success") {
+        router.replace("/products");
+        handleToken(res);
+      }
+    });
   };
   return { handleSubmit, setAuth, auth };
 };
+
 export const useSignup = () => {
   const router = useRouter();
-  const { handleNotification } = useStateContext();
+  const { handleNotification, token } = useStateContext();
+  if (token) router.replace("/products");
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
     email: "",
+    phoneNumber: "",
     password: "",
     passwordConfermation: "",
   });
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const res = await usePOST("signup/", form);
-    if (res.type == "error") handleNotification(res);
-    if (res.type == "success") {
-      router.replace("/login");
-    }
+    const res = usePOST("signup/", { data: form }).then((res) => {
+      console.log(res);
+      if (res.type == "error") handleNotification(res);
+      if (res.type == "success") {
+        router.replace("/login");
+        handleNotification(res);
+      }
+    });
   };
   return { handleSubmit, form, setForm };
 };
