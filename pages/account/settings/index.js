@@ -4,9 +4,71 @@ import { Title } from "@/components/shared/Title";
 import { Input } from "@/forms/Input";
 import useWithAuth from "@/pages/_authRouter";
 import Head from "next/head";
+import { useEffect } from "react";
+
+
+export const DragAndDrop = ({ className, label, url, setSettings }) => {
+  function handleDragOver(event) {
+    event.preventDefault();
+  }
+
+  useEffect(()=>{
+      const dropzone = document.getElementById("dropzone");
+        dropzone.style.backgroundImage = `url(${url || "/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Favatar.cbe40908.jpeg&w=256&q=75"})`;
+        dropzone.style.backgroundSize = "100%";
+  },[])
+  function handleDrop(event) {
+    event.preventDefault();
+    const file = event.dataTransfer.files[0];
+    handleImage(file);
+  }
+
+  function handleFileInputChange(event) {
+    const file = event.target.files[0];
+    handleImage(file);
+  }
+
+  function handleImage(file) {
+    if (file && file.type.includes("image")) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const dropzone = document.getElementById("dropzone");
+        dropzone.style.backgroundImage = `url(${e.target.result})`;
+        dropzone.style.backgroundSize = "100%";
+      };
+      reader.readAsDataURL(file);
+      setSettings((settings) => ({...settings, image: file }))
+    }
+  }
+  const onClick = () => {
+    const inpt = document.getElementById("file-upload")
+    inpt.click()
+  }
+  return (
+    <div
+      className={`border-2 w-28 h-28 mb-2 cursor-pointer border-dashed ${className} border-gray-400 dark:border-gray-300 rounded-full flex items-center justify-center cursor-pointer`}
+      id="dropzone"
+      onClick={() => onClick()}
+      onDragOver={(e) => handleDragOver(e)}
+      onDrop={(e) => handleDrop(e)}
+    >
+      <label htmlFor="file-upload" className="flex items-center justify-center">
+        <span className="text-gray-800 dark:text-gray-200">{label}</span>
+      </label>
+      <input
+        type="file"
+        id="file-upload"
+        className="hidden"
+        accept="image/*"
+        onChange={(e) => handleFileInputChange(e)}
+      />
+    </div>
+  );
+};
+
 
 function Settings() {
-  const { setSettings, settings, handleSubmit } = useSettings();
+  const {  handleSubmit, settings, setSettings } = useSettings();
   return (
     <>
       <Head>
@@ -14,13 +76,8 @@ function Settings() {
       </Head>
       <main className="min-h-[70vh] flex flex-col items-center justify-center py-14">
         <Title text={"Account Settings"} />
-        <form className="flex flex-col items-center justify-center mt-4 py-8 px-16  border rounded-lg border-gray-200 w-[30rem]">
-          <img
-            className="rounded-full mb-6"
-            width={80}
-            height={80}
-            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-          />
+        <div className="flex flex-col items-center justify-center mt-4 py-8 px-16  border rounded-lg border-gray-200 w-[30rem]">
+          <DragAndDrop url={settings.image} setSettings={setSettings} /> 
           <div>
             <div className="mb-4 block md:flex justify-between">
               <Input
@@ -48,6 +105,16 @@ function Settings() {
                 }
                 value={settings.email}
                 label="Email"
+                type="email"
+              />
+            </div>
+            <div className="mb-4">
+              <Input
+                onChange={(e) =>
+                  setSettings({ ...settings, phoneNumber: e.target.value })
+                }
+                value={settings.phoneNumber}
+                label="Phone Number"
                 type="email"
               />
             </div>
@@ -90,7 +157,7 @@ function Settings() {
               Update
             </Button>
           </div>
-        </form>
+        </div>
       </main>
     </>
   );
