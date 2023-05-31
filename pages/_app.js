@@ -9,7 +9,9 @@ export default function App({ Component, pageProps }) {
     <ContextProvider>
       <Banner />
       <Nav />
-      <Component {...pageProps} />
+      <main className="min-h-[80vh]">
+        <Component {...pageProps} />
+      </main>
       <Footer />
     </ContextProvider>
   );
