@@ -1,4 +1,3 @@
-import { useStateContext } from "@/context/contextProvider";
 
 const BASE_URL = "http://127.0.0.1:8000";
 
@@ -9,7 +8,8 @@ export const useGET = async (url, conf) => {
       "Content-Type": "application/json",
     },
   };
-  if (conf.token) get.headers["Authorization"] =  conf.token
+  if (conf?.token) get.headers["Authorization"] =  conf.token
+  console.log(true)
   const results = await fetch(`${BASE_URL}/${url}`, get)
     .then((response) => {
       if (!response.ok) {
@@ -24,11 +24,12 @@ export const useGET = async (url, conf) => {
       return data;
     })
     .catch((error) => {
+      console.log(error)
       return {
         type: "error",
         message: error,
       };
-    });
+    }).finally(()=>console.log(false));
   return results;
 };
 
@@ -38,9 +39,22 @@ export const usePOST = async (url, conf) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(conf.data),
+    credentials: 'same-origin',
+    body: "",
   };
-  if (conf.token) post.headers["Authorization"] =  conf.token
+  if (conf?.data?.image){
+    const formData =  new FormData()
+    formData.append("file", conf.data.image)
+    console.log(conf.data.image)
+    delete conf.data.image
+    formData.append("json_data", conf?.data)
+    post.headers["Content-Type"] = "multipart/form-data; boundary=-----654654654654" 
+  } else {
+    post.body = JSON.stringify(conf?.data)
+  }
+  
+  if (conf?.token) post.headers["Authorization"] =  conf.token
+
   const results =  await fetch(`${BASE_URL}/${url}`, post)
     .then((response) => {
       if (!response.ok) {
