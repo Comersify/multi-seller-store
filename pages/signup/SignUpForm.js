@@ -7,7 +7,7 @@ import { useSignup } from "@/api/auth";
 export const SignUpForm = () => {
   const { form, setForm, handleSubmit } = useSignup();
   return (
-    <div className="flex p-4 flex-col justify-center items-center h-[40rem] ">
+    <div className="flex p-4 flex-col justify-center items-center h-[40rem] my-16">
       <Title text="Sign Up" />
       <form className=" mt-4 py-8 px-16  border rounded-lg border-gray-200 w-[30rem]">
         <div className="mb-4 block md:flex justify-between">
@@ -30,6 +30,14 @@ export const SignUpForm = () => {
             value={form.email}
             onChange={(e) => setForm({ ...form, email: e.target.value })}
             label="Email"
+            type="email"
+          />
+        </div>
+        <div className="mb-4">
+          <Input
+            value={form.phoneNumber}
+            onChange={(e) => setForm({ ...form, phoneNumber: e.target.value })}
+            label="Phone Number"
             type="email"
           />
         </div>
