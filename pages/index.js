@@ -107,7 +107,7 @@ const FeaturedStores = () => {
 };
 
 const HotCategories = () => {
-  const { categories } = useGetCategories("top/");
+  const { categories } = useGetCategories({filter: "top/"});
   return (
     <div className="flex flex-wrap gap-6 justify-center pt-8">
       {categories.map((category) => {
