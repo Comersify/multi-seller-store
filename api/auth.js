@@ -9,8 +9,7 @@ export const refreshToken = async (data) => {
 };
 
 export const useRefresh = () => {
-  const { handleToken, handleNotification } = useStateContext();
-
+  const { handleToken, handleNotification, token } = useStateContext();
   let access;
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -22,13 +21,11 @@ export const useRefresh = () => {
           handleToken(data);
         } else {
           if (data?.type == "error") handleNotification(data);
-          router.replace("/login");
         }
       });
-    } else {
-      router.replace("/login");
     }
   }, []);
+  return {token}
 };
 
 export const useSettings = () => {
