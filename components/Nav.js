@@ -7,7 +7,7 @@ import {
   NotificationButton,
   ProfileButoon,
 } from "./shared/Buttons";
-import { useStateContext } from "@/context/contextProvider";
+import { useRefresh } from "@/api/auth";
 
 const Logo = () => {
   return (
@@ -94,8 +94,8 @@ const Navigation = () => {
 };
 
 export const Nav = () => {
+  const {token} = useRefresh()
   const [openMenu, setOpenMenu] = useState(false);
-  const { token } = useStateContext();
   return (
     <nav className="bg-gray-50">
       <div className="mx-auto max-w-full px-2 sm:px-6 lg:px-8">
