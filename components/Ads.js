@@ -4,12 +4,7 @@ import Image from "next/image";
 import { useGetAds } from "@/api/ads";
 
 export const Ads = () => {
-  var { images } = useGetAds();
-  var images = [
-    "https://picsum.photos/id/1015/1200/500",
-    "https://picsum.photos/id/1013/1200/500",
-    "https://picsum.photos/id/1018/1200/500",
-  ];
+  const { images } = useGetAds();
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -35,13 +30,17 @@ export const Ads = () => {
         >
           <LeftArrow />
         </button>
+        {
+          images[currentIndex] &&
         <Image
           width={1200}
           height={1200}
-          className="w-full rounded-lg max-h-[30rem]"
-          src={images[currentIndex]}
+          onClick={() => window.location.replace(images[currentIndex]?.link)}
+          className="min-w-[20rem] cursor-pointer rounded-lg max-h-[25rem]"
+          src={"http://127.0.0.1:8000"+images[currentIndex]?.image}
           alt="Image 1"
         />
+        }
         <button
           className="absolute font-bold text-lg top-[41%] right-0 mx-4 p-4 opacity-75 hover:opacity-100 rounded-full bg-gray-100 text-black"
           onClick={handleNext}
