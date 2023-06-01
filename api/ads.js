@@ -7,13 +7,10 @@ export const useGetAds = () => {
   const [images, setImages] = useState([]);
   const { handleNotification } = useStateContext();
   useEffect(() => {
-    async function getAds(){
-      return await useGET("ads/");
-
-    }
-    const res = getAds()
-    if (res?.type == "error") handleNotification(res);
-    if (res?.type == "success") setImages(res?.data);
+    useGET("ads/").then((res)=> {
+      if (res?.type == "error") handleNotification(res);
+      if (res?.type == "success") setImages(res?.data);
+    })
   }, []);
   return { images };
 };
