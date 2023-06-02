@@ -3,5 +3,5 @@ WORKDIR /app
 COPY package.json .
 RUN yarn
 RUN yarn add package.json
-COPY . /app
+COPY . .
 CMD [ "npm", "run", "dev" ]
