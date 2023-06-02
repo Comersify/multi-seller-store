@@ -17,12 +17,10 @@ export const useGetReviews = (id) => {
   const [reviews, setReviews] = useState([]);
   const { handleNotification } = useStateContext();
   useEffect(() => {
-    async function getReviews(){
-      return await useGET(`products/${id}/reviews/`);
-    }
-    res = getReviews()
-    if (res?.type == "error") handleNotification(res);
-    if (res?.typ == "success") setReviews(res?.data);
+    useGET(`products/${id}/reviews/`).then((res)=> {
+      if (res?.type == "error") handleNotification(res);
+      if (res?.typ == "success") setReviews(res?.data);
+    });
   }, []);
   return { reviews };
 };
