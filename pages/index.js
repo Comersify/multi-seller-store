@@ -15,48 +15,18 @@ const BigDeals = () => {
   const { products } = useGetProducts({ filter: "super-deals/" });
   return (
     <div className="flex flex-wrap gap-4 justify-center pt-8">
-      {products.map((product) => {
+      {products.map((product) => (
         <ProductCard
+          key={product.id}
+          orders={product.orders}
           id={product.id}
           title={product.title}
-          rating={product.rating}
+          rating={product.reviews}
           price={product.price}
           image={product.image}
-          discount={product.discount}
-        />;
-      })}
-      <ProductCard
-        id={1}
-        title="product title"
-        rating={3}
-        price={98}
-        image="https://via.placeholder.com/150"
-        discount={10}
-      />
-      <ProductCard
-        id={1}
-        title="product title"
-        rating={3}
-        price={98}
-        image="https://via.placeholder.com/150"
-        discount={10}
-      />
-      <ProductCard
-        id={1}
-        title="product title"
-        rating={3}
-        price={98}
-        image="https://via.placeholder.com/150"
-        discount={10}
-      />
-      <ProductCard
-        id={1}
-        title="product title"
-        rating={3}
-        price={98}
-        image="https://via.placeholder.com/150"
-        discount={10}
-      />
+          discount={product.discount_value}
+        />
+      ))}
     </div>
   );
 };
@@ -65,43 +35,15 @@ const FeaturedStores = () => {
   const { stores } = useGetStores({ filter: "top/" });
   return (
     <div className="flex flex-wrap gap-4 justify-center pt-8">
-      {stores.map((store) => {
+      {stores.map((store) => (
         <StoreCard
           id={store.id}
-          image={store.image}
+          image={store.logo}
           name={store.name}
-          rating={store.rating}
+          rating={store.reviews_avg}
           description={store.description}
-        />;
-      })}
-      <StoreCard
-        id={1}
-        image={"https://via.placeholder.com/450"}
-        name={"store"}
-        rating={4}
-        description="lorem ipsum dollar fulkqfnlsndl l  ljqs dksqd kqsjd kqsd mlsjqdkqss dkqh dkqsh dk "
-      />
-      <StoreCard
-        id={1}
-        image={"https://via.placeholder.com/450"}
-        name={"store"}
-        rating={4}
-        description="lorem ipsum dollar fulkqfnlsndl l  ljqs dksqd kqsjd kqsd mlsjqdkqss dkqh dkqsh dk "
-      />
-      <StoreCard
-        id={1}
-        image={"https://via.placeholder.com/450"}
-        name={"store"}
-        rating={4}
-        description="lorem ipsum dollar fulkqfnlsndl l  ljqs dksqd kqsjd kqsd mlsjqdkqss dkqh dkqsh dk "
-      />
-      <StoreCard
-        id={1}
-        image={"https://via.placeholder.com/450"}
-        name={"store"}
-        rating={4}
-        description="lorem ipsum dollar fulkqfnlsndl l  ljqs dksqd kqsjd kqsd mlsjqdkqss dkqh dkqsh dk "
-      />
+        />
+      ))}
     </div>
   );
 };
