@@ -31,14 +31,14 @@ export const Ads = () => {
           <LeftArrow />
         </button>
         {
-          images[currentIndex] &&
+        images[currentIndex] &&
         <Image
           width={1200}
           height={1200}
           onClick={() => window.location.replace(images[currentIndex]?.link)}
           className="min-w-[20rem] cursor-pointer rounded-lg max-h-[25rem]"
           src={"http://127.0.0.1:8000"+images[currentIndex]?.image}
-          alt="Image 1"
+          alt="Ads"
         />
         }
         <button
