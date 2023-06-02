@@ -108,36 +108,29 @@ export const ProductItem = ({
   );
 };
 
-export const ProductCard = ({ id, title, rating, price, image, discount }) => {
+export const ProductCard = ({ id, title, rating, price, image, discount, orders }) => {
+  const acctualPrice = (price - (discount * price) / 100) 
   return (
     <Link href={`/products/${id}`}>
       <div className="w-52 border border-gray-200 rounded relative overflow-hidden hover:shadow-sm">
-        <Image width={600} height={600} src={image} alt="Product Image" />
+        <img width={600} height={600} src={"http://127.0.0.1:8000/media" + image } className="w-full h-[13rem]" alt="Product Image" />
         {discount && <DiscountTag value={discount} />}
         <div className="px-4 py-2">
           <h2 className="font-bold text-lg text-gray-900">{title}</h2>
-          <div className="flex justify-between items-center mt-1 text-gray-500">
+          <div className="flex justify-between items-center font-bold text-sm text-gray-400">
             {rating > 0 ? <Stars num={rating} /> : "Not rated yet"}
           </div>
           <div className="flex items-center justify-between">
-            {discount ? (
-              <div className="flex items-ccenter py-2">
-                <div className="flex text-lg font-bold text-gray-900">
-                  {price - (discount * price) / 100}
-                  <div className="text-sm font-bold text-gray-900">$</div>
-                </div>
-                <div className="px-2 self-end text-sm line-through text-gray-500">
-                  ${price}
-                </div>
+            <div className="flex items-ccenter py-1">
+              <div className="flex text-lg font-bold text-gray-900">
+                {discount ? acctualPrice.toFixed(2) : price}
+                <div className="text-sm font-bold text-gray-900">$</div>
               </div>
-            ) : (
-              <div className="flex items-ccenter py-2">
-                <div className="flex text-lg font-bold text-gray-900">
-                  {price}
-                  <div className="text-sm font-bold text-gray-900">$</div>
-                </div>
-              </div>
-            )}
+              {discount && <div className="px-2 self-end text-sm line-through text-gray-500">
+                ${price}
+              </div>}
+            </div>
+            <p className="text-gray-500 self-end text-sm font-bold">{orders} orders</p>
           </div>
         </div>
       </div>
