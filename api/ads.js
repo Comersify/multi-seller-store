@@ -10,6 +10,8 @@ export const useGetAds = () => {
     useGET("ads/").then((res)=> {
       if (res?.type == "error") handleNotification(res);
       if (res?.type == "success") setImages(res?.data);
+    }).catch((err) =>{
+      handleNotification({type:"erroe", message:err})
     })
   }, []);
   return { images };
