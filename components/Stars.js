@@ -12,7 +12,7 @@ export const Star = ({ active, onClick }) => {
       onClick={() => handleOnClick()}
       className={`${active ? "text-yellow-300" : "text-gray-400"} ${
         onClick && "cursor-pointer"
-      } w-6 h-6 fill-current mr-1 `}
+      } w-[17px] h-[17px] fill-current mr-1 `}
     >
       <path
         fillRule="evenodd"
