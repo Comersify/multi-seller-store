@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Star } from "./Stars";
+import { Star, Stars } from "./Stars";
 
 export const HomeReviewCard = ({ image, review }) => {
   return (
@@ -22,79 +22,86 @@ export const HomeReviewCard = ({ image, review }) => {
 const StarBar = ({ value, starNum }) => {
   return (
     <div className="flex items-center mb-2">
-      <span className="w-20 font-medium text-gray-900 mr-2">
+      <span className="w-14 font-medium text-gray-900 mr-2">
         {starNum} stars
       </span>
       <div className="flex-1 h-2 relative">
-        <div className="absolute w-[180px] py-1 h-full bg-gray-200 rounded-full"></div>
+        <div className="absolute w-[100%] py-1 h-full bg-gray-200 rounded-full"></div>
         <div
           className={`absolute h-full w-[${value}%] bg-yellow-300 rounded-full`}
         ></div>
       </div>
-      <span className="ml-2 font-medium">{value}%</span>
+      <span className="ml-2 font-medium text-gray-900 text-center w-[50px]">{value} %</span>
     </div>
   );
 };
 
-const CustomerReview = ({ image, stars, review, date }) => {
+const CustomerReview = ({ image, stars, review, date, fulllName }) => {
+  
+  function formatDate(str){
+    const date = new Date(str);
+    const options = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric',
+      timeZone: 'UTC'
+    };
+    const formattedDate = date.toLocaleString('en-US', options);
+    return formattedDate
+  }
   return (
     <div className="border border-gray-200 rounded-lg p-4 mb-4">
       <div className="flex items-center mb-2">
-        <Image
+        <img
           className="w-12 h-12 border border-gray-200 rounded-full mr-4"
           width={40}
           height={40}
-          src={image}
+          src={"http://127.0.0.1:8000/media/"+image}
           alt="User Avatar"
         />
         <div>
-          <h3 className="text-base font-medium text-gray-900">John Doe</h3>
+          <h3 className="text-base font-medium text-gray-900">{fulllName}</h3>
           <div className="flex items-center">
-            <Star active />
-            <span className="text-base font-medium text-gray-500">{stars}</span>
+            <Stars num={stars} />
           </div>
         </div>
       </div>
-      <p className="text-gray-700 text-sm mb-2">
-        {review ||
-          `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat.`}
+      <p className="text-gray-700 px-2 py-2 text-sm mb-2">
+        {review}
       </p>
       <div className="text-gray-500 text-xs mb-2">
-        Reviewed on {date || "May 8, 2023"}
+        Reviewed on {formatDate(date)}
       </div>
     </div>
   );
 };
 
-export const ReviewCard = ({ reviews }) => {
+export const ReviewCard = ({ reviews:{reviews, stats} }) => {
   return (
     <div className="flex flex-wrap gap-4 w-full justify-center">
       <div className="border border-gray-200 rounded-lg w-80 p-4 h-56">
         <h2 className="text-lg font-medium text-gray-900 mb-2">
           Product Ratings
         </h2>
-        <StarBar starNum={5} value={80} />
-        <StarBar starNum={4} value={60} />
-        <StarBar starNum={3} value={10} />
-        <StarBar starNum={2} value={4} />
-        <StarBar starNum={1} value={3} />
+        <StarBar starNum={5} value={stats[5]} />
+        <StarBar starNum={4} value={stats[4]} />
+        <StarBar starNum={3} value={stats[3]} />
+        <StarBar starNum={2} value={stats[2]} />
+        <StarBar starNum={1} value={stats[1]} />
       </div>
       <div className="md:w-1/2">
-        {reviews?.map((review) => {
+        {reviews?.map((review) => (
           <CustomerReview
             image={review?.image}
             review={review?.review}
-            fulllName={review?.fulllName}
-            date={review?.date}
-          />;
-        })}
-        <CustomerReview />
-        <CustomerReview />
-        <CustomerReview />
-        <CustomerReview />
+            stars={review?.stars}
+            fulllName={review?.first_name +" "+ review.last_name}
+            date={review?.created_at}
+          />
+        ))}
       </div>
     </div>
   );
