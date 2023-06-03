@@ -114,7 +114,7 @@ export const ProductCard = ({ id, title, rating, price, image, discount, orders 
     <Link href={`/products/${id}`}>
       <div className="w-52 border border-gray-200 rounded relative overflow-hidden hover:shadow-sm">
         <img width={600} height={600} src={"http://127.0.0.1:8000/media" + image } className="w-full h-[13rem]" alt="Product Image" />
-        {discount && <DiscountTag value={discount} />}
+        {discount ? <DiscountTag value={discount} /> : ''}
         <div className="px-4 py-2">
           <h2 className="font-bold text-lg text-gray-900">{title}</h2>
           <div className="flex justify-between items-center font-bold text-sm text-gray-400">
@@ -126,9 +126,9 @@ export const ProductCard = ({ id, title, rating, price, image, discount, orders 
                 {discount ? acctualPrice.toFixed(2) : price}
                 <div className="text-sm font-bold text-gray-900">$</div>
               </div>
-              {discount && <div className="px-2 self-end text-sm line-through text-gray-500">
+              {discount ? <div className="px-2 self-end text-sm line-through text-gray-500">
                 ${price}
-              </div>}
+              </div> : ''}
             </div>
             <p className="text-gray-500 self-end text-sm font-bold">{orders} orders</p>
           </div>
