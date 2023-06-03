@@ -36,24 +36,35 @@ export const useCart = () => {
 };
 
 export const useAddProductToCart = (id) => {
-  const [packID, setPackID] = useState();
+  const [packID, setPackID] = useState(false);
   const { handleNotification, token } = useStateContext();
   const router = useRouter();
 
-  const handleAddProductToCart = async (e) => {
+  const handleAddProductToCart = async (e, hasPacks) => {
     e.preventDefault();
+    if (hasPacks){
+      if (!packID){
+        handleNotification({type:"error", message:"Please chose your pack"});
+        return
+      }
+    }
     if (!token) {
       router.replace("/login");
       return;
     }
-    const res = await usePOST(`cart/add-products/`, {
-      productID: id,
-      packID: packID,
-    });
+    const conf = {
+      data:  {
+      product_id: id,
+      pack_id: packID,
+    }, 
+    token: token
+    } 
+    console.log(conf)
+    const res = await usePOST(`cart/add-product/`,conf);
     handleNotification(res);
   };
   const addPackID = (id) => {
-    if (packID == id) setPackID(null);
+    if (packID == id) setPackID(false);
     else setPackID(id);
   };
   return { handleAddProductToCart, packID, addPackID };
