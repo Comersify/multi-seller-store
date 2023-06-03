@@ -37,6 +37,7 @@ const FeaturedStores = () => {
     <div className="flex flex-wrap gap-4 justify-center pt-8">
       {stores.map((store) => (
         <StoreCard
+          key={store.id}
           id={store.id}
           image={store.logo}
           name={store.name}
@@ -52,9 +53,9 @@ const HotCategories = () => {
   const { categories } = useGetCategories({filter: "top/"});
   return (
     <div className="flex flex-wrap gap-6 justify-center pt-8">
-      {categories.map((category) => {
-        <CategoriesCard id={category.id} name={category.name} products={[]} />;
-      })}
+      {categories.map((category) => (
+        <CategoriesCard id={category.id} name={category.name} products={[]} />
+      ))}
       <CategoriesCard id={1} name={"Catgeory 1"} products={[]} />
       <CategoriesCard id={1} name={"Catgeory 1"} products={[]} />
       <CategoriesCard id={1} name={"Catgeory 1"} products={[]} />
