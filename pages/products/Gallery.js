@@ -1,18 +1,10 @@
 import { useState } from "react";
 
-export const Gallery = () => {
-  var images = [
-    "https://via.placeholder.com/450",
-    "https://via.placeholder.com/250",
-    "https://via.placeholder.com/150",
-    "https://via.placeholder.com/550",
-  ];
+export const Gallery = ({images}) => {
+  if (!images) return
+  var images = s.map((image) => image.image)
   const [bigImage, setBigImage] = useState(images[0]);
-  const [smallImages, setSmallImages] = useState([
-    images[1],
-    images[2],
-    images[3],
-  ]);
+  const [smallImages, setSmallImages] = useState(images.slice(1, images.length));
   const showImage = (image) => {
     setSmallImages(images.filter((im) => im != image));
     setBigImage(image);
@@ -25,7 +17,7 @@ export const Gallery = () => {
             return (
               <img
                 key={i}
-                src={image}
+                src={"http://127.0.0.1:8000/media"+image}
                 className="max-w-[60px] max-h-[60px] cursor-pointer md:mb-2"
                 onClick={() => showImage(image)}
               />
@@ -33,8 +25,8 @@ export const Gallery = () => {
           })}
         </div>
         <img
-          src={bigImage}
-          className="max-sm:max-w-[300px] max-sm:max-h-[300px] max-md:max-w-[400px] max-h-[400px]"
+          src={"http://127.0.0.1:8000/media"+bigImage}
+          className="max-sm:w-[300px] max-sm:h-[300px] max-md:w-[400px] h-[400px]"
         />
       </div>
     </section>
