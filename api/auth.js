@@ -101,7 +101,6 @@ export const useSignup = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const res = usePOST("signup/", { data: form }).then((res) => {
-      console.log(res);
       if (res.type == "error") handleNotification(res);
       if (res.type == "success") {
         router.replace("/login");
