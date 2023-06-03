@@ -7,23 +7,23 @@ import { useRouter } from "next/router";
 export const useWishList = () => {
   const [refresh, setRefresh] = useState(false);
   const [products, setProducts] = useState([]);
-  const { handleNotification } = useStateContext();
+  const { handleNotification, token } = useStateContext();
 
   useEffect(() => {
-    async function getProducts(){
-      return await useGET(`wish-list/products/`);
-    }
-    const res = getProducts()
-    if (res?.type == "error") handleNotification(res);
-    if (res?.typ == "success") setProducts(res?.data);
+    useGET(`wish-list/products/`).then((res)=>{
+      if (res?.type == "error") handleNotification(res);
+      if (res?.type == "success") setProducts(res?.data);
+    });
   }, [refresh]);
 
   const handleDelete = (id) => {
-    const res = usePOST(`wish-list/delete-product/`, { productID: id });
-    if (res?.type == "error") handleNotification(res);
-    if (res?.typ == "success") {
-      setRefresh(!refresh);
-    }
+    usePOST(`wish-list/delete-product/`, {data:{ productID: id }, token:token}).then((res)=>{
+      handleNotification(res);
+      console.log(res)
+      if (res?.type == "success"){
+        setRefresh(!refresh);
+      } 
+    });
   };
 
   return { products, handleDelete };
@@ -34,18 +34,29 @@ export const useProductInWishList = (id) => {
   const router = useRouter();
 
   const { handleNotification, token } = useStateContext();
-  let res;
+  
+
+  useEffect(()=>{
+    useGET(`wish-list/has-product/${id}`, {token:token}).then((res)=>{
+        setAdded(res.data)
+    })
+  },[])
+
+  
   const handleAddToWishList = () => {
     if (!token) {
       router.replace("/login");
       return;
     }
     if (!added) {
-      res = usePOST(`wish-list/add-product/`, { productID: id });
+      usePOST(`wish-list/add-product/`, {data:{ product_id: id }, token:token}).then((res)=> {
+        handleNotification(res);
+      });
     } else {
-      res = usePOST(`wish-list/delete-product/`, { productID: id });
+      usePOST(`wish-list/delete-product/`, {data:{ product_id: id }, token:token}).then((res)=> {
+        handleNotification(res);
+      });;
     }
-    handleNotification(res);
     setAdded(!added);
   };
   return { handleAddToWishList, added };
