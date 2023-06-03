@@ -128,6 +128,7 @@ export const FiltersSideBar = ({ setFilter, filter }) => {
   const [open, setOpen] = useState(false);
   const sideBarRef = useRef(null);
   const { categories } = useGetCategories({});
+
   useEffect(() => {
     function handleClickOutside(event) {
       if (sideBarRef.current && sideBarRef.current.contains(event.target)) {
@@ -154,80 +155,19 @@ export const FiltersSideBar = ({ setFilter, filter }) => {
         } border absolute z-30 border-r-slate-300 bg-gray-50 flex-col w-64`}
       >
         <ToggleSideBarButton open={open} setOpen={setOpen} />
-        <div className="overflow-y-auto text-gray-900">
+        <div className="hover:overflow-y-auto overflow-y-hidden  text-gray-900">
           <div className="p-2">
             <ul className="list-none p-0 m-0">
               <PriceFilter filter={filter} setFilter={setFilter} />
               <RatingFilter filter={filter} setFilter={setFilter} />
-              {categories.map((category) => {
+              {categories.map((category) => (
                 <CategoryItem
                   id={category.id}
                   name={category.name}
                   filter={filter}
                   setFilter={setFilter}
-                />;
-              })}
-
-              <CategoryItem
-                id={2}
-                name="category"
-                filter={filter}
-                setFilter={setFilter}
-              />
-              <CategoryItem
-                id={3}
-                name="category"
-                filter={filter}
-                setFilter={setFilter}
-              />
-              <CategoryItem
-                id={4}
-                name="category"
-                filter={filter}
-                setFilter={setFilter}
-              />
-              <CategoryItem
-                id={5}
-                name="category"
-                filter={filter}
-                setFilter={setFilter}
-              />
-              <CategoryItem
-                id={6}
-                name="category"
-                filter={filter}
-                setFilter={setFilter}
-              />
-              <CategoryItem
-                id={7}
-                name="category"
-                filter={filter}
-                setFilter={setFilter}
-              />
-              <CategoryItem
-                id={8}
-                name="category"
-                filter={filter}
-                setFilter={setFilter}
-              />
-              <CategoryItem
-                id={9}
-                name="category"
-                filter={filter}
-                setFilter={setFilter}
-              />
-              <CategoryItem
-                id={10}
-                name="category"
-                filter={filter}
-                setFilter={setFilter}
-              />
-              <CategoryItem
-                id={11}
-                name="category"
-                filter={filter}
-                setFilter={setFilter}
-              />
+                />
+              ))}
             </ul>
           </div>
         </div>
