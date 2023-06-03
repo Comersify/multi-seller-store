@@ -50,7 +50,7 @@ export default function Products() {
         <FiltersSideBar filter={filter} setFilter={setFilter} />
         <div className="flex-1 pl-6 pt-6 h-full">
           <div className="flex max-sm:block itmes-center justify-between px-4 pb-4 md:mr-10">
-            <div className="flex max-sm:py-4 items-center">
+            <div className="flex max-sm:py-4 items-start max-w-[330px]">
               <OrderBy
                 onClick={() => setFilter({ ...filter, orderBy: "price" })}
                 text="Price"
@@ -69,138 +69,21 @@ export default function Products() {
             />
           </div>
           <div className="hover:overflow-y-auto overflow-hidden h-[90vh] p-4 max-sm:-mb-[71px]">
-            <div className="flex items-center justify-start flex-wrap gap-4 pb-32 relative">
+            <div className="flex items-start justify-start flex-wrap gap-4 pb-32 relative">
               {products.map((product) => {
                 return (
                   <ProductCard
+                    key={product.id}
+                    id={product.id}
                     title={product.title}
                     rating={product.rating}
                     price={product.price}
                     image={product.image}
-                    discount={product.discount}
+                    orders={product.orders}
+                    discount={product.discount_value}
                   />
                 );
               })}
-              <ProductCard
-                id={4}
-                title="product title"
-                rating={3}
-                price={98}
-                image="https://via.placeholder.com/150"
-                discount={10}
-              />
-              <ProductCard
-                id={4}
-                title="product title"
-                rating={3}
-                price={98}
-                image="https://via.placeholder.com/150"
-                discount={10}
-              />
-              <ProductCard
-                id={4}
-                title="product title"
-                rating={3}
-                price={98}
-                image="https://via.placeholder.com/150"
-                discount={10}
-              />
-              <ProductCard
-                id={4}
-                title="product title"
-                rating={3}
-                price={98}
-                image="https://via.placeholder.com/150"
-                discount={10}
-              />
-              <ProductCard
-                id={4}
-                title="product title"
-                rating={3}
-                price={98}
-                image="https://via.placeholder.com/150"
-                discount={10}
-              />
-              <ProductCard
-                id={4}
-                title="product title"
-                rating={3}
-                price={98}
-                image="https://via.placeholder.com/150"
-                discount={10}
-              />
-              <ProductCard
-                id={4}
-                title="product title"
-                rating={3}
-                price={98}
-                image="https://via.placeholder.com/150"
-                discount={10}
-              />
-              <ProductCard
-                id={4}
-                title="product title"
-                rating={3}
-                price={98}
-                image="https://via.placeholder.com/150"
-                discount={10}
-              />
-              <ProductCard
-                id={4}
-                title="product title"
-                rating={3}
-                price={98}
-                image="https://via.placeholder.com/150"
-                discount={10}
-              />
-              <ProductCard
-                id={4}
-                title="product title"
-                rating={3}
-                price={98}
-                image="https://via.placeholder.com/150"
-                discount={10}
-              />
-              <ProductCard
-                id={4}
-                title="product title"
-                rating={3}
-                price={98}
-                image="https://via.placeholder.com/150"
-                discount={10}
-              />
-              <ProductCard
-                id={4}
-                title="product title"
-                rating={3}
-                price={98}
-                image="https://via.placeholder.com/150"
-                discount={10}
-              />
-              <ProductCard
-                id={4}
-                title="product title"
-                rating={3}
-                price={98}
-                image="https://via.placeholder.com/150"
-                discount={10}
-              />
-              <ProductCard
-                id={4}
-                title="product title"
-                rating={3}
-                price={98}
-                image="https://via.placeholder.com/150"
-                discount={10}
-              />
-              <ProductCard
-                id={4}
-                title="product title"
-                rating={3}
-                price={98}
-                image="https://via.placeholder.com/150"
-                discount={10}
-              />
             </div>
           </div>
         </div>
