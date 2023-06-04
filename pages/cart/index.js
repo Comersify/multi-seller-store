@@ -34,26 +34,16 @@ function Cart() {
                     order.product__price -
                     discountCalc(order.product__price, order.product__discount)
                   }
+                  priceBeforeDiscount={order.product__price}
                 />
               );
             })}
           </div>
           <CheckoutCard
             usedCoupons={products?.coupons}
-            discount={products?.orders?.reduce(
-              (accumulator, currentObject) =>
-                accumulator +
-                discountCalc(
-                  currentObject.product__price,
-                  currentObject.product__discount
-                ),
-              0
-            )}
-            subTotal={products?.orders?.reduce(
-              (accumulator, currentObject) =>
-                accumulator + currentObject.product__price,
-              0
-            )}
+            discount={products?.checkout?.discount?.toFixed(2)}
+            subTotal={products?.checkout?.sub_total?.toFixed(2)}
+            total={products?.checkout?.total?.toFixed(2)}
           />
         </div>
       </main>
