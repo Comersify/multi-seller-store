@@ -69,8 +69,9 @@ export const useAddProductToCart = (id) => {
       },
       token: token,
     };
-    const res = await usePOST(`cart/add-product/`, conf);
-    handleNotification(res);
+    usePOST(`cart/add-product/`, conf).then((res)=>{
+      handleNotification(res);
+    });
   };
   const addPackID = (id) => {
     if (packID == id) setPackID(false);
