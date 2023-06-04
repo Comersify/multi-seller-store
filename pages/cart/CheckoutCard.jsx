@@ -24,7 +24,7 @@ const ApplyCoupon = ({ handleApply, setCoupon, coupon }) => {
   );
 };
 
-export const CheckoutCard = ({ subTotal = 0, discount = 0, usedCoupons }) => {
+export const CheckoutCard = ({total = 0, subTotal = 0, discount = 0, usedCoupons }) => {
   const { setCoupon, handleApply, setCoupons, coupon, coupons } =
     useGetCouponValue();
   useEffect(() => {
@@ -61,16 +61,16 @@ export const CheckoutCard = ({ subTotal = 0, discount = 0, usedCoupons }) => {
         })}
         <div className="flex items-center justify-between mb-2">
           <p className="text-lg font-bold text-gray-500">SubTotal:</p>
-          <p className="text-lg font-bold">${subTotal.toFixed(2)}</p>
+          <p className="text-lg font-bold">${subTotal}</p>
         </div>
         <div className="flex items-center justify-between mb-2 pb-2 border-0 border-b-2 border-b-gray-400">
           <p className="text-lg font-bold text-gray-500">Discount:</p>
-          <p className="text-lg font-bold">${discount.toFixed(2)}</p>
+          <p className="text-lg font-bold">${discount}</p>
         </div>
         <div className="flex items-center justify-between mb-2 overflow-hidden">
           <p className="font-bold text-lg">Total:</p>
           <p className="text-lg font-bold">
-            ${(subTotal - discount - coupons_value).toFixed(2)}
+            ${(total - coupons_value).toFixed(2)}
           </p>
         </div>
         <Link
