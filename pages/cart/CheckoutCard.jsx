@@ -1,5 +1,7 @@
 import { useGetCouponValue } from "@/api/coupon";
 import Link from "next/link";
+import { discountCalc } from "../utils";
+import { useEffect } from "react";
 
 const ApplyCoupon = ({ handleApply, setCoupon, coupon }) => {
   return (
@@ -22,9 +24,15 @@ const ApplyCoupon = ({ handleApply, setCoupon, coupon }) => {
   );
 };
 
-export const CheckoutCard = ({ subTotal, discount, shipping }) => {
-  const { setCoupon, handleApply, coupon, coupons, values } =
+export const CheckoutCard = ({ subTotal = 0, discount = 0, usedCoupons }) => {
+  const { setCoupon, handleApply, setCoupons, coupon, coupons } =
     useGetCouponValue();
+  useEffect(() => {
+    setCoupons(usedCoupons);
+  }, [usedCoupons]);
+  console.log(coupons);
+  var coupons_value = 0;
+
   return (
     <div className="relative">
       <div className="fixed max-[1150px]:relative bg-gray-100 rounded-md p-4">
@@ -33,32 +41,36 @@ export const CheckoutCard = ({ subTotal, discount, shipping }) => {
           setCoupon={setCoupon}
           coupon={coupon}
         />
-        <div className="flex items-center justify-between mb-2">
-          {coupons.map((c) => (
-            <>
+        {coupons?.map((c) => {
+          const value = discountCalc(
+            c.product__price,
+            c.coupon__percentage
+          ).toFixed(2);
+          coupons_value += parseFloat(value);
+          return (
+            <div
+              key={c.coupon__code}
+              className="flex items-center justify-between mb-2"
+            >
               <p className="text-lg font-bold text-gray-500">
-                Coupon [{c.code}]:
+                Coupon [{c.coupon__code}]:
               </p>
-              <p className="text-lg font-bold">${c.value}</p>
-            </>
-          ))}
-        </div>
+              <p className="text-lg font-bold">${value}</p>
+            </div>
+          );
+        })}
         <div className="flex items-center justify-between mb-2">
           <p className="text-lg font-bold text-gray-500">SubTotal:</p>
-          <p className="text-lg font-bold">${subTotal}</p>
-        </div>
-        <div className="flex items-center justify-between mb-2">
-          <p className="text-lg font-bold text-gray-500">Discount:</p>
-          <p className="text-lg font-bold">${discount}</p>
+          <p className="text-lg font-bold">${subTotal.toFixed(2)}</p>
         </div>
         <div className="flex items-center justify-between mb-2 pb-2 border-0 border-b-2 border-b-gray-400">
-          <p className="text-lg font-bold text-gray-500">Shipping:</p>
-          <p className="text-lg font-bold">${shipping}</p>
+          <p className="text-lg font-bold text-gray-500">Discount:</p>
+          <p className="text-lg font-bold">${discount.toFixed(2)}</p>
         </div>
         <div className="flex items-center justify-between mb-2 overflow-hidden">
           <p className="font-bold text-lg">Total:</p>
           <p className="text-lg font-bold">
-            ${subTotal - discount + shipping - values}
+            ${(subTotal - discount - coupons_value).toFixed(2)}
           </p>
         </div>
         <Link
