@@ -7,30 +7,37 @@ import { useRouter } from "next/router";
 export const useCart = () => {
   const [refresh, setRefresh] = useState(false);
   const [products, setproducts] = useState([]);
-  const { handleNotification } = useStateContext();
+  const { handleNotification, token } = useStateContext();
 
   useEffect(() => {
-    async function getCart(){
-      return await useGET(`cart/products/`);
-    }
-    const res = getCart()
-    if (res?.type == "error") handleNotification(res);
-    if (res?.typ == "success") setproducts(res?.data);
+    useGET(`cart/products/`, { token: token }).then((res) => {
+      if (res?.type == "error") handleNotification(res);
+      if (res?.type == "success") setproducts(res?.data);
+      console.log(res?.data);
+    });
   }, [refresh]);
 
-  const handleDelete = async (id) => {
-    const res = await usePOST(`cart/delete-product/`, { productID: id });
-    handleNotification(res);
-    if (res?.type == "success") setRefresh(!refresh);
+  const handleDelete = (id) => {
+    usePOST(`cart/delete-product/`, {
+      data: { order_id: id },
+      token: token,
+    }).then((res) => {
+      handleNotification(res);
+      if (res?.type == "success") setRefresh(!refresh);
+    });
   };
 
-  const handleUpdate = async (id, quantity) => {
-    const res = await usePOST(`cart/update-products/`, {
-      productID: id,
-      quantity: quantity,
+  const handleUpdate = (id, quantity) => {
+    usePOST(`cart/update-product/`, {
+      data: {
+        order_id: id,
+        quantity: quantity,
+      },
+      token: token,
+    }).then((res) => {
+      if (res?.type == "error") handleNotification(res);
+      if (res?.type == "success") setRefresh(!refresh);
     });
-    handleNotification(res);
-    if (res?.type == "success") setRefresh(!refresh);
   };
   return { products, handleUpdate, handleDelete };
 };
@@ -42,10 +49,13 @@ export const useAddProductToCart = (id) => {
 
   const handleAddProductToCart = async (e, hasPacks) => {
     e.preventDefault();
-    if (hasPacks){
-      if (!packID){
-        handleNotification({type:"error", message:"Please chose your pack"});
-        return
+    if (hasPacks) {
+      if (!packID) {
+        handleNotification({
+          type: "error",
+          message: "Please chose your pack",
+        });
+        return;
       }
     }
     if (!token) {
@@ -53,14 +63,13 @@ export const useAddProductToCart = (id) => {
       return;
     }
     const conf = {
-      data:  {
-      product_id: id,
-      pack_id: packID,
-    }, 
-    token: token
-    } 
-    console.log(conf)
-    const res = await usePOST(`cart/add-product/`,conf);
+      data: {
+        product_id: id,
+        pack_id: packID,
+      },
+      token: token,
+    };
+    const res = await usePOST(`cart/add-product/`, conf);
     handleNotification(res);
   };
   const addPackID = (id) => {
