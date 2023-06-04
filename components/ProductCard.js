@@ -19,6 +19,7 @@ export const ProductItem = ({
   productID,
   name,
   discount,
+  priceBeforeDiscount,
   price,
   num,
   pack,
@@ -69,7 +70,12 @@ export const ProductItem = ({
             </Link>
             <div className="mt-6 max-sm:mt-0">
               <p className="text-gray-500 max-sm:hidden text-sm">Price:</p>
-              <p className="text-lg font-semibold">${price.toFixed(2)}</p>
+              <p className="text-lg flex font-semibold items-end">
+                ${price.toFixed(2)}
+                {price != priceBeforeDiscount && <p className="ml-1 text-gray-500 text-[15px] line-through">
+                  ${priceBeforeDiscount}
+                </p>}
+              </p>
               <p className="text-gray-500 px-1 max-w-[150px] rounded-md border-gray-300 border font-bold flex items-center text-md mt-2 max-sm:mt-0">
                 Pack:{" "}
                 <p className="text-md ml-2 text-gray-900 font-semibold">
