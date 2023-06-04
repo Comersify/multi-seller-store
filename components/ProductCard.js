@@ -16,11 +16,12 @@ const DiscountTag = ({ value }) => {
 export const ProductItem = ({
   id,
   image,
+  productID,
   name,
   discount,
   price,
   num,
-  shipping,
+  pack,
   handleDelete,
   handleUpdate,
 }) => {
@@ -37,39 +38,43 @@ export const ProductItem = ({
         return;
       }
       if (quantity > 1) {
+        handleUpdate(id, quantity - 1);
         setQuantity(quantity - 1);
-        handleUpdate(id, quantity);
         return;
       }
     }
     if (action == "inc") {
+      handleUpdate(id, quantity + 1);
       setQuantity(quantity + 1);
-      handleUpdate(id, quantity);
       return;
     }
   };
   return (
-    <div className="w-[600px] max-sm:w-[220px] flex flex-col justify-center p-5">
-      <div className="flex items-center rounded-md border-b-2 max-sm:border-2 pb-4 max-sm:pb-0 max-sm:block relative">
-        <Image
-          src={image}
+    <div className="w-[600px] max-sm:w-[215px] flex flex-col justify-center p-5">
+      <div className="flex items-start rounded-md border-b-2 max-sm:border-2 pb-4 max-sm:pb-0 max-sm:block relative">
+        <img
+          src={"http://127.0.0.1:8000/media" + image}
           alt="Product Image"
           width={150}
           height={150}
-          className="max-sm:w-full object-cover max-sm:rounded-none rounded-md"
+          className="max-sm:w-full h-[130px] w-[130px] object-cover max-sm:rounded-none rounded-md"
         />
-        <DiscountTag value={discount} />
-        <div className="w-full flex max-sm:px-2 px-4 justify-between max-sm:block">
+        {discount && <DiscountTag value={discount} />}
+        <div className="w-full h-full flex max-sm:px-2 px-4 justify-between max-sm:block">
           <div>
-            <h2 className="font-semibold text-lg">{name}</h2>
-            <div className="mt-4 max-sm:mt-0">
+            <Link href={`products/${productID}`}>
+              <h2 className="font-semibold hover:underline hover:text-blue-500 text-lg">
+                {name}
+              </h2>
+            </Link>
+            <div className="mt-6 max-sm:mt-0">
               <p className="text-gray-500 max-sm:hidden text-sm">Price:</p>
-              <p className="text-lg font-semibold">${price}</p>
-              <p className="text-gray-500 text-sm mt-2 max-sm:mt-0">
-                Shipping:
-              </p>
-              <p className="text-sm font-semibold">
-                {shipping > 0 ? `$${shipping}` : "Free Shipping"}
+              <p className="text-lg font-semibold">${price.toFixed(2)}</p>
+              <p className="text-gray-500 px-1 max-w-[150px] rounded-md border-gray-300 border font-bold flex items-center text-md mt-2 max-sm:mt-0">
+                Pack:{" "}
+                <p className="text-md ml-2 text-gray-900 font-semibold">
+                  {pack}
+                </p>
               </p>
             </div>
           </div>
@@ -108,13 +113,27 @@ export const ProductItem = ({
   );
 };
 
-export const ProductCard = ({ id, title, rating, price, image, discount, orders }) => {
-  const acctualPrice = (price - (discount * price) / 100) 
+export const ProductCard = ({
+  id,
+  title,
+  rating,
+  price,
+  image,
+  discount,
+  orders,
+}) => {
+  const acctualPrice = price - (discount * price) / 100;
   return (
     <Link href={`/products/${id}`}>
       <div className="w-52 border border-gray-200 rounded relative overflow-hidden hover:shadow-sm">
-        <img width={600} height={600} src={"http://127.0.0.1:8000/media" + image } className="w-full h-[13rem]" alt="Product Image" />
-        {discount ? <DiscountTag value={discount} /> : ''}
+        <img
+          width={600}
+          height={600}
+          src={"http://127.0.0.1:8000/media" + image}
+          className="w-full h-[13rem]"
+          alt="Product Image"
+        />
+        {discount ? <DiscountTag value={discount} /> : ""}
         <div className="px-4 py-2">
           <h2 className="font-bold text-lg text-gray-900">{title}</h2>
           <div className="flex justify-between items-center font-bold text-sm text-gray-400">
@@ -126,11 +145,17 @@ export const ProductCard = ({ id, title, rating, price, image, discount, orders 
                 {discount ? acctualPrice.toFixed(2) : price}
                 <div className="text-sm font-bold text-gray-900">$</div>
               </div>
-              {discount ? <div className="px-2 self-end text-sm line-through text-gray-500">
-                ${price}
-              </div> : ''}
+              {discount ? (
+                <div className="px-2 self-end text-sm line-through text-gray-500">
+                  ${price}
+                </div>
+              ) : (
+                ""
+              )}
             </div>
-            <p className="text-gray-500 self-end text-sm font-bold">{orders} orders</p>
+            <p className="text-gray-500 self-end text-sm font-bold">
+              {orders} orders
+            </p>
           </div>
         </div>
       </div>
