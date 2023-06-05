@@ -5,7 +5,7 @@ import useWithAuth from "../_authRouter";
 import { useCart } from "@/api/cart";
 import { discountCalc } from "../utils";
 function Cart() {
-  const { products, handleUpdate, handleDelete } = useCart();
+  const { products, handleUpdate, handleDelete, setRefresh } = useCart();
   if (products.length <= 0) return <p>Loading</p>;
   return (
     <>
@@ -40,6 +40,7 @@ function Cart() {
             })}
           </div>
           <CheckoutCard
+            refresh={setRefresh}
             usedCoupons={products?.coupons}
             discount={products?.checkout?.discount?.toFixed(2)}
             subTotal={products?.checkout?.sub_total?.toFixed(2)}
