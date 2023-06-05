@@ -11,12 +11,11 @@ export const DragAndDrop = ({ className, label, url, setSettings }) => {
   function handleDragOver(event) {
     event.preventDefault();
   }
-
   useEffect(()=>{
-      const dropzone = document.getElementById("dropzone");
-        dropzone.style.backgroundImage = `url(${url || "/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Favatar.cbe40908.jpeg&w=256&q=75"})`;
+    const dropzone = document.getElementById("dropzone");
+        dropzone.style.backgroundImage = `url(${url ? "http://127.0.0.1:8000"+url : "/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Favatar.cbe40908.jpeg&w=256&q=75"})`;
         dropzone.style.backgroundSize = "100%";
-  },[])
+  },[url])
   function handleDrop(event) {
     event.preventDefault();
     const file = event.dataTransfer.files[0];
