@@ -4,6 +4,7 @@ import { Title } from "@/components/shared/Title";
 import Head from "next/head";
 import useWithAuth from "../_authRouter";
 import { useWishList } from "@/api/wish-list";
+import { discountCalc } from "../utils";
 
 function Profile() {
   const { handleDelete, products } = useWishList();
@@ -14,8 +15,13 @@ function Profile() {
       </Head>
       <main className="min-h-[68vh] px-16 pt-8 mb-24">
         <Title text="My Wish List" />
-        <div className="mt-8 flex flex-wrap gap-8">
-          {products.map((product) => {
+        <div className="mt-8 flex flex-wrap gap-8 items-center">
+          {products.length <= 0 && 
+          <div className="w-full h-full flex items-center justify-center">
+            <p className="text-gray-500 text-xl font-bold mt-56">Your wish list is empty</p> 
+          </div>
+          }
+          {products.length > 0 && products?.map((product) => (
             <div className="relative">
               <div className="absolute top-0 right-0 z-10">
                 <button
@@ -28,120 +34,14 @@ function Profile() {
               <ProductCard
                 id={product.id}
                 title={product.title}
-                rating={product.rating}
-                price={product.price - (product.discount * product.price) / 100}
+                rating={product.reviews}
+                price={product.price}
                 image={product.image}
-                discount={product.discount}
+                orders={product.orders}
+                discount={product.discount_value}
               />
-            </div>;
-          })}
-          <div className="relative">
-            <div className="absolute top-0 right-1 z-10">
-              <button
-                onClick={() => {}}
-                className="text-sm text-red-400 hover:text-red-500 rounded-full p-1 bg-red-100 focus:outline-none mt-1"
-              >
-                <XIcon />
-              </button>
             </div>
-            <ProductCard
-              id={4}
-              title="product title"
-              rating={3}
-              price={98}
-              image="https://via.placeholder.com/150"
-              discount={10}
-            />
-          </div>
-          <div className="relative">
-            <div className="absolute top-0 right-1 z-10">
-              <button
-                onClick={() => {}}
-                className="text-sm text-red-400 hover:text-red-500 rounded-full p-1 bg-red-100 focus:outline-none mt-1"
-              >
-                <XIcon />
-              </button>
-            </div>
-            <ProductCard
-              id={4}
-              title="product title"
-              rating={3}
-              price={98}
-              image="https://via.placeholder.com/150"
-              discount={10}
-            />
-          </div>
-          <div className="relative">
-            <div className="absolute top-0 right-1 z-10">
-              <button
-                onClick={() => {}}
-                className="text-sm text-red-400 hover:text-red-500 rounded-full p-1 bg-red-100 focus:outline-none mt-1"
-              >
-                <XIcon />
-              </button>
-            </div>
-            <ProductCard
-              id={4}
-              title="product title"
-              rating={3}
-              price={98}
-              image="https://via.placeholder.com/150"
-              discount={10}
-            />
-          </div>
-          <div className="relative">
-            <div className="absolute top-0 right-1 z-10">
-              <button
-                onClick={() => {}}
-                className="text-sm text-red-400 hover:text-red-500 rounded-full p-1 bg-red-100 focus:outline-none mt-1"
-              >
-                <XIcon />
-              </button>
-            </div>
-            <ProductCard
-              id={4}
-              title="product title"
-              rating={3}
-              price={98}
-              image="https://via.placeholder.com/150"
-            />
-          </div>
-          <div className="relative">
-            <div className="absolute top-0 right-1 z-10">
-              <button
-                onClick={() => {}}
-                className="text-sm text-red-400 hover:text-red-500 rounded-full p-1 bg-red-100 focus:outline-none mt-1"
-              >
-                <XIcon />
-              </button>
-            </div>
-            <ProductCard
-              id={4}
-              title="product title"
-              rating={3}
-              price={98}
-              image="https://via.placeholder.com/150"
-              discount={10}
-            />
-          </div>
-          <div className="relative">
-            <div className="absolute top-0 right-1 z-10">
-              <button
-                onClick={() => {}}
-                className="text-sm text-red-400 hover:text-red-500 rounded-full p-1 bg-red-100 focus:outline-none mt-1"
-              >
-                <XIcon />
-              </button>
-            </div>
-            <ProductCard
-              id={4}
-              title="product title"
-              rating={3}
-              price={98}
-              image="https://via.placeholder.com/150"
-              discount={10}
-            />
-          </div>
+          ))}
         </div>
       </main>
     </>
