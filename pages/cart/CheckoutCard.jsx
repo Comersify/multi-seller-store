@@ -1,6 +1,5 @@
 import { useGetCouponValue } from "@/api/coupon";
 import Link from "next/link";
-import { discountCalc } from "../utils";
 import { useEffect } from "react";
 
 const ApplyCoupon = ({ handleApply, setCoupon, coupon }) => {
@@ -24,15 +23,12 @@ const ApplyCoupon = ({ handleApply, setCoupon, coupon }) => {
   );
 };
 
-export const CheckoutCard = ({total = 0, subTotal = 0, discount = 0, usedCoupons }) => {
+export const CheckoutCard = ({refresh, total = 0, subTotal = 0, discount = 0, usedCoupons }) => {
   const { setCoupon, handleApply, setCoupons, coupon, coupons } =
-    useGetCouponValue();
+    useGetCouponValue(refresh);
   useEffect(() => {
     setCoupons(usedCoupons);
   }, [usedCoupons]);
-  console.log(coupons);
-  var coupons_value = 0;
-
   return (
     <div className="relative">
       <div className="fixed max-[1150px]:relative bg-gray-100 rounded-md p-4">
@@ -42,11 +38,6 @@ export const CheckoutCard = ({total = 0, subTotal = 0, discount = 0, usedCoupons
           coupon={coupon}
         />
         {coupons?.map((c) => {
-          const value = discountCalc(
-            c.product__price,
-            c.coupon__percentage
-          ).toFixed(2);
-          coupons_value += parseFloat(value);
           return (
             <div
               key={c.coupon__code}
@@ -55,7 +46,7 @@ export const CheckoutCard = ({total = 0, subTotal = 0, discount = 0, usedCoupons
               <p className="text-lg font-bold text-gray-500">
                 Coupon [{c.coupon__code}]:
               </p>
-              <p className="text-lg font-bold">${value}</p>
+              <p className="text-lg font-bold">${c.coupon__value}</p>
             </div>
           );
         })}
@@ -70,7 +61,7 @@ export const CheckoutCard = ({total = 0, subTotal = 0, discount = 0, usedCoupons
         <div className="flex items-center justify-between mb-2 overflow-hidden">
           <p className="font-bold text-lg">Total:</p>
           <p className="text-lg font-bold">
-            ${(total - coupons_value).toFixed(2)}
+            ${total}
           </p>
         </div>
         <Link
