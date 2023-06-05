@@ -3,7 +3,7 @@ import { useState } from "react";
 import { usePOST } from "./utils";
 
 // coupon
-export const useGetCouponValue = () => {
+export const useGetCouponValue = (refresh) => {
   const [coupon, setCoupon] = useState("");
   const [coupons, setCoupons] = useState([]);
   const { handleNotification, token } = useStateContext();
@@ -28,6 +28,7 @@ export const useGetCouponValue = () => {
       if (res?.type == "success") {
         setCoupons([...coupons, res?.data]);
         setCoupon("");
+        refresh((ref) => !ref)
       }
     });
   };
