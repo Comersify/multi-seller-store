@@ -2,27 +2,33 @@ import { useStateContext } from "@/context/contextProvider";
 import { useEffect, useState } from "react";
 import { useGET, usePOST } from "./utils";
 import { useRouter } from "next/router";
+import { useRefresh } from "./auth";
 
 // wish list
 export const useWishList = () => {
   const [refresh, setRefresh] = useState(false);
   const [products, setProducts] = useState([]);
-  const { handleNotification, token } = useStateContext();
+  const { handleNotification, token, isTokenExpired } = useStateContext();
 
   useEffect(() => {
-    useGET(`wish-list/products/`).then((res)=>{
+    if (isTokenExpired()) {
+      useRefresh();
+    }
+    useGET(`wish-list/products/`, { token: token }).then((res) => {
       if (res?.type == "error") handleNotification(res);
       if (res?.type == "success") setProducts(res?.data);
     });
   }, [refresh]);
 
   const handleDelete = (id) => {
-    usePOST(`wish-list/delete-product/`, {data:{ productID: id }, token:token}).then((res)=>{
+    usePOST(`wish-list/delete-product/`, {
+      data: { product_id: id },
+      token: token,
+    }).then((res) => {
       handleNotification(res);
-      console.log(res)
-      if (res?.type == "success"){
+      if (res?.type == "success") {
         setRefresh(!refresh);
-      } 
+      }
     });
   };
 
@@ -33,29 +39,39 @@ export const useProductInWishList = (id) => {
   const [added, setAdded] = useState();
   const router = useRouter();
 
-  const { handleNotification, token } = useStateContext();
-  
+  const { handleNotification, token, isTokenExpired } = useStateContext();
 
-  useEffect(()=>{
-    useGET(`wish-list/has-product/${id}`, {token:token}).then((res)=>{
-        setAdded(res.data)
-    })
-  },[])
+  useEffect(() => {
+    if (isTokenExpired()) {
+      useRefresh();
+    }
+    useGET(`wish-list/has-product/${id}`, { token: token }).then((res) => {
+      setAdded(res.data);
+    });
+  }, []);
 
-  
   const handleAddToWishList = () => {
+    if (isTokenExpired()) {
+      useRefresh();
+    }
     if (!token) {
       router.replace("/login");
       return;
     }
     if (!added) {
-      usePOST(`wish-list/add-product/`, {data:{ product_id: id }, token:token}).then((res)=> {
+      usePOST(`wish-list/add-product/`, {
+        data: { product_id: id },
+        token: token,
+      }).then((res) => {
         handleNotification(res);
       });
     } else {
-      usePOST(`wish-list/delete-product/`, {data:{ product_id: id }, token:token}).then((res)=> {
+      usePOST(`wish-list/delete-product/`, {
+        data: { product_id: id },
+        token: token,
+      }).then((res) => {
         handleNotification(res);
-      });;
+      });
     }
     setAdded(!added);
   };
