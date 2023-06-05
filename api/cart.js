@@ -2,22 +2,29 @@ import { useStateContext } from "@/context/contextProvider";
 import { useGET, usePOST } from "./utils";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { useRefresh } from "./auth";
 
 // cart
 export const useCart = () => {
   const [refresh, setRefresh] = useState(false);
   const [products, setproducts] = useState([]);
-  const { handleNotification, token } = useStateContext();
+  const { handleNotification, token, isTokenExpired } = useStateContext();
 
   useEffect(() => {
+    if (isTokenExpired()) {
+      useRefresh();
+      console.log("refresh");
+    }
     useGET(`cart/products/`, { token: token }).then((res) => {
       if (res?.type == "error") handleNotification(res);
       if (res?.type == "success") setproducts(res?.data);
-      console.log(res?.data);
     });
   }, [refresh]);
 
   const handleDelete = (id) => {
+    if (isTokenExpired()) {
+      useRefresh();
+    }
     usePOST(`cart/delete-product/`, {
       data: { order_id: id },
       token: token,
@@ -28,6 +35,9 @@ export const useCart = () => {
   };
 
   const handleUpdate = (id, quantity) => {
+    if (isTokenExpired()) {
+      useRefresh();
+    }
     usePOST(`cart/update-product/`, {
       data: {
         order_id: id,
@@ -39,16 +49,19 @@ export const useCart = () => {
       if (res?.type == "success") setRefresh(!refresh);
     });
   };
-  return { products, handleUpdate, handleDelete };
+  return { products, handleUpdate, handleDelete, setRefresh };
 };
 
 export const useAddProductToCart = (id) => {
   const [packID, setPackID] = useState(false);
-  const { handleNotification, token } = useStateContext();
+  const { handleNotification, token, isTokenExpired } = useStateContext();
   const router = useRouter();
 
   const handleAddProductToCart = async (e, hasPacks) => {
     e.preventDefault();
+    if (isTokenExpired()) {
+      useRefresh();
+    }
     if (hasPacks) {
       if (!packID) {
         handleNotification({
@@ -69,7 +82,7 @@ export const useAddProductToCart = (id) => {
       },
       token: token,
     };
-    usePOST(`cart/add-product/`, conf).then((res)=>{
+    usePOST(`cart/add-product/`, conf).then((res) => {
       handleNotification(res);
     });
   };
