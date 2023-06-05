@@ -25,7 +25,7 @@ export const useRefresh = () => {
       });
     }
   }, []);
-  return {token}
+  return { token };
 };
 
 export const useSettings = () => {
@@ -39,17 +39,22 @@ export const useSettings = () => {
     password: "",
     passwordConfermation: "",
   });
-  const { handleNotification, token } = useStateContext();
+  const { handleNotification, token, isTokenExpired } = useStateContext();
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    usePOST("account/update/", { data: settings, token: token })
-      .then((res) => {
-        if (res?.type == "error") handleNotification(res);
-        if (res?.type == "success") handleNotification(res);
-      })
-      .catch(() => {});
+    if (isTokenExpired()) {
+      useRefresh();
+    }
+    usePOST("account/update/", { data: settings, token: token }).then((res) => {
+      if (res?.type == "error") handleNotification(res);
+      if (res?.type == "success") handleNotification(res);
+    });
   };
   useEffect(() => {
+    if (isTokenExpired()) {
+      useRefresh();
+    }
     useGET("account/info/", { token: token }).then((res) => {
       if (res?.type == "error") handleNotification(res);
       if (res?.type == "success") {
