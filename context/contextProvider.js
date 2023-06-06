@@ -4,7 +4,6 @@ export const StateContext = createContext();
 
 export const ContextProvider = ({ children }) => {
   const [token, setToken] = useState(false);
-  const [exp, setExp] = useState()
   const [image, setImage] = useState()
   const [notification, setNotifiction] = useState({
     type: null,
@@ -12,10 +11,10 @@ export const ContextProvider = ({ children }) => {
   });
 
   const handleToken = (data) => {
-    localStorage.setItem("refresh", data?.refresh);
-    setToken(data.access);
-    setExp(data.exp);
-    setImage(data.image);
+    localStorage.setItem("refresh", data.refresh);
+    localStorage.setItem("exp", data.exp);
+    setToken(data?.access);
+    setImage(data.image)
     return;
   };
 
@@ -30,10 +29,11 @@ export const ContextProvider = ({ children }) => {
   };
 
   function isTokenExpired() {
-  const tokenExpiration = new Date(exp).getTime();
-  const currentTime = new Date().getTime();
-  console.log("EXP")
-  return currentTime > tokenExpiration;
+    const exp = localStorage.getItem("exp");
+    const tokenExpiration = new Date(exp).getTime();
+    const currentTime = new Date().getTime();
+    console.log(currentTime > tokenExpiration)
+    return currentTime > tokenExpiration;
 }
 
   return (

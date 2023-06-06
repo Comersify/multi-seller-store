@@ -27,6 +27,7 @@ const CategoryItem = ({ setFilter, filter, name, id, subCategories }) => {
   const [open, setOpen] = useState(false);
   const handleOnClick = () => {
     let categories;
+    setOpen(!open);
     if (!open) {
       filter.categories.push(id);
       categories = filter.categories;
@@ -37,7 +38,6 @@ const CategoryItem = ({ setFilter, filter, name, id, subCategories }) => {
       ...filter,
       categories: categories,
     }));
-    setOpen(!open);
   };
   return (
     <li className="p-2">

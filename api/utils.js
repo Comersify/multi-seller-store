@@ -8,8 +8,12 @@ export const useGET = async (url, conf) => {
       "Content-Type": "application/json",
     },
   };
+  const myUrl = new URL(`${BASE_URL}/${url}`);
+  if (conf?.data){
+    myUrl.search = new URLSearchParams(conf?.data).toString();
+  }
   if (conf?.token) get.headers["Authorization"] =  conf.token
-  const results = await fetch(`${BASE_URL}/${url}`, get)
+  const results = await fetch(myUrl, get)
     .then((response) => {
       if (!response.ok) {
         return {
@@ -49,7 +53,6 @@ export const usePOST = async (url, conf) => {
   } else {
     post.body = JSON.stringify(conf?.data)
   }
-  
   if (conf?.token) post.headers["Authorization"] =  conf.token
 
   const results =  await fetch(`${BASE_URL}/${url}`, post)
