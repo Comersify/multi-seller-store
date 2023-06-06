@@ -162,6 +162,7 @@ export const FiltersSideBar = ({ setFilter, filter }) => {
               <RatingFilter filter={filter} setFilter={setFilter} />
               {categories.map((category) => (
                 <CategoryItem
+                  key={category.id}
                   id={category.id}
                   name={category.name}
                   filter={filter}
