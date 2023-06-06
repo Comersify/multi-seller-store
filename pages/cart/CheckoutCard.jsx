@@ -1,6 +1,7 @@
 import { useGetCouponValue } from "@/api/coupon";
 import Link from "next/link";
 import { useEffect } from "react";
+import { PaymentForm } from "./PaymentForm";
 
 const ApplyCoupon = ({ handleApply, setCoupon, coupon }) => {
   return (
@@ -30,8 +31,7 @@ export const CheckoutCard = ({refresh, total = 0, subTotal = 0, discount = 0, us
     setCoupons(usedCoupons);
   }, [usedCoupons]);
   return (
-    <div className="relative">
-      <div className="fixed max-[1150px]:relative bg-gray-100 rounded-md p-4">
+      <div className="max-sm:m-0 ml-8 border bg-gray-100 rounded-md p-4">
         <ApplyCoupon
           handleApply={handleApply}
           setCoupon={setCoupon}
@@ -64,13 +64,7 @@ export const CheckoutCard = ({refresh, total = 0, subTotal = 0, discount = 0, us
             ${total}
           </p>
         </div>
-        <Link
-          href="checkout"
-          className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-        >
-          Checkout
-        </Link>
+        <PaymentForm/>
       </div>
-    </div>
   );
 };

@@ -4,6 +4,7 @@ import { CheckoutCard } from "./CheckoutCard";
 import useWithAuth from "../_authRouter";
 import { useCart } from "@/api/cart";
 import { discountCalc } from "../utils";
+
 function Cart() {
   const { products, handleUpdate, handleDelete, setRefresh } = useCart();
   if (products.length <= 0) return <p>Loading</p>;
@@ -16,11 +17,12 @@ function Cart() {
         <h1 className="text-4xl font-bold py-6 px-4 max-sm:px-2">
           Shopping Cart
         </h1>
-        <div className="py-4 flex flex-wrap gap-y-2 px-0 justify-start">
-          <div className="max-sm:flex max-sm:flex-wrap max-sm:gap-y-1 max-sm:justify-start">
+        <div className="py-4 flex flex-wrap gap-y-2 px-0 justify-center">
+          <div className="max-sm:flex border justify-center rounded-md max-sm:overflow-visible max-sm:border-none max-sm:h-full h-[63.5vh] overflow-y-auto overflow-x-hidden max-sm:flex-wrap max-sm:gap-y-1 max-sm:justify-start">
             {products?.orders?.map((order) => {
               return (
                 <ProductItem
+                  key={order.id}
                   id={order.id}
                   productID={order.product__id}
                   handleUpdate={handleUpdate}
