@@ -73,8 +73,7 @@ function Orders() {
       <main className="flex pt-16 min-h-[70vh]  w-full flex-col text-gray-900 items-center justify-center">
         <Title text="Manage Your Orders" />
         <div className="p-16 flex flex-wrap gap-16 items-center justify-center">
-          <TrackingForm />
-          <Table /* data={orders} */ />
+          <Table data={orders} />
         </div>
       </main>
     </>

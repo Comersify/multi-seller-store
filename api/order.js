@@ -1,18 +1,31 @@
 import { useStateContext } from "@/context/contextProvider";
-import { useGET } from "./utils";
+import { useGET, usePOST } from "./utils";
 import { useEffect, useState } from "react";
-
+import { useRefresh } from "./auth";
 
 export const useGetOrders = () => {
   const [orders, setOrders] = useState([]);
-  const { handleNotification } = useStateContext();
+  const { handleNotification, token } = useStateContext();
   useEffect(() => {
-    async function getOrders(){
-      return await useGET("my-orders/");
-    }
-    const res = getOrders()
-    if (res?.type == "error") handleNotification(res);
-    if (res?.typ == "success") setOrders(res?.data);
+    useGET("my-orders/", { token: token }).then((res) => {
+      if (res?.type == "error") handleNotification(res);
+      if (res?.type == "success") setOrders(res?.data);
+    });
   }, []);
   return { orders };
+};
+
+export const useCreateOrder = () => {
+  const { handleNotification, token, isTokenExpired } = useStateContext();
+  const submit = (e, data) => {
+    e.preventDefault();
+    if (isTokenExpired()) {
+      useRefresh();
+    }
+    usePOST("order/create/", { data: data, token: token }).then((res) => {
+      if (res?.type == "success") handleNotification(res);
+      if (res?.type == "error") handleNotification(res);
+    });
+  };
+  return { submit };
 };

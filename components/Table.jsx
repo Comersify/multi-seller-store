@@ -31,7 +31,7 @@ const HeaderColumn = ({ children, onSort }) => {
   return (
     <th
       onClick={() => onSort()}
-      className="px-4 border border-t-0 border-b-0 border-l-0 border-r-gray-400 hover:bg-gray-200 text-center cursor-pointer py-2 bg-gray-100 text-sm font-bold text-gray-500  uppercase tracking-wider"
+      className="px-4 border border-t-0 border-b-0 border-l-0 border-r-gray-400 hover:bg-gray-200 text-center cursor-pointer bg-gray-100 text-sm font-bold text-gray-500  uppercase tracking-wider"
     >
       <div className="flex items-center justify-between ">
         <p className="mr-2">{children}</p>
@@ -105,7 +105,7 @@ const VisibleColumnButton = ({ cols, columns, onChange }) => {
               <li
                 key={column}
                 onClick={() => onChange(column)}
-                className="flex items-center justify-start mb-2 cursor-pointer"
+                className="flex items-center text-gray-900 justify-start mb-2 cursor-pointer"
               >
                 <input
                   type="checkbox"
@@ -113,7 +113,7 @@ const VisibleColumnButton = ({ cols, columns, onChange }) => {
                   checked={cols.includes(column)}
                   className="mr-2"
                 />
-                <p>{column}</p>
+                <p>{column.replace("_", " ").replace("_", "")}</p>
               </li>
             ))}
           </ul>
@@ -143,7 +143,7 @@ const SearchIcon = () => {
 
 const SearchInput = ({ onChange }) => {
   return (
-    <div className="flex items-center justify-between border-2 border-blue-600  rounded-md px-2">
+    <div className="flex items-center lg:w-[400px] md:w-[300px] justify-between border-2 border-gray-300  rounded-md px-2">
       <input
         onChange={(e) => onChange(e.target.value)}
         type="text"
@@ -155,71 +155,14 @@ const SearchInput = ({ onChange }) => {
   );
 };
 
-export function Table({
-  columns = ["trackingID", "product", "price", "quantity"],
-  data = [
-    {
-      id: 1,
-      trackingID: 1,
-      product: "salah",
-      price: "sad@gmail.com",
-      quantity: 20,
-    },
-    {
-      id: 2,
-      trackingID: 2,
-      product: "salah",
-      price: "sad@gmail.com",
-      quantity: 20,
-    },
-    {
-      id: 3,
-      trackingID: 3,
-      product: "salah",
-      price: "sad@gmail.com",
-      quantity: 20,
-    },
-    {
-      id: 4,
-      trackingID: 4,
-      product: "salah",
-      price: "sad@gmail.com",
-      quantity: 20,
-    },
-    {
-      id: 5,
-      trackingID: 5,
-      product: "salah",
-      price: "sad@gmail.com",
-      quantity: 20,
-    },
-    {
-      id: 6,
-      trackingID: 6,
-      product: "salah",
-      price: "sad@gmail.com",
-      quantity: 20,
-    },
-    {
-      id: 7,
-      trackingID: 7,
-      product: "salah",
-      price: "sad@gmail.com",
-      quantity: 20,
-    },
-    {
-      id: 8,
-      trackingID: 8,
-      product: "salah",
-      price: "sad@gmail.com",
-      quantity: 20,
-    },
-  ],
-}) {
+export function Table({ data }) {
+  if (data.length <= 0) return <p>Loading</p>;
   const [checkedRows, setCheckedRows] = useState([]);
-  const [cols, setCols] = useState(columns);
+  const columns = Object.keys(data[0]);
+  const [cols, setCols] = useState(Object.keys(data[0]));
   const [sortedBy, setSortedBy] = useState([]);
   const [rows, setRows] = useState(data);
+
   const handleOnSelectAll = () => {
     if (checkedRows.length > 0) {
       setCheckedRows([]);
@@ -267,7 +210,10 @@ export function Table({
         rows.filter((row) => {
           let values = Object.values(row);
           let found = values.filter((value) => {
-            return value.toString().includes(val);
+            return value
+              .toString()
+              .toLocaleLowerCase()
+              .includes(val.toLocaleLowerCase());
           });
           return found.length > 0;
         })
@@ -275,12 +221,35 @@ export function Table({
     }
   };
 
+  const onChange = (col) => {
+    if (cols.includes(col))
+      setCols(columns.filter((c) => c != col && cols.includes(c)));
+    else setCols(columns.filter((c) => cols.includes(c) || c == col));
+  };
+
+  const renders = {
+    price: (num) => num.toFixed(2),
+    created_at: (created_at) => {
+      const date = new Date(created_at);
+      const formattedDate = date.toLocaleString("en-US", {
+        year: "numeric",
+        day: "numeric",
+        month: "long",
+      });
+      return formattedDate;
+    },
+  };
   return (
-    <div className="md:w-[630px] w-[520px]">
+    <div className="md:w-[700px] max-sm:w-[420px] sm:w-[520px] lg:w-[900px]">
       <div className="flex relative items-center justify-between mb-4">
+        <VisibleColumnButton
+          columns={columns}
+          onChange={onChange}
+          cols={cols}
+        />
         <SearchInput onChange={(val) => search(val)} />
       </div>
-      <div className="overflow-auto bg-white className:bg-gray-800 rounded-sm shadow-md">
+      <div className="overflow-auto bg-white border border-gray-300 className:bg-gray-800 rounded-sm shadow-md">
         <table className="min-w-full divide-y divide-gray-200 className:divide-gray-700">
           <Header
             onCheck={() => handleOnSelectAll()}
@@ -292,7 +261,7 @@ export function Table({
                 sortedBy={col === sortedBy}
                 onSort={() => handleOnSort(col, rows)}
               >
-                {col}
+                {col.replace("_", " ").replace("_", "")}
               </HeaderColumn>
             ))}
           </Header>
@@ -305,7 +274,11 @@ export function Table({
               >
                 {Object.keys(row).map((key, i) => {
                   if (cols.includes(key))
-                    return <Column key={`${key}_${row.id}`}>{row[key]}</Column>;
+                    return (
+                      <Column key={`${key}_${row.id}`}>
+                        {renders[key] ? renders[key](row[key]) : row[key]}
+                      </Column>
+                    );
                 })}
               </Row>
             ))}
