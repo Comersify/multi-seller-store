@@ -1,4 +1,4 @@
-export const Star = ({ active, onClick }) => {
+export const Star = ({ active, onClick, w="17px", h="17px" }) => {
   const handleOnClick = () => {
     if (onClick) onClick();
     else return;
@@ -12,7 +12,7 @@ export const Star = ({ active, onClick }) => {
       onClick={() => handleOnClick()}
       className={`${active ? "text-yellow-300" : "text-gray-400"} ${
         onClick && "cursor-pointer"
-      } w-[17px] h-[17px] fill-current mr-1 `}
+      } w-[${w}] h-[${h}] fill-current mr-1 `}
     >
       <path
         fillRule="evenodd"
@@ -26,11 +26,11 @@ export const Star = ({ active, onClick }) => {
 export const StarsInput = ({ stars, setStars }) => {
   return (
     <div className="flex items-center">
-      <Star onClick={() => setStars(stars == 1 ? 0 : 1)} active={stars >= 1} />
-      <Star onClick={() => setStars(2)} active={stars >= 2} />
-      <Star onClick={() => setStars(3)} active={stars >= 3} />
-      <Star onClick={() => setStars(4)} active={stars >= 4} />
-      <Star onClick={() => setStars(5)} active={stars >= 5} />
+      <Star w={"20px"} h={"20px"} onClick={() => setStars(stars == 1 ? 0 : 1)} active={stars >= 1} />
+      <Star w={"20px"} h={"20px"} onClick={() => setStars(stars == 2 ? 0 : 2)} active={stars >= 2} />
+      <Star w={"20px"} h={"20px"} onClick={() => setStars(stars == 3 ? 0 : 3)} active={stars >= 3} />
+      <Star w={"20px"} h={"20px"} onClick={() => setStars(stars == 4 ? 0 : 4)} active={stars >= 4} />
+      <Star w={"20px"} h={"20px"} onClick={() => setStars(stars == 5 ? 0 : 5)} active={stars >= 5} />
     </div>
   );
 };
