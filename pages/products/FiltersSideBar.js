@@ -23,33 +23,18 @@ const SubCategoryItem = ({ open, name, id }) => {
   );
 };
 
-const CategoryItem = ({ setFilter, filter, name, id, subCategories }) => {
-  const [open, setOpen] = useState(false);
-  const handleOnClick = () => {
-    let categories;
-    setOpen(!open);
-    if (!open) {
-      filter.categories.push(id);
-      categories = filter.categories;
-    } else {
-      categories = filter?.categories?.filter((catID) => catID != id);
-    }
-    setFilter((filter) => ({
-      ...filter,
-      categories: categories,
-    }));
-  };
+const CategoryItem = ({ active, onClick, name, subCategories }) => {
   return (
     <li className="p-2">
       <div
-        onClick={() => handleOnClick()}
-        className={`font-bold pl-2 py-1 rounded-md ${
-          open ? "bg-gray-200" : "hover:bg-gray-200"
-        } flex items-center justify-start cursor-pointer`}
+        onClick={() => onClick()}
+        className={`font-bold px-2 py-1 rounded-md ${
+          active && "bg-gray-200"
+        } flex items-center justify-start hover:bg-gray-200 cursor-pointer`}
       >
         <input
-          onChange={(e) => handleOnClick(e)}
-          checked={open}
+          onChange={(e) => onClick(e)}
+          checked={active}
           type="checkbox"
           className="mr-2 w-4 h-4"
         />
@@ -59,29 +44,46 @@ const CategoryItem = ({ setFilter, filter, name, id, subCategories }) => {
   );
 };
 
-const RatingFilter = ({ filter, setFilter }) => {
+const RatingFilter = ({ setFilter }) => {
+  const [stars, setStars] = useState(0);
+  const [cron, setCron] = useState();
+  const handleOnChange = (num) => {
+    clearTimeout(cron);
+    setStars(num);
+    setCron(
+      setTimeout(() => {
+        setFilter((filter) => ({ ...filter, stars: num }));
+      }, 1600)
+    );
+  };
   return (
     <li className="block px-3 mb-3">
       <p className="pr-2 font-bold mb-2">Ratings:</p>
-      <StarsInput
-        stars={filter.stars}
-        setStars={(num) => setFilter({ ...filter, stars: num })}
-      />
+      <StarsInput stars={stars} setStars={(num) => handleOnChange(num)} />
     </li>
   );
 };
 
-const PriceFilter = ({ setFilter, filter }) => {
+const PriceFilter = ({ setFilter }) => {
+  const [price, setPrice] = useState({ from: "", to: "" });
+  const [cron, setCron] = useState();
+
   const handleOnChange = (e) => {
+    clearTimeout(cron);
     if (parseInt(e.target.value) || e.target.value == "") {
+      setPrice({ ...price, [e.target.id]: parseInt(e.target.value) || "" });
       e.target.className = e.target.className.replace(
         "focus:border-red-500 focus:ring focus:ring-red-200",
         "focus:border-blue-500 focus:ring focus:ring-blue-200"
       );
-      setFilter((filter) => ({
-        ...filter,
-        [e.target.id]: parseInt(e.target.value) || "",
-      }));
+      setCron(
+        setTimeout(() => {
+          setFilter((filter) => ({
+            ...filter,
+            [e.target.id]: parseInt(e.target.value) || "",
+          }));
+        }, 1600)
+      );
     } else {
       e.target.className = e.target.className.replace(
         "focus:border-blue-500 focus:ring focus:ring-blue-200",
@@ -102,7 +104,7 @@ const PriceFilter = ({ setFilter, filter }) => {
           <input
             id="from"
             type="text"
-            value={filter.from}
+            value={price.from}
             onChange={(e) => handleOnChange(e)}
             className="p-1 ml-1 focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 appearance-none border w-full border-gray-300 rounded-md"
           />
@@ -114,7 +116,7 @@ const PriceFilter = ({ setFilter, filter }) => {
           <input
             id="to"
             type="text"
-            value={filter.to}
+            value={price.to}
             onChange={(e) => handleOnChange(e)}
             className="p-1 ml-1 w-full border focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 appearance-none border-gray-300 rounded-md"
           />
@@ -128,7 +130,36 @@ export const FiltersSideBar = ({ setFilter, filter }) => {
   const [open, setOpen] = useState(false);
   const sideBarRef = useRef(null);
   const { categories } = useGetCategories({});
+  const [categoriesFilter, setCategoriesFilter] = useState([]);
+  const [cron, setCron] = useState();
 
+  const handleOnChangeCatgory = (id) => {
+    clearTimeout(cron);
+
+    if (categoriesFilter.includes(id)) {
+      const cats = categoriesFilter.filter((catID) => catID != id);
+      setCategoriesFilter(cats);
+      setCron(
+        setTimeout(() => {
+          setFilter((filter) => ({
+            ...filter,
+            categories: cats,
+          }));
+        }, 2000)
+      );
+    } else {
+      categoriesFilter.push(id);
+      setCategoriesFilter(categoriesFilter);
+      setCron(
+        setTimeout(() => {
+          setFilter((filter) => ({
+            ...filter,
+            categories: categoriesFilter,
+          }));
+        }, 2000)
+      );
+    }
+  };
   useEffect(() => {
     function handleClickOutside(event) {
       if (sideBarRef.current && sideBarRef.current.contains(event.target)) {
@@ -156,17 +187,17 @@ export const FiltersSideBar = ({ setFilter, filter }) => {
       >
         <ToggleSideBarButton open={open} setOpen={setOpen} />
         <div className="hover:overflow-y-auto overflow-y-hidden  text-gray-900">
-          <div className="p-2">
-            <ul className="list-none p-0 m-0">
-              <PriceFilter filter={filter} setFilter={setFilter} />
-              <RatingFilter filter={filter} setFilter={setFilter} />
+          <div className="p-2 hover:pr-0">
+            <ul className="list-none">
+              <PriceFilter setFilter={setFilter} />
+              <RatingFilter setFilter={setFilter} />
               {categories.map((category) => (
                 <CategoryItem
                   key={category.id}
                   id={category.id}
                   name={category.name}
-                  filter={filter}
-                  setFilter={setFilter}
+                  active={categoriesFilter.includes(category.id)}
+                  onClick={() => handleOnChangeCatgory(category.id)}
                 />
               ))}
             </ul>

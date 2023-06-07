@@ -72,9 +72,11 @@ export const ProductItem = ({
               <p className="text-gray-500 max-sm:hidden text-sm">Price:</p>
               <p className="text-lg flex font-semibold items-end">
                 ${price.toFixed(2)}
-                {price != priceBeforeDiscount && <p className="ml-1 text-gray-500 text-[15px] line-through">
-                  ${priceBeforeDiscount}
-                </p>}
+                {price != priceBeforeDiscount && (
+                  <p className="ml-1 text-gray-500 text-[15px] line-through">
+                    ${priceBeforeDiscount}
+                  </p>
+                )}
               </p>
               <p className="text-gray-500 px-1 max-w-[150px] rounded-md border-gray-300 border font-bold flex items-center text-md mt-2 max-sm:mt-0">
                 Pack:{" "}
@@ -132,13 +134,15 @@ export const ProductCard = ({
   return (
     <Link href={`/products/${id}`}>
       <div className="w-52 border border-gray-200 rounded relative overflow-hidden hover:shadow-sm">
-        <img
-          width={600}
-          height={600}
-          src={"http://127.0.0.1:8000/media" + image}
-          className="w-full h-[13rem]"
-          alt="Product Image"
-        />
+        <div className="overflow-hidden">
+          <img
+            width={600}
+            height={600}
+            src={"http://127.0.0.1:8000/media" + image}
+            className="w-[13rem] h-[13rem] object-cover transition-transform duration-300 transform hover:scale-125"
+            alt="Product Image"
+          />
+        </div>
         {discount ? <DiscountTag value={discount} /> : ""}
         <div className="px-4 py-2">
           <h2 className="font-bold text-lg text-gray-900">{title}</h2>

@@ -4,7 +4,7 @@ export const StateContext = createContext();
 
 export const ContextProvider = ({ children }) => {
   const [token, setToken] = useState(false);
-  const [image, setImage] = useState()
+  const [image, setImage] = useState();
   const [notification, setNotifiction] = useState({
     type: null,
     message: null,
@@ -14,7 +14,7 @@ export const ContextProvider = ({ children }) => {
     localStorage.setItem("refresh", data.refresh);
     localStorage.setItem("exp", data.exp);
     setToken(data?.access);
-    setImage(data.image)
+    setImage(data.image);
     return;
   };
 
@@ -30,14 +30,12 @@ export const ContextProvider = ({ children }) => {
 
   function isTokenExpired() {
     const exp = localStorage.getItem("exp");
-    const tokenExpiration = new Date(exp).getTime();
+    const tokenExpiration = new Date(exp * 1000).getTime();
     const currentTime = new Date().getTime();
-    console.log(currentTime > tokenExpiration)
     return currentTime > tokenExpiration;
-}
+  }
 
   return (
-    // eslint-disable-next-line react/jsx-no-constructed-context-values
     <StateContext.Provider
       value={{
         handleNotification,
