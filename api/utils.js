@@ -41,15 +41,15 @@ export const usePOST = async (url, conf) => {
     headers: {
       "Content-Type": "application/json",
     },
-    credentials: 'same-origin',
     body: "",
   };
-  if (conf?.data?.image){
+  if (conf?.data?.image && typeof conf?.data?.image == "object" ){
+    delete post.headers["Content-Type"] 
     const formData =  new FormData()
     formData.append("file", conf.data.image)
     delete conf.data.image
-    formData.append("json_data", conf?.data)
-    post.headers["Content-Type"] = "multipart/form-data; boundary=-----654654654654" 
+    formData.append("json_data", JSON.stringify(conf?.data))
+    post.body = formData
   } else {
     post.body = JSON.stringify(conf?.data)
   }
