@@ -67,14 +67,13 @@ export default function Products() {
     );
   };
   const { products } = useGetProducts({ params: filter });
-  console.log(products.length)
   return (
     <>
       <Head>
         <title>Products</title>
       </Head>
       <main className="w-full">
-        <FiltersSideBar filter={filter} setFilter={setFilter} />
+        <FiltersSideBar setFilter={setFilter} />
         <div className="flex-1 pl-6 pt-6 h-full">
           <div className="flex max-sm:block itmes-center justify-between px-4 pb-4 md:mr-10">
             <div className="flex max-sm:py-4 items-start max-w-[330px]">

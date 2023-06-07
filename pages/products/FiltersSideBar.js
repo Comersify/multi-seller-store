@@ -126,7 +126,7 @@ const PriceFilter = ({ setFilter }) => {
   );
 };
 
-export const FiltersSideBar = ({ setFilter, filter }) => {
+export const FiltersSideBar = ({ setFilter }) => {
   const [open, setOpen] = useState(false);
   const sideBarRef = useRef(null);
   const { categories } = useGetCategories({});
