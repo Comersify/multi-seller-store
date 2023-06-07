@@ -102,6 +102,7 @@ export default function Products() {
               {products?.map((product) => {
                 return (
                   <ProductCard
+                    key={product.id}
                     id={product.id}
                     title={product.title}
                     rating={product.reviews}
