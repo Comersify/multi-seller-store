@@ -16,7 +16,7 @@ export const StoreCard = ({ id, image, name, rating, description }) => {
               alt="Store Logo"
             />
           </div>
-          <Stars num={rating} />
+          {rating > 0 ? <Stars num={rating} /> : <p className="text-gray-500 font-bold text-sm">Not reviewed yet</p> }
         </div>
         <div className="pt-3 pb-5">
           <div className=" uppercase text-center tracking-wide text-lg text-indigo-500 font-semibold">
