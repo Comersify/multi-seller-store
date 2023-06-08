@@ -29,10 +29,12 @@ export const ContextProvider = ({ children }) => {
   };
 
   function isTokenExpired() {
-    const exp = localStorage.getItem("exp");
-    const tokenExpiration = new Date(exp * 1000).getTime();
-    const currentTime = new Date().getTime();
-    return currentTime > tokenExpiration;
+    if (typeof window !== "undefined") {
+      const exp = localStorage.getItem("exp");
+      const tokenExpiration = new Date(exp * 1000).getTime();
+      const currentTime = new Date().getTime();
+      return currentTime > tokenExpiration;
+    }
   }
 
   return (
