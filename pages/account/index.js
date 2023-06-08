@@ -4,23 +4,30 @@ import { Title } from "@/components/shared/Title";
 import Head from "next/head";
 import useWithAuth from "../_authRouter";
 import { useWishList } from "@/api/wish-list";
-import { discountCalc } from "../utils";
+import { useRouter } from "next/router";
 
 function Profile() {
   const { handleDelete, products } = useWishList();
+  const router = useRouter();
   return (
     <>
       <Head>
         <title>Profile</title>
       </Head>
       <main className="min-h-[68vh] px-16 pt-8 mb-24">
-        <Title text="My Wish List" />
+        <Title text="Saved Products" />
         <div className="mt-8 flex flex-wrap gap-8 items-center">
           {products.length <= 0 && (
-            <div className="w-full h-full flex items-center justify-center">
-              <p className="text-gray-500 text-xl font-bold mt-56">
+            <div className="w-full h-full flex flex-col items-center justify-center">
+              <p className="text-gray-500 mb-5 text-xl font-bold mt-56">
                 Your wish list is empty
               </p>
+              <button
+                onClick={() => router.push("/products")}
+                className="px-6 py-[8px] rounded-md bg-blue-500 text-white font-bold"
+              >
+                Browse Products
+              </button>
             </div>
           )}
           {products.length > 0 &&

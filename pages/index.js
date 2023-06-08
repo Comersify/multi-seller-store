@@ -10,7 +10,6 @@ import { useGetStores } from "@/api/store";
 import { useGetCategories } from "@/api/category";
 import { useGetCustomerReviews } from "@/api/review";
 
-
 const BigDeals = () => {
   const { products } = useGetProducts({ filter: "super-deals/" });
   return (
@@ -50,7 +49,7 @@ const FeaturedStores = () => {
 };
 
 const HotCategories = () => {
-  const { categories } = useGetCategories({filter: "top/"});
+  const { categories } = useGetCategories({ filter: "top/" });
   return (
     <div className="flex flex-wrap gap-6 justify-center pt-8">
       {categories.map((category) => (
