@@ -94,7 +94,7 @@ const Navigation = () => {
 };
 
 export const Nav = () => {
-  const {token} = useRefresh()
+  const { token } = useRefresh();
   const [openMenu, setOpenMenu] = useState(false);
   return (
     <nav className="bg-gray-50">
@@ -120,7 +120,7 @@ export const Nav = () => {
           )}
           {token && (
             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-              <CartButton />
+              <CartButton acive={true} />
               <DropDownMenu Icon={NotificationButton}>
                 <DropDownLink href="/account/orders" title="Your Orders" />
                 <DropDownLink href="/account/settings" title="Settings" />
