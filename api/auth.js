@@ -3,11 +3,6 @@ import { useGET, usePOST } from "./utils";
 import { useStateContext } from "@/context/contextProvider";
 import { useEffect, useState } from "react";
 
-export const refreshToken = async (data) => {
-  const res = await usePOST("refresh/", { data: data });
-  return res;
-};
-
 export const useRefresh = () => {
   const { handleToken, handleNotification, token } = useStateContext();
   let access;
@@ -39,22 +34,16 @@ export const useSettings = () => {
     password: "",
     passwordConfermation: "",
   });
-  const { handleNotification, token, isTokenExpired } = useStateContext();
+  const { handleNotification, token } = useStateContext();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (isTokenExpired()) {
-      useRefresh();
-    }
     usePOST("account/update/", { data: settings, token: token }).then((res) => {
       if (res?.type == "error") handleNotification(res);
       if (res?.type == "success") handleNotification(res);
     });
   };
   useEffect(() => {
-    if (isTokenExpired()) {
-      useRefresh();
-    }
     useGET("account/info/", { token: token }).then((res) => {
       if (res?.type == "error") handleNotification(res);
       if (res?.type == "success") {
