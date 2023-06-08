@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { useState } from "react";
 
 const UpDownIcon = () => {
@@ -156,7 +157,20 @@ const SearchInput = ({ onChange }) => {
 };
 
 export function Table({ data }) {
-  if (data.length <= 0) return <p>Loading</p>;
+  if (data.length <= 0) {
+    const router = useRouter();
+    return (
+      <div className="flex flex-col items-center">
+        <p className="text-gray-500 font-bold mb-5">You have no orders ...</p>
+        <button
+          onClick={() => router.push("/products")}
+          className="px-6 py-[8px] rounded-md bg-blue-500 text-white font-bold"
+        >
+          Browse Products
+        </button>
+      </div>
+    );
+  }
   const [checkedRows, setCheckedRows] = useState([]);
   const columns = Object.keys(data[0]);
   const [cols, setCols] = useState(Object.keys(data[0]));
