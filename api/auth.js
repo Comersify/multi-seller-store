@@ -3,6 +3,11 @@ import { useGET, usePOST } from "./utils";
 import { useStateContext } from "@/context/contextProvider";
 import { useEffect, useState } from "react";
 
+export const refreshToken = async (data) => {
+  const res = await usePOST("refresh/", { data: data });
+  return res;
+};
+
 export const useRefresh = () => {
   const { handleToken, handleNotification, token } = useStateContext();
   let access;
