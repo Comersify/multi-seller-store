@@ -8,12 +8,9 @@ import { useRefresh } from "./auth";
 export const useWishList = () => {
   const [refresh, setRefresh] = useState(false);
   const [products, setProducts] = useState([]);
-  const { handleNotification, token, isTokenExpired } = useStateContext();
+  const { handleNotification, token } = useStateContext();
 
   useEffect(() => {
-    if (isTokenExpired()) {
-      useRefresh();
-    }
     useGET(`wish-list/products/`, { token: token }).then((res) => {
       if (res?.type == "error") handleNotification(res);
       if (res?.type == "success") setProducts(res?.data);
@@ -39,21 +36,15 @@ export const useProductInWishList = (id) => {
   const [added, setAdded] = useState();
   const router = useRouter();
 
-  const { handleNotification, token, isTokenExpired } = useStateContext();
+  const { handleNotification, token } = useStateContext();
 
   useEffect(() => {
-    if (isTokenExpired()) {
-      useRefresh();
-    }
     useGET(`wish-list/has-product/${id}`, { token: token }).then((res) => {
       setAdded(res.data);
     });
   }, []);
 
   const handleAddToWishList = () => {
-    if (isTokenExpired()) {
-      useRefresh();
-    }
     if (!token) {
       router.replace("/login");
       return;

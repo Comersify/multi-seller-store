@@ -16,12 +16,10 @@ export const useGetOrders = () => {
 };
 
 export const useCreateOrder = () => {
-  const { handleNotification, token, isTokenExpired } = useStateContext();
+  const { handleNotification, token } = useStateContext();
   const submit = (e, data) => {
     e.preventDefault();
-    if (isTokenExpired()) {
-      useRefresh();
-    }
+
     usePOST("order/create/", { data: data, token: token }).then((res) => {
       if (res?.type == "success") handleNotification(res);
       if (res?.type == "error") handleNotification(res);

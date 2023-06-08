@@ -8,13 +8,9 @@ import { useRefresh } from "./auth";
 export const useCart = () => {
   const [refresh, setRefresh] = useState(false);
   const [products, setproducts] = useState([]);
-  const { handleNotification, token, isTokenExpired } = useStateContext();
+  const { handleNotification, token } = useStateContext();
 
   useEffect(() => {
-    if (isTokenExpired()) {
-      useRefresh();
-      console.log("refresh");
-    }
     useGET(`cart/products/`, { token: token }).then((res) => {
       if (res?.type == "error") handleNotification(res);
       if (res?.type == "success") setproducts(res?.data);
@@ -22,9 +18,6 @@ export const useCart = () => {
   }, [refresh]);
 
   const handleDelete = (id) => {
-    if (isTokenExpired()) {
-      useRefresh();
-    }
     usePOST(`cart/delete-product/`, {
       data: { order_id: id },
       token: token,
@@ -35,9 +28,6 @@ export const useCart = () => {
   };
 
   const handleUpdate = (id, quantity) => {
-    if (isTokenExpired()) {
-      useRefresh();
-    }
     usePOST(`cart/update-product/`, {
       data: {
         order_id: id,
@@ -54,14 +44,11 @@ export const useCart = () => {
 
 export const useAddProductToCart = (id) => {
   const [packID, setPackID] = useState(false);
-  const { handleNotification, token, isTokenExpired } = useStateContext();
+  const { handleNotification, token } = useStateContext();
   const router = useRouter();
 
   const handleAddProductToCart = async (e, hasPacks) => {
     e.preventDefault();
-    if (isTokenExpired()) {
-      useRefresh();
-    }
     if (hasPacks) {
       if (!packID) {
         handleNotification({
