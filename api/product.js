@@ -6,13 +6,10 @@ export const useGetProducts = ({ params, filter }) => {
   const [products, setProducts] = useState([]);
   const { handleNotification } = useStateContext();
   useEffect(() => {
-    useGET(`products/${filter || ""}`, {data: params}).then(
-    (res) => {
+    useGET(`products/${filter || ""}`, { data: params }).then((res) => {
       if (res?.type == "error") handleNotification(res);
-      if (res?.type == "success") setProducts((p)=>res?.data);
-      console.log(products)
-    }
-  );
+      if (res?.type == "success") setProducts((p) => res?.data);
+    });
   }, [params]);
   return { products };
 };
