@@ -12,7 +12,7 @@ export const StoreCard = ({ id, image, name, rating, description }) => {
               width={100}
               height={100}
               className="h-[6rem] w-[6rem] my-2 rounded-full"
-              src={"http://127.0.0.1:8000/media"+image}
+              src={"http://127.0.0.1:8000/media/"+image}
               alt="Store Logo"
             />
           </div>
