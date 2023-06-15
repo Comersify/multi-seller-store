@@ -39,13 +39,17 @@ export const useSettings = () => {
     password: "",
     passwordConfermation: "",
   });
+  const [refresh, setRefresh] = useState(false);
   const { handleNotification, token } = useStateContext();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     usePOST("account/update/", { data: settings, token: token }).then((res) => {
       if (res?.type == "error") handleNotification(res);
-      if (res?.type == "success") handleNotification(res);
+      if (res?.type == "success") {
+        handleNotification(res);
+        setRefresh(!refresh);
+      }
     });
   };
   useEffect(() => {
@@ -63,7 +67,7 @@ export const useSettings = () => {
       }
     });
     return;
-  }, []);
+  }, [refresh]);
   return { settings, handleSubmit, setSettings };
 };
 
