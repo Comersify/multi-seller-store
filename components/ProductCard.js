@@ -147,25 +147,25 @@ export const ProductCard = ({
         <div className="px-4 py-2">
           <h2 className="font-bold text-lg text-gray-900">{title}</h2>
           <div className="flex justify-between items-center font-bold text-sm text-gray-400">
-            {rating > 0 ? <Stars num={rating} /> : "Not rated yet"}
+            <p>{rating > 0 ? <Stars num={rating} /> : "Not rated yet"}</p>
+            <p className="text-gray-500 self-end text-sm font-bold">
+              {orders} orders
+            </p>
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-ccenter py-1">
               <div className="flex text-lg font-bold text-gray-900">
                 {discount ? acctualPrice.toFixed(2) : price}
-                <div className="text-sm font-bold text-gray-900">$</div>
+                <div className="text-sm font-bold text-gray-900">DA</div>
               </div>
               {discount ? (
                 <div className="px-2 self-end text-sm line-through text-gray-500">
-                  ${price}
+                  DA{price}
                 </div>
               ) : (
                 ""
               )}
             </div>
-            <p className="text-gray-500 self-end text-sm font-bold">
-              {orders} orders
-            </p>
           </div>
         </div>
       </div>
