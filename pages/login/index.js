@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { LoginForm } from "./LoginForm";
+import { LoginForm } from "@/forms/LoginForm";
 
 export default function Login() {
   return (

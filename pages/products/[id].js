@@ -1,20 +1,18 @@
-import { Gallery } from "./Gallery";
+import { Gallery } from "@/components/Gallery";
 import { ReviewCard } from "@/components/ReviewCards";
-import { ProductDetailsCard } from "./ProductDetailsCard";
-import { ShippingCard } from "./ShippingCard";
+import { ProductDetailsCard } from "@/components/ProductDetailsCard";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useGetProducts } from "@/api/product";
 import { useGetReviews } from "@/api/review";
 
-
 export default function ProductDetails() {
   const router = useRouter();
   const { id } = router.query;
-  if (!id) return <p>Loading</p>
+  if (!id) return <p>Loading</p>;
   const { products: product } = useGetProducts({ filter: `id/${id}/` });
-  const  {reviews}  = useGetReviews(id);
-  if (!reviews) return <p>Loading</p>
+  const { reviews } = useGetReviews(id);
+  if (!reviews) return <p>Loading</p>;
 
   return (
     <>
@@ -41,12 +39,13 @@ export default function ProductDetails() {
             <ShippingCard />
           </div> 
         */}
-        {reviews?.reviews?.length > 0 ? 
-        <ReviewCard reviews={reviews}  />
-        : 
-        <p className="text-xl text-gray-400 font-bold text-center border rounded-md py-20 mb-20">Not Reviewed yet ..</p>
-        }
-        
+        {reviews?.reviews?.length > 0 ? (
+          <ReviewCard reviews={reviews} />
+        ) : (
+          <p className="text-xl text-gray-400 font-bold text-center border rounded-md py-20 mb-20">
+            Not Reviewed yet ..
+          </p>
+        )}
       </main>
     </>
   );

@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { SignUpForm } from "./SignUpForm";
+import { SignUpForm } from "@/forms/SignUpForm";
 
 export default function SignUp() {
   return (

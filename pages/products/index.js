@@ -1,5 +1,5 @@
 import { useGetProducts } from "@/api/product";
-import { FiltersSideBar } from "./FiltersSideBar";
+import { FiltersSideBar } from "@/components/FiltersSideBar";
 import { ProductCard } from "@/components/ProductCard";
 import { OrderByIcon, SearchIcon } from "@/components/shared/Icons";
 import Head from "next/head";

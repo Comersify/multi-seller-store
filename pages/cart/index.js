@@ -1,9 +1,9 @@
 import Head from "next/head";
 import { ProductItem } from "@/components/ProductCard";
-import { CheckoutCard } from "./CheckoutCard";
+import { CheckoutCard } from "@/components/CheckoutCard";
 import useWithAuth from "../_authRouter";
 import { useCart } from "@/api/cart";
-import { discountCalc } from "../utils";
+import { discountCalc } from "@/utils/utils";
 import { useRouter } from "next/router";
 
 function Cart() {
