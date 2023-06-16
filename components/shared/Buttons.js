@@ -10,7 +10,7 @@ import {
 } from "./Icons";
 import { useStateContext } from "@/context/contextProvider";
 import Image from "next/image";
-import { URL } from "@/urls";
+import { MEDIA_URL } from "@/urls";
 
 
 export const Button = ({ children, onClick, px }) => {
@@ -69,7 +69,7 @@ export const ProfileButoon = ({ action }) => {
         width={30}
         height={30}
         className="h-8 w-8 rounded-full"
-        src={image ? URL+image : "/avatar.jpeg"}
+        src={image ? MEDIA_URL+image?.replace("/media/", "") : "/avatar.jpeg"}
         alt=""
       />
     </button>

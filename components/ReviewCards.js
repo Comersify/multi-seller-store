@@ -6,11 +6,11 @@ export const HomeReviewCard = ({ image, review }) => {
   return (
     <div className="overflow-hidden py-10">
       <div className="w-[20rem] rounded-lg border relative border-gray-200 shadow-sm ">
-        <Image
+        <img
           className="rounded-full absolute -top-10 left-[35%]"
           width={90}
           height={90}
-          src={image}
+          src={MEDIA_URL+image?.replace("/media/", "")}
         />
         <p className="text-black text-ms pt-14 text-center px-4 pb-4 ">
           {review}
@@ -60,7 +60,7 @@ const CustomerReview = ({ image, stars, review, date, fulllName }) => {
           className="w-12 h-12 border border-gray-200 rounded-full mr-4"
           width={40}
           height={40}
-          src={MEDIA_URL+image}
+          src={MEDIA_URL+image?.replace("/media/", "")}
           alt="User Avatar"
         />
         <div>

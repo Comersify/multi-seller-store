@@ -2,8 +2,7 @@ import { useGetStores } from "@/api/store";
 import { ProductCard } from "@/components/ProductCard";
 import { Stars } from "@/components/Stars";
 import { OrderIcon } from "@/components/shared/Icons";
-import { URL } from "@/urls";
-import Image from "next/image";
+import { MEDIA_URL, URL } from "@/urls";
 import { useRouter } from "next/router";
 
 export const Cover = ({ cover }) => {
@@ -12,7 +11,7 @@ export const Cover = ({ cover }) => {
       <img
         width={1000}
         height={1000}
-        src={URL + cover}
+        src={MEDIA_URL + cover.replace("/media/", "")}
         alt="Store cover"
         className="w-full max-h-[20rem] rounded-lg"
       />
@@ -26,7 +25,7 @@ export const StoreHeader = ({ name, logo }) => {
       <img
         width={40}
         height={40}
-        src={URL + logo}
+        src={MEDIA_URL + logo?.replace("/media/","")}
         alt="Store logo"
         className="w-16 h-16 rounded-full mr-4"
       />

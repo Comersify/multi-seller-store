@@ -40,7 +40,7 @@ const Choice = ({ image, title, currentPack, addPackID, id }) => {
               Checked: "border-indigo-500", Not Checked: "border-transparent"
         --> */}
         <img
-          src={MEDIA_URL+image}
+          src={MEDIA_URL+image?.replace("/media/", "")}
           width={60}
           height={60}
           alt="Pack"

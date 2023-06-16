@@ -55,7 +55,7 @@ export const ProductItem = ({
     <div className="w-[600px] max-sm:w-[215px] flex flex-col justify-center p-5">
       <div className="flex items-start rounded-md border-b-2 max-sm:border-2 pb-4 max-sm:pb-0 max-sm:block relative">
         <img
-          src={MEDIA_URL + image}
+          src={MEDIA_URL + image?.replace("/media/", "")}
           alt="Product Image"
           width={150}
           height={150}
@@ -139,7 +139,7 @@ export const ProductCard = ({
           <img
             width={600}
             height={600}
-            src={MEDIA_URL + image}
+            src={MEDIA_URL + image?.replace("/media/", "")}
             className="w-[13rem] h-[13rem] object-cover transition-transform duration-300 transform hover:scale-125"
             alt="Product Image"
           />

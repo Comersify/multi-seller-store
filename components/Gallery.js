@@ -20,7 +20,7 @@ export const Gallery = ({ images }) => {
             return (
               <img
                 key={i}
-                src={MEDIA_URL + image}
+                src={MEDIA_URL + image?.replace("/media/", "")}
                 className="max-w-[60px] max-h-[60px] cursor-pointer md:mb-2"
                 onClick={() => showImage(image)}
               />
@@ -28,7 +28,7 @@ export const Gallery = ({ images }) => {
           })}
         </div>
         <img
-          src={MEDIA_URL + bigImage}
+          src={MEDIA_URL + bigImage?.replace("/media/", "")}
           className="max-sm:w-[300px] max-sm:h-[300px] max-md:w-[400px] h-[400px]"
         />
       </div>
