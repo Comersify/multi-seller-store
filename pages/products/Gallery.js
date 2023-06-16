@@ -1,3 +1,4 @@
+import { MEDIA_URL } from "@/urls";
 import { useState } from "react";
 
 export const Gallery = ({ images }) => {
@@ -19,7 +20,7 @@ export const Gallery = ({ images }) => {
             return (
               <img
                 key={i}
-                src={"http://127.0.0.1:8000/media/" + image}
+                src={MEDIA_URL + image}
                 className="max-w-[60px] max-h-[60px] cursor-pointer md:mb-2"
                 onClick={() => showImage(image)}
               />
@@ -27,7 +28,7 @@ export const Gallery = ({ images }) => {
           })}
         </div>
         <img
-          src={"http://127.0.0.1:8000/media/" + bigImage}
+          src={MEDIA_URL + bigImage}
           className="max-sm:w-[300px] max-sm:h-[300px] max-md:w-[400px] h-[400px]"
         />
       </div>

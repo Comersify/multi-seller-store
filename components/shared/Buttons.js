@@ -10,6 +10,7 @@ import {
 } from "./Icons";
 import { useStateContext } from "@/context/contextProvider";
 import Image from "next/image";
+import { URL } from "@/urls";
 
 
 export const Button = ({ children, onClick, px }) => {
@@ -68,7 +69,7 @@ export const ProfileButoon = ({ action }) => {
         width={30}
         height={30}
         className="h-8 w-8 rounded-full"
-        src={image ? "http://127.0.0.1:8000"+image : "/avatar.jpeg"}
+        src={image ? URL+image : "/avatar.jpeg"}
         alt=""
       />
     </button>

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Star, Stars } from "./Stars";
+import { MEDIA_URL } from "@/urls";
 
 export const HomeReviewCard = ({ image, review }) => {
   return (
@@ -59,7 +60,7 @@ const CustomerReview = ({ image, stars, review, date, fulllName }) => {
           className="w-12 h-12 border border-gray-200 rounded-full mr-4"
           width={40}
           height={40}
-          src={"http://127.0.0.1:8000/media//"+image}
+          src={MEDIA_URL+image}
           alt="User Avatar"
         />
         <div>

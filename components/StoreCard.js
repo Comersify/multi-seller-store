@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Stars } from "./Stars";
 import Image from "next/image";
+import { MEDIA_URL, URL } from "@/urls";
 
 export const StoreCard = ({ id, image, name, rating, description }) => {
   return (
@@ -12,7 +13,7 @@ export const StoreCard = ({ id, image, name, rating, description }) => {
               width={100}
               height={100}
               className="h-[6rem] w-[6rem] my-2 rounded-full"
-              src={"http://127.0.0.1:8000/media/"+image}
+              src={URL+image}
               alt="Store Logo"
             />
           </div>

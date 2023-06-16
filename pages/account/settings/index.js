@@ -3,6 +3,7 @@ import { Button } from "@/components/shared/Buttons";
 import { Title } from "@/components/shared/Title";
 import { Input } from "@/forms/Input";
 import useWithAuth from "@/pages/_authRouter";
+import { URL } from "@/urls";
 import Head from "next/head";
 import { useEffect } from "react";
 
@@ -13,7 +14,7 @@ export const DragAndDrop = ({ className, label, url, setSettings }) => {
   }
   useEffect(()=>{
     const dropzone = document.getElementById("dropzone");
-        dropzone.style.backgroundImage = `url(${url ? "http://127.0.0.1:8000"+url : "/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Favatar.cbe40908.jpeg&w=256&q=75"})`;
+        dropzone.style.backgroundImage = `url(${url ? URL+url : "/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Favatar.cbe40908.jpeg&w=256&q=75"})`;
         dropzone.style.backgroundSize = "100%";
   },[url])
   function handleDrop(event) {

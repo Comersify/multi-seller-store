@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { LeftArrow, RightArrow } from "./shared/Icons";
 import Image from "next/image";
 import { useGetAds } from "@/api/ads";
+import { URL } from "@/urls";
 
 export const Ads = () => {
   const { images } = useGetAds();
@@ -37,7 +38,7 @@ export const Ads = () => {
           height={1200}
           onClick={() => window.location.replace(images[currentIndex]?.link)}
           className="min-w-[20rem] cursor-pointer rounded-lg max-h-[25rem]"
-          src={"http://127.0.0.1:8000"+images[currentIndex]?.image}
+          src={URL+images[currentIndex]?.image}
           alt="Ads"
         />
         }

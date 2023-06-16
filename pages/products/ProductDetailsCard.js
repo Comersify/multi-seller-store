@@ -2,6 +2,7 @@ import { useAddProductToCart } from "@/api/cart";
 import { useProductInWishList } from "@/api/wish-list";
 import { Stars } from "@/components/Stars";
 import { SaveButton } from "@/components/shared/Buttons";
+import { MEDIA_URL } from "@/urls";
 import Image from "next/image";
 
 const ProductDescription = ({ description }) => {
@@ -39,7 +40,7 @@ const Choice = ({ image, title, currentPack, addPackID, id }) => {
               Checked: "border-indigo-500", Not Checked: "border-transparent"
         --> */}
         <img
-          src={"http://127.0.0.1:8000/media/"+image}
+          src={MEDIA_URL+image}
           width={60}
           height={60}
           alt="Pack"
