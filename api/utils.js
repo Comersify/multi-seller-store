@@ -1,5 +1,4 @@
-
-const BASE_URL = "http://127.0.0.1:8000";
+import { URL } from "@/urls";
 
 export const useGET = async (url, conf) => {
   const get = {
@@ -8,7 +7,7 @@ export const useGET = async (url, conf) => {
       "Content-Type": "application/json",
     },
   };
-  const myUrl = new URL(`${BASE_URL}/${url}`);
+  const myUrl = new URL(`${URL}/${url}`);
   if (conf?.data){
     myUrl.search = new URLSearchParams(conf?.data).toString();
   }
@@ -55,7 +54,7 @@ export const usePOST = async (url, conf) => {
   }
   if (conf?.token) post.headers["Authorization"] =  conf.token
 
-  const results =  await fetch(`${BASE_URL}/${url}`, post)
+  const results =  await fetch(`${URL}/${url}`, post)
     .then((response) => {
       if (!response.ok) {
         return {
