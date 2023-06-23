@@ -1,4 +1,4 @@
-import { URL } from "@/urls";
+import { URL as API_URL } from "@/urls";
 
 export const useGET = async (url, conf) => {
   const get = {
@@ -7,7 +7,7 @@ export const useGET = async (url, conf) => {
       "Content-Type": "application/json",
     },
   };
-  const myUrl = new URL(`${URL}/${url}`);
+  var myUrl = new URL(`${API_URL}/${url}`);
   if (conf?.data){
     myUrl.search = new URLSearchParams(conf?.data).toString();
   }
@@ -54,7 +54,7 @@ export const usePOST = async (url, conf) => {
   }
   if (conf?.token) post.headers["Authorization"] =  conf.token
 
-  const results =  await fetch(`${URL}/${url}`, post)
+  const results =  await fetch(`${API_URL}/${url}`, post)
     .then((response) => {
       if (!response.ok) {
         return {
