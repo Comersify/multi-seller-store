@@ -8,6 +8,18 @@ export const refreshToken = async (data) => {
   return res;
 };
 
+export const useSignupWithProvider = (provider) => {
+  const { handleToken, handleNotification } = useStateContext();
+  
+  const signup = (token) => {
+    usePOST("sign-up/" + provider, { data: { token: token } }).then((res)=>{
+      if (res.type == "error") handleNotification(res)
+      if (res.type == "success") handleToken(res.data)
+    });
+  };
+  return { signup };
+};
+
 export const useRefresh = () => {
   const { handleToken, handleNotification, token } = useStateContext();
   let access;

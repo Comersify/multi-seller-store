@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Input } from "@/forms/Input";
 import { Button } from "@/components/shared/Buttons";
 import { useSignup } from "@/api/auth";
+import { GoogleAuth } from "@/components/GoogleAuth";
 
 export const SignUpForm = () => {
   const { form, setForm, handleSubmit } = useSignup();
@@ -59,8 +60,9 @@ export const SignUpForm = () => {
             label="Confirm Password"
           />
         </div>
+        <GoogleAuth onSuccess={(e) => console.log(e)} />
         <div className="flex w-full justify-center">
-          <Button px="12" onClick={(e) => handleSubmit(e)}>
+          <Button px="20" onClick={(e) => handleSubmit(e)}>
             Sign Up
           </Button>
         </div>
