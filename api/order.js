@@ -7,7 +7,7 @@ export const useGetOrders = () => {
   const [orders, setOrders] = useState([]);
   const { handleNotification, token } = useStateContext();
   useEffect(() => {
-    useGET("my-orders/", { token: token }).then((res) => {
+    useGET("my-orders/", { token: token.access }).then((res) => {
       if (res?.type == "error") handleNotification(res);
       if (res?.type == "success") setOrders(res?.data);
     });
@@ -20,7 +20,7 @@ export const useCreateOrder = () => {
   const submit = (e, data) => {
     e.preventDefault();
 
-    usePOST("order/create/", { data: data, token: token }).then((res) => {
+    usePOST("order/create/", { data: data, token: token.access }).then((res) => {
       if (res?.type == "success") handleNotification(res);
       if (res?.type == "error") handleNotification(res);
     });

@@ -3,16 +3,12 @@ import { useGET, usePOST } from "./utils";
 import { useStateContext } from "@/context/contextProvider";
 import { useEffect, useState } from "react";
 
-export const refreshToken = async (data) => {
-  const res = await usePOST("refresh/", { data: data });
-  return res;
-};
 
 export const useSignupWithProvider = (provider) => {
   const { handleToken, handleNotification } = useStateContext();
   
   const signup = (token) => {
-    usePOST("sign-up/" + provider, { data: { token: token } }).then((res)=>{
+    usePOST("sign-up/" + provider, { data: { token: token.access } }).then((res)=>{
       if (res.type == "error") handleNotification(res)
       if (res.type == "success") handleToken(res.data)
     });
@@ -21,23 +17,36 @@ export const useSignupWithProvider = (provider) => {
 };
 
 export const useRefresh = () => {
-  const { handleToken, handleNotification, token } = useStateContext();
-  let access;
+  const { handleToken, handleNotification, user, isTokenExpired } =
+    useStateContext();
+  const router = useRouter();
+  const [laoding, setLoading] = useState(false);
+  const data = { refresh: localStorage?.getItem("refreshAdmin") };
+  function refresh() {
+    if (isTokenExpired() || !user.access) {
+      if (data.refresh) {
+        usePOST("refresh/", { data: data }).then((res) => {
+          if (res.type == "success") {
+            handleToken(res);
+          } else {
+            handleNotification(res);
+            router.replace("/login");
+          }
+        });
+      } else {
+        router.replace("/login");
+      }
+    }
+  }
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      access = localStorage.getItem("refresh");
+    if (!user.access) {
+      setLoading(true);
+      refresh();
+      setLoading(false);
     }
-    if (access) {
-      refreshToken({ refresh: access }).then((data) => {
-        if (data?.type == "success") {
-          handleToken(data);
-        } else {
-          if (data?.type == "error") handleNotification(data);
-        }
-      });
-    }
+    setInterval(() => refresh(), 240000);
   }, []);
-  return { token };
+  return { laoding };
 };
 
 export const useSettings = () => {
@@ -56,7 +65,7 @@ export const useSettings = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    usePOST("account/update/", { data: settings, token: token }).then((res) => {
+    usePOST("account/update/", { data: settings, token: token.access }).then((res) => {
       if (res?.type == "error") handleNotification(res);
       if (res?.type == "success") {
         handleNotification(res);
@@ -65,7 +74,7 @@ export const useSettings = () => {
     });
   };
   useEffect(() => {
-    useGET("account/info/", { token: token }).then((res) => {
+    useGET("account/info/", { token: token.access }).then((res) => {
       if (res?.type == "error") handleNotification(res);
       if (res?.type == "success") {
         setSettings({

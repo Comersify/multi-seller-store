@@ -11,7 +11,7 @@ export const useCart = () => {
   const { handleNotification, token } = useStateContext();
 
   useEffect(() => {
-    useGET(`cart/products/`, { token: token }).then((res) => {
+    useGET(`cart/products/`, { token: token.access }).then((res) => {
       if (res?.type == "error") handleNotification(res);
       if (res?.type == "success") setproducts(res?.data);
     });
@@ -33,7 +33,7 @@ export const useCart = () => {
         order_id: id,
         quantity: quantity,
       },
-      token: token,
+      token: token.access,
     }).then((res) => {
       if (res?.type == "error") handleNotification(res);
       if (res?.type == "success") setRefresh(!refresh);
@@ -67,7 +67,7 @@ export const useAddProductToCart = (id) => {
         product_id: id,
         pack_id: packID,
       },
-      token: token,
+      token: token.access,
     };
     usePOST(`cart/add-product/`, conf).then((res) => {
       handleNotification(res);
