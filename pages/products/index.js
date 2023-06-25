@@ -2,8 +2,9 @@ import { useGetProducts } from "@/api/product";
 import { FiltersSideBar } from "@/components/FiltersSideBar";
 import { ProductCard } from "@/components/ProductCard";
 import { OrderByIcon, SearchIcon } from "@/components/shared/Icons";
+import { Loading } from "@/components/shared/Loading";
 import Head from "next/head";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const SearchInput = ({ onChange }) => {
   const [q, setQ] = useState();
@@ -46,6 +47,9 @@ const OrderBy = ({ text, onClick, active }) => {
 };
 
 export default function Products() {
+  const productsRef = useRef(null);
+  const [orderby, setOrderby] = useState();
+  const [cron, setCron] = useState();
   const [filter, setFilter] = useState({
     q: "",
     orderBy: "",
@@ -54,8 +58,6 @@ export default function Products() {
     from: 0.0,
     to: 0.0,
   });
-  const [orderby, setOrderby] = useState();
-  const [cron, setCron] = useState();
   const handleOnChange = (v) => {
     if (v == orderby) setOrderby("");
     else setOrderby(v);
@@ -66,7 +68,18 @@ export default function Products() {
       }, 1000)
     );
   };
-  const { products } = useGetProducts({ params: filter });
+  const { products, setOffset, loading } = useGetProducts({ params: filter });
+  const handleScroll = (e) => {
+    const scrollHeight = e.target.scrollHeight;
+    const currentHeight = e.target.scrollTop;
+    if (currentHeight >= scrollHeight - 1065) {
+      setOffset((prev) => prev + 1);
+    }
+  };
+  useEffect(() => {
+    const productsWindowElement = productsRef.current;
+    productsWindowElement.addEventListener("scroll", handleScroll);
+  }, []);
   return (
     <>
       <Head>
@@ -97,8 +110,11 @@ export default function Products() {
               onChange={(e) => setFilter({ ...filter, q: e.target.value })}
             />
           </div>
-          <div className="hover:overflow-y-auto border-t overflow-hidden h-[90vh] p-4 max-sm:-mb-[71px]">
-            <div className="flex items-start justify-start flex-wrap gap-4 pb-32 relative">
+          <div
+            ref={productsRef}
+            className="hover:overflow-y-auto border-t overflow-hidden h-[90vh] p-4 max-sm:-mb-[71px]"
+          >
+            <div className="flex items-start justify-center flex-wrap gap-4 pb-32 relative">
               {products?.map((product) => {
                 return (
                   <ProductCard
@@ -113,6 +129,12 @@ export default function Products() {
                   />
                 );
               })}
+
+              {loading && (
+                <div className="w-full flex items-center justify-center">
+                  <Loading />
+                </div>
+              )}
             </div>
           </div>
         </div>
