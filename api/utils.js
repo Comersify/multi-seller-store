@@ -5,13 +5,16 @@ export const useGET = async (url, conf) => {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
+      ...conf?.headers,
     },
   };
-  var myUrl = new URL(`${API_URL}/${url}`);
-  if (conf?.data){
-    myUrl.search = new URLSearchParams(conf?.data).toString();
-  }
-  if (conf?.token) get.headers["Authorization"] =  conf.token
+
+  const myUrl = new URL(`${API_URL}/${url}`);
+  myUrl.search = new URLSearchParams({
+    ...conf?.data,
+    offset: conf?.offset,
+  }).toString();
+
   const results = await fetch(myUrl, get)
     .then((response) => {
       if (!response.ok) {
@@ -39,22 +42,23 @@ export const usePOST = async (url, conf) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      ...conf?.headers,
     },
     body: "",
   };
-  if (conf?.data?.image && typeof conf?.data?.image == "object" ){
-    delete post.headers["Content-Type"] 
-    const formData =  new FormData()
-    formData.append("file", conf.data.image)
-    delete conf.data.image
-    formData.append("json_data", JSON.stringify(conf?.data))
-    post.body = formData
+  if (conf?.data?.image && typeof conf?.data?.image == "object") {
+    delete post.headers["Content-Type"];
+    const formData = new FormData();
+    formData.append("file", conf.data.image);
+    delete conf.data.image;
+    formData.append("json_data", JSON.stringify(conf?.data));
+    post.body = formData;
   } else {
-    post.body = JSON.stringify(conf?.data)
+    post.body = JSON.stringify(conf?.data);
   }
-  if (conf?.token) post.headers["Authorization"] =  conf.token
 
-  const results =  await fetch(`${API_URL}/${url}`, post)
+  const results = await fetch(`${API_URL}/${url}`, post)
+
     .then((response) => {
       if (!response.ok) {
         return {

@@ -2,16 +2,20 @@ import { useStateContext } from "@/context/contextProvider";
 import { useGET, usePOST } from "./utils";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { useRefresh } from "./auth";
 
 // cart
 export const useCart = () => {
   const [refresh, setRefresh] = useState(false);
   const [products, setproducts] = useState([]);
-  const { handleNotification, token } = useStateContext();
+  const { handleNotification, token, trackID } = useStateContext();
 
   useEffect(() => {
-    useGET(`cart/products/`, { token: token }).then((res) => {
+    useGET(`cart/products/`, {
+      headers: {
+        Authorization: token.access,
+        "X-Comercify-Visitor": trackID,
+      },
+    }).then((res) => {
       if (res?.type == "error") handleNotification(res);
       if (res?.type == "success") setproducts(res?.data);
     });
@@ -20,7 +24,10 @@ export const useCart = () => {
   const handleDelete = (id) => {
     usePOST(`cart/delete-product/`, {
       data: { order_id: id },
-      token: token,
+      headers: {
+        Authorization: token.access,
+        "X-Comercify-Visitor": trackID,
+      },
     }).then((res) => {
       handleNotification(res);
       if (res?.type == "success") setRefresh(!refresh);
@@ -33,7 +40,10 @@ export const useCart = () => {
         order_id: id,
         quantity: quantity,
       },
-      token: token,
+      headers: {
+        Authorization: token.access,
+        "X-Comercify-Visitor": trackID,
+      },
     }).then((res) => {
       if (res?.type == "error") handleNotification(res);
       if (res?.type == "success") setRefresh(!refresh);
@@ -44,7 +54,7 @@ export const useCart = () => {
 
 export const useAddProductToCart = (id) => {
   const [packID, setPackID] = useState(false);
-  const { handleNotification, token } = useStateContext();
+  const { handleNotification, token, trackID } = useStateContext();
   const router = useRouter();
 
   const handleAddProductToCart = async (e, hasPacks) => {
@@ -67,7 +77,10 @@ export const useAddProductToCart = (id) => {
         product_id: id,
         pack_id: packID,
       },
-      token: token,
+      headers: {
+        Authorization: token.access,
+        "X-Comercify-Visitor": trackID,
+      },
     };
     usePOST(`cart/add-product/`, conf).then((res) => {
       handleNotification(res);

@@ -6,6 +6,7 @@ export default function SignUp() {
     <>
       <Head>
         <title>Sign Up</title>
+        <meta name="google-signin-client_id" content="626908472574-pkrn39o1ded5r8gi2guckphcnpimn4f1.apps.googleusercontent.com"></meta>
       </Head>
       <SignUpForm />
     </>

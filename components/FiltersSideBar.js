@@ -177,13 +177,13 @@ export const FiltersSideBar = ({ setFilter }) => {
         ref={sideBarRef}
         className={`${
           !open && "hidden"
-        } absolute z-20 w-[99vw] h-screen bg-gray-900 opacity-40`}
+        } absolute z-10 w-[99vw] h-screen bg-gray-900 opacity-40`}
       ></div>
       <div
         id="sidebar"
         className={`flex animation h-screen ${
           !open && "hidden-side"
-        } border absolute z-30 border-r-slate-300 bg-gray-50 flex-col w-64`}
+        } border absolute z-10 border-r-slate-300 bg-gray-50 flex-col w-64`}
       >
         <ToggleSideBarButton open={open} setOpen={setOpen} />
         <div className="hover:overflow-y-auto overflow-y-hidden  text-gray-900">

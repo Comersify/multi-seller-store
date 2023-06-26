@@ -3,29 +3,56 @@ import { useGET, usePOST } from "./utils";
 import { useStateContext } from "@/context/contextProvider";
 import { useEffect, useState } from "react";
 
-export const refreshToken = async (data) => {
-  const res = await usePOST("refresh/", { data: data });
-  return res;
+export const useSignupWithProvider = (provider) => {
+  const { handleToken, handleNotification, trackID } = useStateContext();
+
+  const signup = (token) => {
+    usePOST("sign-up/" + provider, {
+      data: { token: token.access },
+      headers: { "X-Comercify-Visitor": trackID },
+    }).then((res) => {
+      if (res.type == "error") handleNotification(res);
+      if (res.type == "success") handleToken(res.data);
+    });
+  };
+  return { signup };
 };
 
 export const useRefresh = () => {
-  const { handleToken, handleNotification, token } = useStateContext();
-  let access;
+  const { handleToken, handleNotification, token, isTokenExpired } =
+    useStateContext();
+  const router = useRouter();
+  const [laoding, setLoading] = useState(false);
+  function refresh() {
+    const data = {
+      refresh: localStorage?.getItem("refresh"),
+    };
+    if (isTokenExpired() || !token.access) {
+      if (data.refresh) {
+        usePOST("refresh/", {
+          data: data,
+        }).then((res) => {
+          if (res.type == "success") {
+            handleToken(res);
+          } else {
+            handleNotification(res);
+            router.replace("/login");
+          }
+        });
+      } else {
+        router.replace("/login");
+      }
+    }
+  }
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      access = localStorage.getItem("refresh");
+    if (!token.access) {
+      setLoading(true);
+      refresh();
+      setLoading(false);
     }
-    if (access) {
-      refreshToken({ refresh: access }).then((data) => {
-        if (data?.type == "success") {
-          handleToken(data);
-        } else {
-          if (data?.type == "error") handleNotification(data);
-        }
-      });
-    }
+    setInterval(() => refresh(), 240000);
   }, []);
-  return { token };
+  return { laoding };
 };
 
 export const useSettings = () => {
@@ -40,11 +67,17 @@ export const useSettings = () => {
     passwordConfermation: "",
   });
   const [refresh, setRefresh] = useState(false);
-  const { handleNotification, token } = useStateContext();
+  const { handleNotification, token, trackID } = useStateContext();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    usePOST("account/update/", { data: settings, token: token }).then((res) => {
+    usePOST("account/update/", {
+      data: settings,
+      headers: {
+        Authorization: token.access,
+        "X-Comercify-Visitor": trackID,
+      },
+    }).then((res) => {
       if (res?.type == "error") handleNotification(res);
       if (res?.type == "success") {
         handleNotification(res);
@@ -53,7 +86,12 @@ export const useSettings = () => {
     });
   };
   useEffect(() => {
-    useGET("account/info/", { token: token }).then((res) => {
+    useGET("account/info/", {
+      headers: {
+        Authorization: token.access,
+        "X-Comercify-Visitor": trackID,
+      },
+    }).then((res) => {
       if (res?.type == "error") handleNotification(res);
       if (res?.type == "success") {
         setSettings({
@@ -73,12 +111,15 @@ export const useSettings = () => {
 
 export const useLogin = () => {
   const [auth, setAuth] = useState({ username: "", password: "" });
-  const { handleToken, handleNotification, token } = useStateContext();
+  const { handleToken, handleNotification, token, trackID } = useStateContext();
   const router = useRouter();
   if (token) router.replace("/products");
   const handleSubmit = (e) => {
     e.preventDefault();
-    const res = usePOST("login/", { data: auth }).then((res) => {
+    const res = usePOST("login/", {
+      data: auth,
+      headers: { "X-Comercify-Visitor": trackID },
+    }).then((res) => {
       if (res?.type == "error") handleNotification(res);
       if (res?.type == "success") {
         router.replace("/products");
@@ -91,7 +132,7 @@ export const useLogin = () => {
 
 export const useSignup = () => {
   const router = useRouter();
-  const { handleNotification, token } = useStateContext();
+  const { handleNotification, token, trackID } = useStateContext();
   if (token) router.replace("/products");
   const [form, setForm] = useState({
     firstName: "",
@@ -103,7 +144,10 @@ export const useSignup = () => {
   });
   const handleSubmit = (e) => {
     e.preventDefault();
-    const res = usePOST("signup/", { data: form }).then((res) => {
+    const res = usePOST("signup/", {
+      data: form,
+      headers: { "X-Comercify-Visitor": trackID },
+    }).then((res) => {
       if (res.type == "error") handleNotification(res);
       if (res.type == "success") {
         router.replace("/login");

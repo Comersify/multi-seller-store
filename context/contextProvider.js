@@ -4,7 +4,7 @@ export const StateContext = createContext();
 
 export const ContextProvider = ({ children }) => {
   const [token, setToken] = useState(false);
-  const [image, setImage] = useState();
+  const [trackID, setTrackID] = useState();
   const [notification, setNotifiction] = useState({
     type: null,
     message: null,
@@ -13,8 +13,7 @@ export const ContextProvider = ({ children }) => {
   const handleToken = (data) => {
     localStorage.setItem("refresh", data.refresh);
     localStorage.setItem("exp", data.exp);
-    setToken(data?.access);
-    setImage(data.image);
+    setToken(data);
     return;
   };
 
@@ -42,7 +41,8 @@ export const ContextProvider = ({ children }) => {
       value={{
         handleNotification,
         token,
-        image,
+        trackID,
+        setTrackID,
         isTokenExpired,
         handleToken,
       }}

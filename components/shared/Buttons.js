@@ -58,7 +58,7 @@ export const CartButton = () => {
 };
 
 export const ProfileButoon = ({ action }) => {
-  const {image} = useStateContext()
+  const {token} = useStateContext()
   return (
     <button
       onClick={() => action()}
@@ -69,7 +69,7 @@ export const ProfileButoon = ({ action }) => {
         width={30}
         height={30}
         className="h-8 w-8 rounded-full"
-        src={image ? MEDIA_URL+image?.replace("/media/", "") : "/avatar.jpeg"}
+        src={token?.image ? MEDIA_URL + token?.image?.replace("/media/", "") : "/avatar.jpeg"}
         alt=""
       />
     </button>
