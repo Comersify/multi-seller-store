@@ -8,11 +8,13 @@ export const useGET = async (url, conf) => {
       ...conf?.headers,
     },
   };
+
   const myUrl = new URL(`${API_URL}/${url}`);
   myUrl.search = new URLSearchParams({
     ...conf?.data,
     offset: conf?.offset,
   }).toString();
+
   const results = await fetch(myUrl, get)
     .then((response) => {
       if (!response.ok) {
@@ -56,6 +58,7 @@ export const usePOST = async (url, conf) => {
   }
 
   const results = await fetch(`${API_URL}/${url}`, post)
+
     .then((response) => {
       if (!response.ok) {
         return {
