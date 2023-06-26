@@ -11,8 +11,10 @@ export const useCart = () => {
 
   useEffect(() => {
     useGET(`cart/products/`, {
-      token: token.access,
-      headers: { "X-Comercify-Visitor": trackID },
+      headers: {
+        Authorization: token.access,
+        "X-Comercify-Visitor": trackID,
+      },
     }).then((res) => {
       if (res?.type == "error") handleNotification(res);
       if (res?.type == "success") setproducts(res?.data);
@@ -22,8 +24,10 @@ export const useCart = () => {
   const handleDelete = (id) => {
     usePOST(`cart/delete-product/`, {
       data: { order_id: id },
-      token: token,
-      headers: { "X-Comercify-Visitor": trackID },
+      headers: {
+        Authorization: token.access,
+        "X-Comercify-Visitor": trackID,
+      },
     }).then((res) => {
       handleNotification(res);
       if (res?.type == "success") setRefresh(!refresh);
@@ -36,8 +40,10 @@ export const useCart = () => {
         order_id: id,
         quantity: quantity,
       },
-      token: token.access,
-      headers: { "X-Comercify-Visitor": trackID },
+      headers: {
+        Authorization: token.access,
+        "X-Comercify-Visitor": trackID,
+      },
     }).then((res) => {
       if (res?.type == "error") handleNotification(res);
       if (res?.type == "success") setRefresh(!refresh);
@@ -71,8 +77,10 @@ export const useAddProductToCart = (id) => {
         product_id: id,
         pack_id: packID,
       },
-      token: token.access,
-      headers: { "X-Comercify-Visitor": trackID },
+      headers: {
+        Authorization: token.access,
+        "X-Comercify-Visitor": trackID,
+      },
     };
     usePOST(`cart/add-product/`, conf).then((res) => {
       handleNotification(res);

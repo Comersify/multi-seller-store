@@ -5,7 +5,7 @@ export const useGET = async (url, conf) => {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      ...conf.headers,
+      ...conf?.headers,
     },
   };
   const myUrl = new URL(`${API_URL}/${url}`);
@@ -13,7 +13,6 @@ export const useGET = async (url, conf) => {
     ...conf?.data,
     offset: conf?.offset,
   }).toString();
-  if (conf?.token) get.headers["Authorization"] = conf.token;
   const results = await fetch(myUrl, get)
     .then((response) => {
       if (!response.ok) {
@@ -41,7 +40,7 @@ export const usePOST = async (url, conf) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      ...conf.headers,
+      ...conf?.headers,
     },
     body: "",
   };
@@ -55,7 +54,6 @@ export const usePOST = async (url, conf) => {
   } else {
     post.body = JSON.stringify(conf?.data);
   }
-  if (conf?.token) post.headers["Authorization"] = conf.token;
 
   const results = await fetch(`${API_URL}/${url}`, post)
     .then((response) => {

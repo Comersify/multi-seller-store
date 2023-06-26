@@ -74,8 +74,10 @@ export const useSettings = () => {
     e.preventDefault();
     usePOST("account/update/", {
       data: settings,
-      token: token.access,
-      headers: { "X-Comercify-Visitor": trackID },
+      headers: {
+        Authorization: token.access,
+        "X-Comercify-Visitor": trackID,
+      },
     }).then((res) => {
       if (res?.type == "error") handleNotification(res);
       if (res?.type == "success") {
@@ -86,8 +88,10 @@ export const useSettings = () => {
   };
   useEffect(() => {
     useGET("account/info/", {
-      token: token.access,
-      headers: { "X-Comercify-Visitor": trackID },
+      headers: {
+        Authorization: token.access,
+        "X-Comercify-Visitor": trackID,
+      },
     }).then((res) => {
       if (res?.type == "error") handleNotification(res);
       if (res?.type == "success") {

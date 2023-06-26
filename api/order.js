@@ -7,7 +7,7 @@ export const useGetOrders = () => {
   const { handleNotification, token, trackID } = useStateContext();
   useEffect(() => {
     useGET("my-orders/", {
-      token: token.access,
+      Autho: token.access,
       headers: { "X-Comercify-Visitor": trackID },
     }).then((res) => {
       if (res?.type == "error") handleNotification(res);
@@ -24,8 +24,10 @@ export const useCreateOrder = () => {
 
     usePOST("order/create/", {
       data: data,
-      token: token.access,
-      headers: { "X-Comercify-Visitor": trackID },
+      headers: {
+        Authorization: token.access,
+        "X-Comercify-Visitor": trackID,
+      },
     }).then((res) => {
       if (res?.type == "success") handleNotification(res);
       if (res?.type == "error") handleNotification(res);

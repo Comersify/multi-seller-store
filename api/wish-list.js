@@ -10,7 +10,9 @@ export const useWishList = () => {
   const { handleNotification, token } = useStateContext();
 
   useEffect(() => {
-    useGET(`wish-list/products/`, { token: token.access }).then((res) => {
+    useGET(`wish-list/products/`, {
+      headers: { Authorization: token.access },
+    }).then((res) => {
       if (res?.type == "error") handleNotification(res);
       if (res?.type == "success") setProducts(res?.data);
     });
@@ -19,7 +21,7 @@ export const useWishList = () => {
   const handleDelete = (id) => {
     usePOST(`wish-list/delete-product/`, {
       data: { product_id: id },
-      token: token.access,
+      headers: { Authorization: token.access },
     }).then((res) => {
       handleNotification(res);
       if (res?.type == "success") {
@@ -39,8 +41,10 @@ export const useProductInWishList = (id) => {
 
   useEffect(() => {
     useGET(`wish-list/has-product/${id}`, {
-      token: token.access,
-      headers: { "X-Comercify-Visitor": trackID },
+      headers: {
+        Authorization: token.access,
+        "X-Comercify-Visitor": trackID,
+      },
     }).then((res) => {
       setAdded(res.data);
     });
@@ -54,8 +58,10 @@ export const useProductInWishList = (id) => {
     if (!added) {
       usePOST(`wish-list/add-product/`, {
         data: { product_id: id },
-        token: token.access,
-        headers: { "X-Comercify-Visitor": trackID },
+        headers: {
+          Authorization: token.access,
+          "X-Comercify-Visitor": trackID,
+        },
       }).then((res) => {
         handleNotification(res);
         if (res.type == "success") setAdded(!added);
@@ -63,8 +69,10 @@ export const useProductInWishList = (id) => {
     } else {
       usePOST(`wish-list/delete-product/`, {
         data: { product_id: id },
-        token: token.access,
-        headers: { "X-Comercify-Visitor": trackID },
+        headers: {
+          Authorization: token.access,
+          "X-Comercify-Visitor": trackID,
+        },
       }).then((res) => {
         handleNotification(res);
         if (res.type == "success") setAdded(!added);
