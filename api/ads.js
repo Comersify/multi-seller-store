@@ -5,9 +5,9 @@ import { useGET } from "./utils";
 // ads
 export const useGetAds = () => {
   const [images, setImages] = useState([]);
-  const { handleNotification } = useStateContext();
+  const { handleNotification, trackID } = useStateContext();
   useEffect(() => {
-    useGET("ads/")
+    useGET("ads/", { headers: { "X-Comercify-Visitor": trackID } })
       .then((res) => {
         if (res?.type == "error") handleNotification(res);
         if (res?.type == "success") setImages(res?.data);

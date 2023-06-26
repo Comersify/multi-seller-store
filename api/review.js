@@ -4,9 +4,11 @@ import { useGET } from "./utils";
 
 export const useGetCustomerReviews = () => {
   const [reviews, setReviews] = useState([]);
-  const { handleNotification } = useStateContext();
+  const { handleNotification, trackID } = useStateContext();
   useEffect(() => {
-    useGET(`app-reviews/`).then((res)=>{
+    useGET(`app-reviews/`, {
+      headers: { "X-Comercify-Visitor": trackID },
+    }).then((res) => {
       if (res?.type == "error") handleNotification(res);
       if (res?.type == "success") setReviews(res?.data);
     });
@@ -16,9 +18,11 @@ export const useGetCustomerReviews = () => {
 
 export const useGetReviews = (id) => {
   const [reviews, setReviews] = useState([]);
-  const { handleNotification } = useStateContext();
+  const { handleNotification, trackID } = useStateContext();
   useEffect(() => {
-    useGET(`reviews/${id}`).then((res)=> {
+    useGET(`reviews/${id}`, {
+      headers: { "X-Comercify-Visitor": trackID },
+    }).then((res) => {
       if (res?.type == "error") handleNotification(res);
       if (res?.type == "success") setReviews(res?.data);
     });

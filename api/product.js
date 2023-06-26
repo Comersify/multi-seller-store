@@ -6,13 +6,13 @@ export const useGetProducts = ({ params, filter }) => {
   const [products, setProducts] = useState([]);
   const [offset, setOffset] = useState(1);
   const [loading, setLoading] = useState(true);
-  const { handleNotification } = useStateContext();
+  const { handleNotification, trackID } = useStateContext();
   useEffect(() => {
     setLoading(true);
-    console.log(loading);
     useGET(`products/${filter || ""}`, {
       data: params,
       offset: offset,
+      headers: { "X-Comercify-Visitor": trackID },
     }).then((res) => {
       if (res?.type == "error") handleNotification(res);
       if (res?.type == "success") {
@@ -21,7 +21,6 @@ export const useGetProducts = ({ params, filter }) => {
       }
       setLoading(false);
     });
-    console.log(loading);
   }, [params]);
 
   useEffect(() => {
@@ -29,6 +28,7 @@ export const useGetProducts = ({ params, filter }) => {
     useGET(`products/${filter || ""}`, {
       data: params,
       offset: offset,
+      headers: { "X-Comercify-Visitor": trackID },
     }).then((res) => {
       if (res?.type == "error") handleNotification(res);
       if (res?.type == "success") {

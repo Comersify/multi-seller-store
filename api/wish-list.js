@@ -35,10 +35,13 @@ export const useProductInWishList = (id) => {
   const [added, setAdded] = useState();
   const router = useRouter();
 
-  const { handleNotification, token } = useStateContext();
+  const { handleNotification, token, trackID } = useStateContext();
 
   useEffect(() => {
-    useGET(`wish-list/has-product/${id}`, { token: token.access }).then((res) => {
+    useGET(`wish-list/has-product/${id}`, {
+      token: token.access,
+      headers: { "X-Comercify-Visitor": trackID },
+    }).then((res) => {
       setAdded(res.data);
     });
   }, []);
@@ -52,18 +55,21 @@ export const useProductInWishList = (id) => {
       usePOST(`wish-list/add-product/`, {
         data: { product_id: id },
         token: token.access,
+        headers: { "X-Comercify-Visitor": trackID },
       }).then((res) => {
         handleNotification(res);
+        if (res.type == "success") setAdded(!added);
       });
     } else {
       usePOST(`wish-list/delete-product/`, {
         data: { product_id: id },
         token: token.access,
+        headers: { "X-Comercify-Visitor": trackID },
       }).then((res) => {
         handleNotification(res);
+        if (res.type == "success") setAdded(!added);
       });
     }
-    setAdded(!added);
   };
   return { handleAddToWishList, added };
 };

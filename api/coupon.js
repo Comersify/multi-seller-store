@@ -6,7 +6,7 @@ import { usePOST } from "./utils";
 export const useGetCouponValue = (refresh) => {
   const [coupon, setCoupon] = useState("");
   const [coupons, setCoupons] = useState([]);
-  const { handleNotification, token } = useStateContext();
+  const { handleNotification, token, trackID } = useStateContext();
 
   const handleApply = async (e) => {
     e.preventDefault();
@@ -23,12 +23,13 @@ export const useGetCouponValue = (refresh) => {
     usePOST(`cart/apply-coupon/`, {
       data: { code: coupon },
       token: token,
+      headers: { "X-Comercify-Visitor": trackID },
     }).then((res) => {
       if (res?.type == "error") handleNotification(res);
       if (res?.type == "success") {
         setCoupons([...coupons, res?.data]);
         setCoupon("");
-        refresh((ref) => !ref)
+        refresh((ref) => !ref);
       }
     });
   };
