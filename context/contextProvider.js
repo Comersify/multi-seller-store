@@ -1,6 +1,5 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 import { PushNotification } from "../components/PushNotification";
-import { useInitTracker } from "@/api/tracker";
 export const StateContext = createContext();
 
 export const ContextProvider = ({ children }) => {
@@ -10,15 +9,6 @@ export const ContextProvider = ({ children }) => {
     type: null,
     message: null,
   });
-
-  useEffect(() => {
-    if (localStorage?.getItem("trackID")) {
-      setTrackID(localStorage?.getItem("trackID"));
-    } else {
-      const { tracker } = useInitTracker();
-      setTrackID(tracker);
-    }
-  }, []);
 
   const handleToken = (data) => {
     localStorage.setItem("refresh", data.refresh);
@@ -52,6 +42,7 @@ export const ContextProvider = ({ children }) => {
         handleNotification,
         token,
         trackID,
+        setTrackID,
         isTokenExpired,
         handleToken,
       }}
