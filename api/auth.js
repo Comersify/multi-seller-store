@@ -19,19 +19,18 @@ export const useSignupWithProvider = (provider) => {
 };
 
 export const useRefresh = () => {
-  const { handleToken, handleNotification, user, isTokenExpired, trackID } =
+  const { handleToken, handleNotification, token, isTokenExpired } =
     useStateContext();
   const router = useRouter();
   const [laoding, setLoading] = useState(false);
-  const data = {
-    refresh: localStorage?.getItem("refreshAdmin"),
-  };
   function refresh() {
-    if (isTokenExpired() || !user.access) {
+    const data = {
+      refresh: localStorage?.getItem("refresh"),
+    };
+    if (isTokenExpired() || !token.access) {
       if (data.refresh) {
         usePOST("refresh/", {
           data: data,
-          headers: { "X-Comercify-Visitor": trackID },
         }).then((res) => {
           if (res.type == "success") {
             handleToken(res);
@@ -46,7 +45,7 @@ export const useRefresh = () => {
     }
   }
   useEffect(() => {
-    if (!user.access) {
+    if (!token.access) {
       setLoading(true);
       refresh();
       setLoading(false);
