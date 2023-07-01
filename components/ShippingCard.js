@@ -1,3 +1,6 @@
+import { SelectInput } from "@/forms/Input";
+import { useState } from "react";
+
 const TruckIcon = () => {
   return (
     <svg
@@ -17,7 +20,13 @@ const TruckIcon = () => {
   );
 };
 
-export const ShippingCard = () => {
+export const ShippingCard = ({ shipping, addShipping, shippingValue }) => {
+  const [shippingPrice, setShippingPrice] = useState();
+
+  const handleOnChange = (v) => {
+    console.log(v);
+    addShipping(v);
+  };
   return (
     <div className="-max-w-[450px] rounded-md mb-4 mr-6 shadow-sm border border-gray-200 p-6 text-gray-900">
       <div className="flex justify-between items-center mb-4">
@@ -25,18 +34,28 @@ export const ShippingCard = () => {
           <TruckIcon />
           <p className="px-2">Shipping Service</p>
         </div>
+        {/* 
         <div className="bg-gray-200 rounded-md px-2 py-1 text-xs">
           <span className="text-gray-700">Free Shipping</span>
-        </div>
+        </div> */}
       </div>
-      <div className="flex flex-col space-y-2">
-        <p>
-          <span className="font-medium">Estimated Delivery:</span> 3-5 business
-          days
-        </p>
-        <p>
-          <span className="font-medium">Price:</span> $20
-        </p>
+      <div className="flex items-center justify-center">
+        <SelectInput
+          key="id"
+          item="wilaya"
+          className="px-2 py-1"
+          value={shippingValue || shipping[0]}
+          values={shipping}
+          onChange={(e) => handleOnChange(e.target.value)}
+        />
+        <div className="bg-blue-100 min-w-[100px] rounded-md px-2 py-1">
+          <span className="text-blue-700 text-lg font-bold">
+            {shippingValue
+              ? shipping?.filter((v, i) => v.id == shippingValue)[0]?.price
+              : shipping[0].price}{" "}
+            DA
+          </span>
+        </div>
       </div>
     </div>
   );
