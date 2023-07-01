@@ -1,4 +1,5 @@
 "use client";
+import { useInitTracker } from "@/api/tracker";
 import Link from "next/link";
 
 export const AllowCockies = () => {

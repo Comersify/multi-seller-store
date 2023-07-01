@@ -5,7 +5,6 @@ export const useGET = async (url, conf) => {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-
     },
   };
   if (conf?.headers) get.headers = { ...get.headers, ...conf.headers };
@@ -41,17 +40,10 @@ export const usePOST = async (url, conf) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-<<<<<<< HEAD
-      ...conf?.headers,
-    },
-    body: "",
-  };
-=======
     },
     body: "",
   };
   if (conf?.headers) post.headers = { ...post.headers, ...conf.headers };
->>>>>>> 636e209 (upgrade to next 13)
   if (conf?.data?.image && typeof conf?.data?.image == "object") {
     delete post.headers["Content-Type"];
     const formData = new FormData();
@@ -64,10 +56,6 @@ export const usePOST = async (url, conf) => {
   }
 
   const results = await fetch(`${API_URL}/${url}`, post)
-<<<<<<< HEAD
-
-=======
->>>>>>> 636e209 (upgrade to next 13)
     .then((response) => {
       if (!response.ok) {
         return {

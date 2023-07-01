@@ -40,7 +40,7 @@ export const LeftArrow = () => {
       viewBox="0 0 24 24"
       strokeWidth="2.5"
       stroke="currentColor"
-      className="w-6 h-6"
+      className="w-6 text-white h-6"
     >
       <path
         strokeLinecap="round"
@@ -194,7 +194,7 @@ export const RightArrow = () => {
       viewBox="0 0 24 24"
       strokeWidth="2.5"
       stroke="currentColor"
-      className="w-6 h-6"
+      className="w-6 text-white h-6"
     >
       <path
         strokeLinecap="round"
