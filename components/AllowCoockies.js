@@ -1,17 +1,17 @@
-("use client");
+import { useInitTracker } from "@/api/tracker";
 import Link from "next/link";
-import { useRef } from "react";
 
 export const AllowCockies = () => {
-  const cockiesRef = useRef(null);
+  useInitTracker();
   const handleAccept = (e) => {
     e.preventDefault();
     localStorage.setItem("accept-cockies", 1);
-    cockiesRef.current.remove();
+    document.getElementById("allow-cockies").remove();
   };
+
   return (
     <div
-      ref={cockiesRef}
+      id="allow-cockies"
       className="p-10 border-blue-200 m-2 z-30  fixed bg-gray-100 border rounded-t-md bottom-0"
     >
       <p className="text-black">
