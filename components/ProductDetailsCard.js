@@ -4,13 +4,14 @@ import { Stars } from "@/components/Stars";
 import { SaveButton } from "@/components/shared/Buttons";
 import { MEDIA_URL } from "@/urls";
 import Image from "next/image";
+import { ShippingCard } from "./ShippingCard";
 
 const ProductDescription = ({ description }) => {
   return (
-    <div className="py-10 text-gray-900 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
+    <div className="py-10 text-gray-900 lg:col-span-2 lg:col-start-1 lg:pb-16 lg:pr-8 lg:pt-6">
       {/* <!-- Description and details --> */}
       <p className="text-gray-900 font-bold mb-2">Description:</p>
-      {description}
+      <p>{description}</p>
     </div>
   );
 };
@@ -26,7 +27,9 @@ const Choice = ({ image, title, currentPack, addPackID, id }) => {
       className="w-16 h-20"
     >
       <label
-        className={"group w-16 h-16 py-1 flex items-center justify-center rounded-md border text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6 cursor-pointer bg-white text-gray-900 shadow-sm"}
+        className={
+          "group w-16 h-16 py-1 flex items-center justify-center rounded-md border text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6 cursor-pointer bg-white text-gray-900 shadow-sm"
+        }
       >
         <input
           type="radio"
@@ -40,14 +43,14 @@ const Choice = ({ image, title, currentPack, addPackID, id }) => {
               Checked: "border-indigo-500", Not Checked: "border-transparent"
         --> */}
         <img
-          src={MEDIA_URL+image?.replace("/media/", "")}
+          src={MEDIA_URL + image?.replace("/media/", "")}
           width={60}
           height={60}
           alt="Pack"
           id="size-choice-3-label"
           className={`pointer-events-none  ${
-          id == currentPack && "ring-2 ring-indigo-500"
-        } w-16 h-16 -inset-px rounded-md`}
+            id == currentPack && "ring-2 ring-indigo-500"
+          } w-16 h-16 -inset-px rounded-md`}
         />
       </label>
       <p
@@ -113,7 +116,6 @@ export const ProductChoices = ({ packs, packID, addPackID }) => {
       </div>
 
       <fieldset className="mt-4">
-        <legend className="sr-only">Choose a size</legend>
         <div className="flex flex-wrap gap-4 w-full">
           {/* <!-- Active: "ring-2 ring-indigo-500" --> */}
           <NotAvialableChoice />
@@ -141,48 +143,68 @@ export const ProductDetailsCard = ({
   description,
   discount,
   id,
+  shipping,
   packs,
 }) => {
-  if (!id) return <p>Loading</p>
-  const acctualPrice = (price - (discount * price) / 100) 
+  if (!id) return <p>Loading</p>;
+  const acctualPrice = price - (discount * price) / 100;
   const { handleAddToWishList, added } = useProductInWishList(id);
-  const { handleAddProductToCart, packID, addPackID } = useAddProductToCart(id);
+  const { handleAddProductToCart, order, setOrder } = useAddProductToCart(id);
   return (
-    <div className="mx-auto w-90 px-4 pb-8 pt-10 col-span-2 lg:col-span-3 sm:px-6 lg:grid lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-10 lg:pt-16">
-      <div className="lg:col-span-2 lg:border-r flex items-center justify-between lg:border-gray-200 lg:pr-8">
-        <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
-          {title}
-        </h1>
-        <SaveButton saved={added} onClick={() => handleAddToWishList()} />
-      </div>
-
-      {/* <!-- Options --> */}
-      <div className="mt-4 lg:row-span-3 lg:mt-0">
-        <h2 className="sr-only">Product information</h2>
-        <p className="tracking-tight flex text-gray-900">
-         <div className="flex text-3xl font-bold text-gray-900">
-                {discount ? acctualPrice.toFixed(2) : price}
-                <div className="text-3xl font-bold text-gray-900">$</div>
-              </div>
-              {discount ? <div className="px-2 text-xl self-end text-sm line-through text-gray-500">
-                ${price}
-              </div> : ''}
-        </p>
-        {/* <!-- Reviews --> */}
-
-        {starsCount > 0 ? <div className="mt-6">
-          <h3 className="sr-only">Reviews</h3>
-          <div className="flex items-center">
-            <Stars num={stars} />
-            <span className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">
-              {starsCount} review{starsCount > 1 && "s"}
-            </span>
+    <>
+      <div className="mx-auto w-90 px-4 pb-8 pt-10 sm:px-6  lg:gap-x-8 lg:px-8 lg:pb-10 lg:pt-16">
+        <div className="flex">
+          <div className="flex items-center max-w-[200px] justify-between lg:pr-8">
+            <div>
+              <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+                {title}
+              </h1>
+              {starsCount > 0 ? (
+                <div className="mt-6">
+                  <h3 className="sr-only">Reviews</h3>
+                  <div className="flex items-center">
+                    <Stars num={stars} />
+                    <span className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                      {starsCount} review{starsCount > 1 && "s"}
+                    </span>
+                  </div>
+                </div>
+              ) : (
+                <p className="text-gray-400 font-bold text-md mt-2">
+                  Not rated yet
+                </p>
+              )}
+            </div>
+            <SaveButton saved={added} onClick={() => handleAddToWishList()} />
           </div>
-        </div> : <p className="text-gray-400 font-bold text-md mt-2">Not rated yet</p>}
+
+          {/* <!-- Options --> */}
+          <div className="mt-4 lg:mt-0">
+            <p className="tracking-tight flex text-gray-900">
+              <div className="flex text-3xl font-bold text-gray-900">
+                {discount ? acctualPrice.toFixed(2) : price}
+                <div className="text-3xl font-bold text-gray-900">DA</div>
+              </div>
+              {discount ? (
+                <div className="px-2 text-xl self-end  line-through text-gray-500">
+                  {price} DA
+                </div>
+              ) : (
+                ""
+              )}
+            </p>
+          </div>
+          {/* <!-- Reviews --> */}
+        </div>
+        <ProductDescription description={description} />
 
         <form className="mt-5 min-w-[250px]">
           {/* <!-- Sizes --> */}
-          <ProductChoices packs={packs} packID={packID} addPackID={addPackID} />
+          <ProductChoices
+            packs={packs}
+            packID={order?.packID}
+            addPackID={(id) => setOrder((prev) => ({ ...prev, packID: id }))}
+          />
           <button
             onClick={(e) => handleAddProductToCart(e, packs.length > 0)}
             type="submit"
@@ -191,9 +213,16 @@ export const ProductDetailsCard = ({
             Add to bag
           </button>
         </form>
+        <div className="md:flex w-full sm:block mb-12 items-center justify-center">
+          <ShippingCard
+            shippingValue={order?.shippingID}
+            shipping={shipping}
+            addShipping={(id) =>
+              setOrder((prev) => ({ ...prev, shippingID: id }))
+            }
+          />
+        </div>
       </div>
-
-      <ProductDescription description={description} />
-    </div>
+    </>
   );
 };
