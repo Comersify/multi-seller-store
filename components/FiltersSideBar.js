@@ -182,8 +182,8 @@ export const FiltersSideBar = ({ setFilter }) => {
       ></div>
       <div
         id="sidebar"
-        className={`flex animation h-screen ${
-          !open && "hidden-side"
+        className={`transform transition-transform duration-300 flex dur h-screen ${
+          !open && " translate-x-[-256px]"
         } border absolute z-10 border-r-slate-300 bg-gray-50 flex-col w-64`}
       >
         <ToggleSideBarButton open={open} setOpen={setOpen} />
