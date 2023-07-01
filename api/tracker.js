@@ -10,7 +10,7 @@ export const useInitTracker = () => {
     if (localStorage?.getItem("trackID")) {
       setTrackID(localStorage?.getItem("trackID"));
     }
-    if (localStorage?.getItem("accept-cockies") == 1) {
+    if (localStorage?.getItem("accept-cockies") == 1 && !localStorage?.getItem("trackID")) {
       useGET("tracking/init/").then((res) => {
         if (res.type == "success") {
           setTrackID(res.data);
