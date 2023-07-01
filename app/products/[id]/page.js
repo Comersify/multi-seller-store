@@ -14,7 +14,7 @@ export default function ProductDetails({ params }) {
 
   return (
     <section className="px-6 md:px-20 lg:px-34">
-      <div className="px-6 flex min-[200px]:flex-wrap">
+      <div className="px-6 flex flex-wrap py-8 mb-4  w-full justify-center">
         <Gallery images={product?.images} />
         <ProductDetailsCard
           id={product?.id}

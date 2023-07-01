@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useStateContext } from "@/context/contextProvider";
@@ -62,10 +61,17 @@ export const useAddProductToCart = (id) => {
   const handleAddProductToCart = async (e, hasPacks) => {
     e.preventDefault();
     if (hasPacks) {
-      if (!packID) {
+      if (!order.packID) {
         handleNotification({
           type: "error",
-          message: "Please chose your pack",
+          message: "Please select your Pack",
+        });
+        return;
+      }
+      if (!order.shippingID) {
+        handleNotification({
+          type: "error",
+          message: "Please select your province",
         });
         return;
       }
@@ -77,7 +83,8 @@ export const useAddProductToCart = (id) => {
     const conf = {
       data: {
         product_id: id,
-        pack_id: packID,
+        pack_id: order.packID,
+        shipping_id: order.shippingID,
       },
       headers: {
         Authorization: token.access,
@@ -87,10 +94,6 @@ export const useAddProductToCart = (id) => {
     usePOST(`cart/add-product/`, conf).then((res) => {
       handleNotification(res);
     });
-  };
-  const addPackID = (id) => {
-    if (packID == id) setPackID(false);
-    else setPackID(id);
   };
   return { handleAddProductToCart, order, setOrder };
 };

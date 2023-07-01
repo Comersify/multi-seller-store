@@ -154,35 +154,17 @@ export const ProductDetailsCard = ({
   const { handleAddProductToCart, order, setOrder } = useAddProductToCart(id);
   return (
     <>
-      <div className="mx-auto w-90 px-4 pb-8 pt-10 sm:px-6  lg:gap-x-8 lg:px-8 lg:pb-10 lg:pt-16">
-        <div className="flex">
-          <div className="flex items-center max-w-[200px] justify-between lg:pr-8">
-            <div>
-              <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
-                {title}
-              </h1>
-              {starsCount > 0 ? (
-                <div className="mt-6">
-                  <h3 className="sr-only">Reviews</h3>
-                  <div className="flex items-center">
-                    <Stars num={stars} />
-                    <span className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                      {starsCount} review{starsCount > 1 && "s"}
-                    </span>
-                  </div>
-                </div>
-              ) : (
-                <p className="text-gray-400 font-bold text-md mt-2">
-                  Not rated yet
-                </p>
-              )}
-            </div>
+      <div className="block pt-16  md:px-6 w-[400px]">
+        <div className="block lg:pr-8">
+          <div className="flex items-center justify-between">
+            <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+              {title}
+            </h1>
             <SaveButton saved={added} onClick={() => handleAddToWishList()} />
           </div>
 
-          {/* <!-- Options --> */}
-          <div className="mt-4 lg:mt-0">
-            <p className="tracking-tight flex text-gray-900">
+          <div>
+            <p className="mt-4 tracking-tight flex text-gray-900">
               <div className="flex text-3xl font-bold text-gray-900">
                 {discount ? acctualPrice.toFixed(2) : price}
                 <div className="text-3xl font-bold text-gray-900">DA</div>
@@ -195,27 +177,39 @@ export const ProductDetailsCard = ({
                 ""
               )}
             </p>
+            {starsCount > 0 ? (
+              <div className="mt-6">
+                <h3 className="sr-only">Reviews</h3>
+                <div className="flex items-center">
+                  <Stars num={stars} />
+                  <span className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                    {starsCount} review{starsCount > 1 && "s"}
+                  </span>
+                </div>
+              </div>
+            ) : (
+              <p className="text-gray-400 font-bold text-md mt-2">
+                Not rated yet
+              </p>
+            )}
           </div>
-          {/* <!-- Reviews --> */}
         </div>
         <ProductDescription description={description} />
+      </div>
 
-        <form className="mt-5 min-w-[250px]">
-          {/* <!-- Sizes --> */}
-          <ProductChoices
-            packs={packs}
-            packID={order?.packID}
-            addPackID={(id) => setOrder((prev) => ({ ...prev, packID: id }))}
-          />
-          <button
-            onClick={(e) => handleAddProductToCart(e, packs.length > 0)}
-            type="submit"
-            className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-          >
-            Add to bag
-          </button>
-        </form>
-        <div className="md:flex w-full sm:block mb-12 items-center justify-center">
+      <form className="pt-16  max-w-[400px]">
+        {/* <!-- Sizes --> */}
+        <ProductChoices
+          packs={packs}
+          packID={order?.packID}
+          addPackID={(id) =>
+            setOrder((prev) => ({
+              ...prev,
+              packID: prev.packID === id ? null : id,
+            }))
+          }
+        />
+        <div className="mt-10 w-full">
           <ShippingCard
             shippingValue={order?.shippingID}
             shipping={shipping}
@@ -224,7 +218,14 @@ export const ProductDetailsCard = ({
             }
           />
         </div>
-      </div>
+        <button
+          onClick={(e) => handleAddProductToCart(e, packs.length > 0)}
+          type="submit"
+          className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+        >
+          Add to bag
+        </button>
+      </form>
     </>
   );
 };
