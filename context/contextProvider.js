@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState } from "react";
+import { AllowCockies } from "@/components/AllowCoockies";
+import { createContext, useContext, useEffect, useState } from "react";
 import { PushNotification } from "../components/PushNotification";
 export const StateContext = createContext();
 
@@ -9,6 +10,10 @@ export const ContextProvider = ({ children }) => {
     type: null,
     message: null,
   });
+
+  useEffect(() => {
+    setTrackID(localStorage.getItem("trackID"));
+  }, []);
 
   const handleToken = (data) => {
     localStorage.setItem("refresh", data.refresh);
@@ -35,7 +40,6 @@ export const ContextProvider = ({ children }) => {
       return currentTime > tokenExpiration;
     }
   }
-
   return (
     <StateContext.Provider
       value={{
@@ -55,6 +59,7 @@ export const ContextProvider = ({ children }) => {
           onClick={() => setNotifiction({ type: "", message: "" })}
         />
       )}
+      {!trackID && <AllowCockies />}
     </StateContext.Provider>
   );
 };
