@@ -64,7 +64,7 @@ export const ProfileButoon = ({ action }) => {
       type="button"
       className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
     >
-      <Image
+      <img
         width={30}
         height={30}
         className="h-8 w-8 rounded-full"

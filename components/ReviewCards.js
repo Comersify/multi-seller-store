@@ -6,7 +6,7 @@ export const HomeReviewCard = ({ image, review }) => {
   return (
     <div className="overflow-hidden py-10">
       <div className="w-[20rem] rounded-lg border relative border-gray-200 shadow-sm ">
-        <Image
+        <img
           className="rounded-full absolute -top-10 left-[35%]"
           width={90}
           height={90}
@@ -57,7 +57,7 @@ const CustomerReview = ({ image, stars, review, date, fulllName }) => {
   return (
     <div className="border border-gray-200 rounded-lg p-4 mb-4">
       <div className="flex items-center mb-2">
-        <Image
+        <img
           className="w-12 h-12 border border-gray-200 rounded-full mr-4"
           width={40}
           height={40}

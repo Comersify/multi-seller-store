@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 export const Cover = ({ cover }) => {
   return (
     <div className="mb-4">
-      <Image
+      <img
         width={1000}
         height={1000}
         src={MEDIA_URL + cover.replace("/media/", "")}
@@ -23,7 +23,7 @@ export const Cover = ({ cover }) => {
 export const StoreHeader = ({ name, logo }) => {
   return (
     <div className="flex items-center mb-4">
-      <Image
+      <img
         width={40}
         height={40}
         src={MEDIA_URL + logo?.replace("/media/", "")}
