@@ -1,6 +1,7 @@
 "use client";
 import { MEDIA_URL } from "@/urls";
 import { useState } from "react";
+import Image from "next/image";
 
 export const Gallery = ({ images }) => {
   if (!images) return;
@@ -19,8 +20,10 @@ export const Gallery = ({ images }) => {
         <div className="block space-y-4 mr-2">
           {smallImages.map((image, i) => {
             return (
-              <img
+              <Image
                 key={i}
+                width={120}
+                height={120}
                 src={MEDIA_URL + image?.replace("/media/", "")}
                 className="max-w-[60px] max-h-[60px] cursor-pointer md:mb-2"
                 onClick={() => showImage(image)}
@@ -28,7 +31,9 @@ export const Gallery = ({ images }) => {
             );
           })}
         </div>
-        <img
+        <Image
+          width={220}
+          height={220}
           src={MEDIA_URL + bigImage?.replace("/media/", "")}
           className="max-sm:w-[300px] max-sm:h-[300px] max-md:w-[400px] h-[400px]"
         />

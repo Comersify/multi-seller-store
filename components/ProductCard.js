@@ -55,7 +55,7 @@ export const ProductItem = ({
   return (
     <div className="w-[600px] max-sm:w-[215px] flex flex-col justify-center p-5">
       <div className="flex items-start rounded-md border-b-2 max-sm:border-2 pb-4 max-sm:pb-0 max-sm:block relative">
-        <img
+        <Image
           src={MEDIA_URL + image?.replace("/media/", "")}
           alt="Product Image"
           width={150}
@@ -137,7 +137,7 @@ export const ProductCard = ({
     <Link href={`/products/${id}`}>
       <div className="w-52 border border-gray-200 rounded relative overflow-hidden hover:shadow-sm">
         <div className="overflow-hidden">
-          <img
+          <Image
             width={600}
             height={600}
             src={MEDIA_URL + image?.replace("/media/", "")}

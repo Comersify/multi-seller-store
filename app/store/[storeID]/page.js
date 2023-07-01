@@ -2,13 +2,14 @@ import { useGetStores } from "@/api/store";
 import { ProductCard } from "@/components/ProductCard";
 import { Stars } from "@/components/Stars";
 import { OrderIcon } from "@/components/shared/Icons";
-import { MEDIA_URL, URL } from "@/urls";
+import { MEDIA_URL } from "@/urls";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 export const Cover = ({ cover }) => {
   return (
     <div className="mb-4">
-      <img
+      <Image
         width={1000}
         height={1000}
         src={MEDIA_URL + cover.replace("/media/", "")}
@@ -22,7 +23,7 @@ export const Cover = ({ cover }) => {
 export const StoreHeader = ({ name, logo }) => {
   return (
     <div className="flex items-center mb-4">
-      <img
+      <Image
         width={40}
         height={40}
         src={MEDIA_URL + logo?.replace("/media/", "")}

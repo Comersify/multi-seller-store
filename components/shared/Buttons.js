@@ -12,7 +12,6 @@ import { useStateContext } from "@/context/contextProvider";
 import Image from "next/image";
 import { MEDIA_URL } from "@/urls";
 
-
 export const Button = ({ children, onClick, px }) => {
   return (
     <button
@@ -58,18 +57,22 @@ export const CartButton = () => {
 };
 
 export const ProfileButoon = ({ action }) => {
-  const {token} = useStateContext()
+  const { token } = useStateContext();
   return (
     <button
       onClick={() => action()}
       type="button"
       className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
     >
-      <img
+      <Image
         width={30}
         height={30}
         className="h-8 w-8 rounded-full"
-        src={token?.image ? MEDIA_URL + token?.image?.replace("/media/", "") : "/avatar.jpeg"}
+        src={
+          token?.image
+            ? MEDIA_URL + token?.image?.replace("/media/", "")
+            : "/avatar.jpeg"
+        }
         alt=""
       />
     </button>

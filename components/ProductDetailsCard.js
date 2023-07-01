@@ -1,4 +1,5 @@
 "use client";
+
 import { useAddProductToCart } from "@/api/cart";
 import { useProductInWishList } from "@/api/wish-list";
 import { Stars } from "@/components/Stars";
