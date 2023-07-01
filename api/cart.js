@@ -53,7 +53,7 @@ export const useCart = () => {
 };
 
 export const useAddProductToCart = (id) => {
-  const [packID, setPackID] = useState(false);
+  const [order, setOrder] = useState(false);
   const { handleNotification, token, trackID } = useStateContext();
   const router = useRouter();
 
@@ -90,5 +90,5 @@ export const useAddProductToCart = (id) => {
     if (packID == id) setPackID(false);
     else setPackID(id);
   };
-  return { handleAddProductToCart, packID, addPackID };
+  return { handleAddProductToCart, order, setOrder };
 };
