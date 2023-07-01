@@ -1,4 +1,4 @@
-import { useInitTracker } from "@/api/tracker";
+import { useInitTracker } from "@/roupi/tracker";
 import { useStateContext } from "@/context/contextProvider";
 import Link from "next/link";
 import { useEffect } from "react";

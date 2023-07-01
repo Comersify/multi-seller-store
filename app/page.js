@@ -6,10 +6,10 @@ import { Title } from "@/components/shared/Title";
 import { StoreCard } from "@/components/StoreCard";
 import { CategoriesCard } from "@/components/CategoriesCard";
 import { HomeReviewCard } from "@/components/ReviewCards";
-import { useGetProducts } from "@/api/product";
-import { useGetStores } from "@/api/store";
-import { useGetCategories } from "@/api/category";
-import { useGetCustomerReviews } from "@/api/review";
+import { useGetProducts } from "@/roupi/product";
+import { useGetStores } from "@/roupi/store";
+import { useGetCategories } from "@/roupi/category";
+import { useGetCustomerReviews } from "@/roupi/review";
 
 const BigDeals = () => {
   const { products } = useGetProducts({ filter: "super-deals/" });

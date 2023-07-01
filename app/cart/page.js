@@ -2,7 +2,7 @@
 import { ProductItem } from "@/components/ProductCard";
 import { CheckoutCard } from "@/components/CheckoutCard";
 import useWithAuth from "../_authRouter";
-import { useCart } from "@/api/cart";
+import { useCart } from "@/roupi/cart";
 import { discountCalc } from "@/utils/utils";
 import { useRouter } from "next/navigation";
 

@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import { StarsInput } from "@/components/Stars";
 import { ToggleSideBarButton } from "@/components/shared/Buttons";
-import { useGetCategories } from "@/api/category";
+import { useGetCategories } from "@/roupi/category";
 
 const SubCategoryItem = ({ open, name, id }) => {
   const [checked, setChecked] = useState(false && open);

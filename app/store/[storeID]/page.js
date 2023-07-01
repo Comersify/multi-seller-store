@@ -1,4 +1,4 @@
-import { useGetStores } from "@/api/store";
+import { useGetStores } from "@/roupi/store";
 import { ProductCard } from "@/components/ProductCard";
 import { Stars } from "@/components/Stars";
 import { OrderIcon } from "@/components/shared/Icons";

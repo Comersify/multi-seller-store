@@ -1,5 +1,5 @@
 "use client";
-import { useSignupWithProvider } from "@/api/auth";
+import { useSignupWithProvider } from "@/roupi/auth";
 import { useEffect, useRef, useState } from "react";
 
 export function GoogleAuth({

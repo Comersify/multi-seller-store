@@ -1,4 +1,4 @@
-import { useGetCouponValue } from "@/api/coupon";
+import { useGetCouponValue } from "@/roupi/coupon";
 import Link from "next/link";
 import { useEffect } from "react";
 import { PaymentForm } from "./PaymentForm";

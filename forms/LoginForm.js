@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Input } from "@/forms/Input";
 import { Title } from "@/components/shared/Title";
 import { Button } from "@/components/shared/Buttons";
-import { useLogin } from "@/api/auth";
+import { useLogin } from "@/roupi/auth";
 import { GoogleAuth } from "@/components/GoogleAuth";
 
 export const LoginForm = () => {

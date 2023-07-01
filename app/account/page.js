@@ -4,7 +4,7 @@ import { XIcon } from "@/components/shared/Icons";
 import { Title } from "@/components/shared/Title";
 import Head from "next/head";
 import useWithAuth from "../_authRouter";
-import { useWishList } from "@/api/wish-list";
+import { useWishList } from "@/roupi/wish-list";
 import { useRouter } from "next/navigation";
 
 function Profile() {

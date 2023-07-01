@@ -1,7 +1,7 @@
 "use client";
 
-import { useAddProductToCart } from "@/api/cart";
-import { useProductInWishList } from "@/api/wish-list";
+import { useAddProductToCart } from "@/roupi/cart";
+import { useProductInWishList } from "@/roupi/wish-list";
 import { Stars } from "@/components/Stars";
 import { SaveButton } from "@/components/shared/Buttons";
 import { MEDIA_URL } from "@/urls";

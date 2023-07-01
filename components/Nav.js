@@ -9,7 +9,7 @@ import {
   NotificationButton,
   ProfileButoon,
 } from "./shared/Buttons";
-import { useRefresh } from "@/api/auth";
+import { useRefresh } from "@/roupi/auth";
 import { useStateContext } from "@/context/contextProvider";
 
 const Logo = () => {

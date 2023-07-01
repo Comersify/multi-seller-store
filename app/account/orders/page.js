@@ -4,7 +4,7 @@ import { Button } from "@/components/shared/Buttons";
 import { Title } from "@/components/shared/Title";
 import { Table } from "@/components/Table";
 import useWithAuth from "@/app/_authRouter";
-import { useGetOrders } from "@/api/order";
+import { useGetOrders } from "@/roupi/order";
 
 const TrackingPanel = () => {
   return (

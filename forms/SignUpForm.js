@@ -2,7 +2,7 @@ import { Title } from "@/components/shared/Title";
 import Link from "next/link";
 import { Input } from "@/forms/Input";
 import { Button } from "@/components/shared/Buttons";
-import { useSignup } from "@/api/auth";
+import { useSignup } from "@/roupi/auth";
 import { GoogleAuth } from "@/components/GoogleAuth";
 
 export const SignUpForm = () => {

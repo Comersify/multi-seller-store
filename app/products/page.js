@@ -1,5 +1,5 @@
 "use client";
-import { useGetProducts } from "@/api/product";
+import { useGetProducts } from "@/roupi/product";
 import { FiltersSideBar } from "@/components/FiltersSideBar";
 import { ProductCard } from "@/components/ProductCard";
 import { OrderByIcon, SearchIcon } from "@/components/shared/Icons";

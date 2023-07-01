@@ -2,8 +2,8 @@
 import { Gallery } from "@/components/Gallery";
 import { ReviewCard } from "@/components/ReviewCards";
 import { ProductDetailsCard } from "@/components/ProductDetailsCard";
-import { useGetProducts } from "@/api/product";
-import { useGetReviews } from "@/api/review";
+import { useGetProducts } from "@/roupi/product";
+import { useGetReviews } from "@/roupi/review";
 
 export default function ProductDetails({ params }) {
   const { id } = params;
