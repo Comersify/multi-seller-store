@@ -34,7 +34,7 @@ export const Ads = () => {
           <LeftArrow />
         </button>
         {images[currentIndex] && (
-          <img
+          <Image
             width={1200}
             height={1200}
             onClick={() => window.location.replace(images[currentIndex]?.link)}

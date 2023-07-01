@@ -8,7 +8,7 @@ export const CategoriesCard = ({ id, name, products = [] }) => {
         <div className=" grid grid-cols-2 grid-rows-2 gap-x-8 gap-y-10">
           {products.map((product) => {
             <Link href={`products/${id}`} className="w-20 h-20 block">
-              <img
+              <Image
                 width={80}
                 height={80}
                 className="rounded-md"
@@ -21,7 +21,7 @@ export const CategoriesCard = ({ id, name, products = [] }) => {
             </Link>;
           })}
           <Link href={`products/${id}`} className="w-20 h-20 block">
-            <img
+            <Image
               width={80}
               height={80}
               alt="Product image"
@@ -33,7 +33,7 @@ export const CategoriesCard = ({ id, name, products = [] }) => {
             </p>
           </Link>
           <Link href={`products/${id}`} className="w-20 h-20 block">
-            <img
+            <Image
               width={80}
               alt="Product image"
               height={80}
@@ -45,7 +45,7 @@ export const CategoriesCard = ({ id, name, products = [] }) => {
             </p>
           </Link>
           <Link href={`products/${id}`} className="w-20 h-20 block">
-            <img
+            <Image
               width={80}
               height={80}
               alt="Product image"
@@ -57,7 +57,7 @@ export const CategoriesCard = ({ id, name, products = [] }) => {
             </p>
           </Link>
           <Link href={`products/${id}`} className="w-20 h-20 block">
-            <img
+            <Image
               width={80}
               height={80}
               alt="Product image"

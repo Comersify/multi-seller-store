@@ -20,7 +20,7 @@ export const Gallery = ({ images }) => {
         <div className="block space-y-4 mr-2">
           {smallImages.map((image, i) => {
             return (
-              <img
+              <Image
                 key={i}
                 width={120}
                 height={120}
@@ -31,7 +31,7 @@ export const Gallery = ({ images }) => {
             );
           })}
         </div>
-        <img
+        <Image
           width={220}
           height={220}
           src={MEDIA_URL + bigImage?.replace("/media/", "")}
