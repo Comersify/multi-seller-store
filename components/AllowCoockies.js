@@ -1,19 +1,22 @@
 "use client";
 import { useInitTracker } from "@/api/tracker";
+import { useStateContext } from "@/context/contextProvider";
 import Link from "next/link";
 
 export const AllowCockies = () => {
   useInitTracker();
+  const { trackID } = useStateContext();
   const handleAccept = (e) => {
     e.preventDefault();
     localStorage.setItem("accept-cockies", 1);
-    document.getElementById("allow-cockies").remove();
   };
 
   return (
     <div
       id="allow-cockies"
-      className="p-10 border-blue-200 m-2 z-30  fixed bg-gray-100 border rounded-t-md bottom-0"
+      className={`p-10 border-blue-200 m-2 z-30 ${
+        trackID && "hidden"
+      } fixed bg-gray-100 border rounded-t-md bottom-0`}
     >
       <p className="text-black">
         Welcome to our website! We use cookies to enhance your browsing
