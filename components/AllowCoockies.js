@@ -1,22 +1,24 @@
-"use client";
 import { useInitTracker } from "@/api/tracker";
 import { useStateContext } from "@/context/contextProvider";
 import Link from "next/link";
+import { useEffect } from "react";
 
 export const AllowCockies = () => {
+  "use client";
   useInitTracker();
   const { trackID } = useStateContext();
   const handleAccept = (e) => {
     e.preventDefault();
     localStorage.setItem("accept-cockies", 1);
   };
-
+  useEffect(() => {
+    const cockiesWindow = document.getElementById("allow-cockies")
+    if (!trackID) cockiesWindow.className = cockiesWindow.className.replace("hidden","")
+  },[trackID])
   return (
     <div
       id="allow-cockies"
-      className={`p-10 border-blue-200 m-2 z-30 ${
-        trackID && "hidden"
-      } fixed bg-gray-100 border rounded-t-md bottom-0`}
+      className="p-10 border-blue-200 m-2 z-30 fixed hidden bg-gray-100 border rounded-t-md bottom-0"
     >
       <p className="text-black">
         Welcome to our website! We use cookies to enhance your browsing
