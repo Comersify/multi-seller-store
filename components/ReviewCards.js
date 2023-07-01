@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Star, Stars } from "./Stars";
+import { Stars } from "./Stars";
 import { MEDIA_URL } from "@/urls";
 
 export const HomeReviewCard = ({ image, review }) => {
@@ -10,7 +10,7 @@ export const HomeReviewCard = ({ image, review }) => {
           className="rounded-full absolute -top-10 left-[35%]"
           width={90}
           height={90}
-          src={MEDIA_URL+image?.replace("/media/", "")}
+          src={MEDIA_URL + image?.replace("/media/", "")}
         />
         <p className="text-black text-ms pt-14 text-center px-4 pb-4 ">
           {review}
@@ -32,26 +32,27 @@ const StarBar = ({ value, starNum }) => {
           className={`absolute h-full w-[${value}%] bg-yellow-300 rounded-full`}
         ></div>
       </div>
-      <span className="ml-2 font-medium text-gray-900 text-center w-[50px]">{value} %</span>
+      <span className="ml-2 font-medium text-gray-900 text-center w-[50px]">
+        {value} %
+      </span>
     </div>
   );
 };
 
 const CustomerReview = ({ image, stars, review, date, fulllName }) => {
-  
-  function formatDate(str){
+  function formatDate(str) {
     const date = new Date(str);
     const options = {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: 'numeric',
-      minute: 'numeric',
-      second: 'numeric',
-      timeZone: 'UTC'
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      second: "numeric",
+      timeZone: "UTC",
     };
-    const formattedDate = date.toLocaleString('en-US', options);
-    return formattedDate
+    const formattedDate = date.toLocaleString("en-US", options);
+    return formattedDate;
   }
   return (
     <div className="border border-gray-200 rounded-lg p-4 mb-4">
@@ -60,7 +61,7 @@ const CustomerReview = ({ image, stars, review, date, fulllName }) => {
           className="w-12 h-12 border border-gray-200 rounded-full mr-4"
           width={40}
           height={40}
-          src={MEDIA_URL+image?.replace("/media/", "")}
+          src={MEDIA_URL + image?.replace("/media/", "")}
           alt="User Avatar"
         />
         <div>
@@ -70,9 +71,7 @@ const CustomerReview = ({ image, stars, review, date, fulllName }) => {
           </div>
         </div>
       </div>
-      <p className="text-gray-700 px-2 py-2 text-sm mb-2">
-        {review}
-      </p>
+      <p className="text-gray-700 px-2 py-2 text-sm mb-2">{review}</p>
       <div className="text-gray-500 text-xs mb-2">
         Reviewed on {formatDate(date)}
       </div>
@@ -80,7 +79,7 @@ const CustomerReview = ({ image, stars, review, date, fulllName }) => {
   );
 };
 
-export const ReviewCard = ({ reviews:{reviews, stats} }) => {
+export const ReviewCard = ({ reviews: { reviews, stats } }) => {
   return (
     <div className="flex flex-wrap gap-4 w-full justify-center">
       <div className="border border-gray-200 rounded-lg w-80 p-4 h-56">
@@ -99,7 +98,7 @@ export const ReviewCard = ({ reviews:{reviews, stats} }) => {
             image={review?.image}
             review={review?.review}
             stars={review?.stars}
-            fulllName={review?.first_name +" "+ review.last_name}
+            fulllName={review?.first_name + " " + review.last_name}
             date={review?.created_at}
           />
         ))}

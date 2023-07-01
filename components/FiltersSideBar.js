@@ -1,3 +1,4 @@
+"use client";
 import { useState, useEffect, useRef } from "react";
 import { StarsInput } from "@/components/Stars";
 import { ToggleSideBarButton } from "@/components/shared/Buttons";

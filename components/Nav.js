@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 import {
@@ -87,7 +89,7 @@ const Navigation = () => {
   return (
     <>
       <MenuLink href="/" title="Home" />
-      <MenuLink href="/products" title="products" />
+      <MenuLink href="/products" title="Products" />
       <MenuLink href="/contact-us" title="Contact Us" />
       <MenuLink href="/faqs" title="FAQs" />
     </>

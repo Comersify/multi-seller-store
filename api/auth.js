@@ -1,4 +1,7 @@
-import { useRouter } from "next/router";
+
+"use client";
+
+import { useRouter } from "next/navigation";
 import { useGET, usePOST } from "./utils";
 import { useStateContext } from "@/context/contextProvider";
 import { useEffect, useState } from "react";
@@ -19,8 +22,7 @@ export const useSignupWithProvider = (provider) => {
 };
 
 export const useRefresh = () => {
-  const { handleToken, handleNotification, token, isTokenExpired } =
-    useStateContext();
+  const { handleToken, token, isTokenExpired } = useStateContext();
   const router = useRouter();
   const [laoding, setLoading] = useState(false);
   function refresh() {
@@ -35,7 +37,6 @@ export const useRefresh = () => {
           if (res.type == "success") {
             handleToken(res);
           } else {
-            handleNotification(res);
             router.replace("/login");
           }
         });

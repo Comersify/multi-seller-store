@@ -1,3 +1,5 @@
+
+"use client";
 import { useStateContext } from "@/context/contextProvider";
 import { useEffect, useState } from "react";
 import { useGET } from "./utils";

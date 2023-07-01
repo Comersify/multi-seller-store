@@ -60,7 +60,7 @@ export const SignUpForm = () => {
             label="Confirm Password"
           />
         </div>
-        <GoogleAuth onSuccess={(e) => console.log(e)} />
+        <GoogleAuth />
         <div className="flex w-full justify-center">
           <Button px="20" onClick={(e) => handleSubmit(e)}>
             Sign Up

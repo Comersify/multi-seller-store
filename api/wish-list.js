@@ -1,7 +1,9 @@
+"use client";
+
 import { useStateContext } from "@/context/contextProvider";
 import { useEffect, useState } from "react";
 import { useGET, usePOST } from "./utils";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 // wish list
 export const useWishList = () => {

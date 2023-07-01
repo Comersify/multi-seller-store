@@ -3,9 +3,10 @@ import { Input } from "@/forms/Input";
 import { Title } from "@/components/shared/Title";
 import { Button } from "@/components/shared/Buttons";
 import { useLogin } from "@/api/auth";
+import { GoogleAuth } from "@/components/GoogleAuth";
 
 export const LoginForm = () => {
-  const { auth, handleSubmit, setAuth } =  useLogin();
+  const { auth, handleSubmit, setAuth } = useLogin();
 
   return (
     <div className="flex flex-col justify-center items-center h-[40rem]">
@@ -29,6 +30,7 @@ export const LoginForm = () => {
             placeholder="Password"
           />
         </div>
+        <GoogleAuth />
         <div className="flex items-center justify-between">
           <Link
             className="align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"

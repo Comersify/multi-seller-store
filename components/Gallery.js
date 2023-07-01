@@ -1,3 +1,4 @@
+"use client";
 import { MEDIA_URL } from "@/urls";
 import { useState } from "react";
 

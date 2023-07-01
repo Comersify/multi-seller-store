@@ -1,19 +1,19 @@
+"use client";
+
 import { AllowCockies } from "@/components/AllowCoockies";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { PushNotification } from "../components/PushNotification";
 export const StateContext = createContext();
 
 export const ContextProvider = ({ children }) => {
   const [token, setToken] = useState(false);
-  const [trackID, setTrackID] = useState();
+  const [trackID, setTrackID] = useState(
+    typeof localStorage !== "undefined" && localStorage.getItem("trackID")
+  );
   const [notification, setNotifiction] = useState({
     type: null,
     message: null,
   });
-
-  useEffect(() => {
-    setTrackID(localStorage.getItem("trackID"));
-  }, []);
 
   const handleToken = (data) => {
     localStorage.setItem("refresh", data.refresh);
@@ -59,7 +59,7 @@ export const ContextProvider = ({ children }) => {
           onClick={() => setNotifiction({ type: "", message: "" })}
         />
       )}
-      {!trackID && <AllowCockies />}
+      {<AllowCockies />}
     </StateContext.Provider>
   );
 };

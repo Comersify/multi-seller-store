@@ -1,9 +1,11 @@
+
+"use client";
+
 import { useStateContext } from "@/context/contextProvider";
 import { useGET, usePOST } from "./utils";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
-// cart
 export const useCart = () => {
   const [refresh, setRefresh] = useState(false);
   const [products, setproducts] = useState([]);

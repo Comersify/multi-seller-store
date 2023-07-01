@@ -1,5 +1,5 @@
+"use client";
 import { useSignupWithProvider } from "@/api/auth";
-import { useStateContext } from "@/context/contextProvider";
 import { useEffect, useRef, useState } from "react";
 
 export function GoogleAuth({
@@ -14,7 +14,6 @@ export function GoogleAuth({
   ...props
 }) {
   const { signup } = useSignupWithProvider("google");
-  const { handleNotification } = useStateContext();
   const [isOAuthClientLoaded, setIsOAuthClientLoaded] = useState(false);
 
   const btnContainerRef = useRef(null);

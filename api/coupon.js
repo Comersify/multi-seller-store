@@ -1,3 +1,5 @@
+"use client";
+
 import { useStateContext } from "@/context/contextProvider";
 import { useState } from "react";
 import { usePOST } from "./utils";

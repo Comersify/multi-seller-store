@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import { Stars } from "./Stars";
 import Link from "next/link";

@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { useGET } from "./utils";
 import { useStateContext } from "@/context/contextProvider";
@@ -26,8 +28,7 @@ export const useGetProducts = ({ params, filter }) => {
   useEffect(() => {
     setLoading(true);
     useGET(`products/${filter || ""}`, {
-      data: params,
-      offset: offset,
+      params: { ...params, offset: offset },
       headers: { "X-Comercify-Visitor": trackID },
     }).then((res) => {
       if (res?.type == "error") handleNotification(res);

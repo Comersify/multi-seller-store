@@ -1,3 +1,4 @@
+"use client";
 import { useAddProductToCart } from "@/api/cart";
 import { useProductInWishList } from "@/api/wish-list";
 import { Stars } from "@/components/Stars";
@@ -42,7 +43,7 @@ const Choice = ({ image, title, currentPack, addPackID, id }) => {
               Active: "border", Not Active: "border-2"
               Checked: "border-indigo-500", Not Checked: "border-transparent"
         --> */}
-        <img
+        <Image
           src={MEDIA_URL + image?.replace("/media/", "")}
           width={60}
           height={60}

@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect } from "react";
 import { LeftArrow, RightArrow } from "./shared/Icons";
 import Image from "next/image";
@@ -31,17 +33,18 @@ export const Ads = () => {
         >
           <LeftArrow />
         </button>
-        {
-        images[currentIndex] &&
-        <img
-          width={1200}
-          height={1200}
-          onClick={() => window.location.replace(images[currentIndex]?.link)}
-          className="min-w-[20rem] cursor-pointer rounded-lg max-h-[25rem]"
-          src={MEDIA_URL+images[currentIndex]?.image?.replace("/media/", "")}
-          alt="Ads"
-        />
-        }
+        {images[currentIndex] && (
+          <img
+            width={1200}
+            height={1200}
+            onClick={() => window.location.replace(images[currentIndex]?.link)}
+            className="min-w-[20rem] cursor-pointer rounded-lg max-h-[25rem]"
+            src={
+              MEDIA_URL + images[currentIndex]?.image?.replace("/media/", "")
+            }
+            alt="Ads"
+          />
+        )}
         <button
           className="absolute font-bold text-lg top-[41%] right-0 mx-4 p-4 opacity-75 hover:opacity-100 rounded-full bg-gray-100 text-black"
           onClick={handleNext}
