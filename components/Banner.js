@@ -1,8 +1,16 @@
 import Link from "next/link";
 
 export function Banner() {
+  const bannerRef = useRef();
+  const handleHideBanner = () => {
+    bannerRef.current.className += " hidden";
+  };
+
   return (
-    <div className="relative isolate flex items-center gap-x-6 overflow-hidden bg-gray-50 px-6 py-2.5 sm:px-3.5 sm:before:flex-1">
+    <div
+      ref={bannerRef}
+      className="relative isolate flex items-center gap-x-6 overflow-hidden bg-gray-50 px-6 py-2.5 sm:px-3.5 sm:before:flex-1"
+    >
       <div
         className="absolute left-[max(-7rem,calc(50%-52rem))] top-1/2 -z-10 -translate-y-1/2 transform-gpu blur-2xl"
         aria-hidden="true"
@@ -48,10 +56,10 @@ export function Banner() {
       </div>
       <div className="flex flex-1 justify-end">
         <button
+          onClick={handleHideBanner}
           type="button"
           className="-m-3 p-3 text-gray-900 focus-visible:outline-offset-[-4px]"
         >
-          <span className="sr-only">Dismiss</span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
