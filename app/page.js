@@ -1,5 +1,4 @@
 "use client";
-import Head from "next/head";
 import { Ads } from "@/components/Ads";
 import { ProductCard } from "@/components/ProductCard";
 import { Title } from "@/components/shared/Title";
