@@ -1,4 +1,6 @@
+"use client";
 import Link from "next/link";
+import { useRef } from "react";
 
 export function Banner() {
   const bannerRef = useRef();

@@ -24,7 +24,6 @@ export const ShippingCard = ({ shipping, addShipping, shippingValue }) => {
   const [shippingPrice, setShippingPrice] = useState();
 
   const handleOnChange = (v) => {
-    console.log(v);
     addShipping(v);
   };
   return (
