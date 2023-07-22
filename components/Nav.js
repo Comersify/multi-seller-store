@@ -6,7 +6,6 @@ import {
   AuthButtons,
   CartButton,
   MobileMenuButtons,
-  NotificationButton,
   ProfileButoon,
 } from "./shared/Buttons";
 import { useRefresh } from "@/roupi/auth";
