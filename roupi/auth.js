@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useRouter } from "next/navigation";
@@ -11,7 +10,7 @@ export const useSignupWithProvider = (provider) => {
 
   const signup = (token) => {
     usePOST("sign-up/" + provider, {
-      data: { token: token.access },
+      data: { token: token },
       headers: { "X-Comercify-Visitor": trackID },
     }).then((res) => {
       if (res.type == "error") handleNotification(res);

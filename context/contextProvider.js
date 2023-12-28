@@ -8,7 +8,7 @@ export const StateContext = createContext();
 export const ContextProvider = ({ children }) => {
   const [token, setToken] = useState(false);
   const [trackID, setTrackID] = useState(
-    typeof localStorage !== "undefined" && localStorage.getItem("trackID")
+    (typeof localStorage !== "undefined" && localStorage.getItem("trackID")) || ''
   );
   const [notification, setNotifiction] = useState({
     type: null,
