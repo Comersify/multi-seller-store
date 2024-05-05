@@ -15,8 +15,8 @@ export const Footer = () => {
             <h2
               style={{
                 background: "-webkit-linear-gradient(45deg,  #f72585, #7209b7)",
-                "-webkit-background-clip": "text",
-                "-webkit-text-fill-color": "transparent",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
               }}
               className="text-3xl font-bold"
             >
