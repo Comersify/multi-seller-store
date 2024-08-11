@@ -7,7 +7,7 @@ export const Footer = () => {
         <div className="text-center md:text-left">
           <div
             style={{
-              "background-color": "rgba(255, 255, 255, 0.15)",
+              "backgroundColor": "rgba(255, 255, 255, 0.15)",
               border: "1px solid rgba(255, 255, 255, 0.15)",
             }}
             className="px-4 py-2 bg-white rounded-md"
