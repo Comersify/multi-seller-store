@@ -15,13 +15,6 @@ export const ContextProvider = ({ children }) => {
     message: null,
   });
 
-  const handleToken = (data) => {
-    localStorage.setItem("refresh", data.refresh);
-    localStorage.setItem("exp", data.exp);
-    setToken(data);
-    return;
-  };
-
   const [cron, setCron] = useState(false);
   const handleNotification = ({ type, message }) => {
     setNotifiction({ type: type, message: message });
@@ -32,14 +25,6 @@ export const ContextProvider = ({ children }) => {
     setCron(tim);
   };
 
-  function isTokenExpired() {
-    if (typeof window !== "undefined") {
-      const exp = localStorage.getItem("exp");
-      const tokenExpiration = new Date(exp * 1000).getTime();
-      const currentTime = new Date().getTime();
-      return currentTime > tokenExpiration;
-    }
-  }
   return (
     <StateContext.Provider
       value={{
@@ -47,7 +32,6 @@ export const ContextProvider = ({ children }) => {
         token,
         trackID,
         setTrackID,
-        isTokenExpired,
         handleToken,
       }}
     >

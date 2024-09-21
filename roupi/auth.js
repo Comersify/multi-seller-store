@@ -1,6 +1,4 @@
-
 "use client";
-
 import { useRouter } from "next/navigation";
 import { useGET, usePOST } from "./utils";
 import { useStateContext } from "@/context/contextProvider";
@@ -19,41 +17,6 @@ export const useSignupWithProvider = (provider) => {
     });
   };
   return { signup };
-};
-
-export const useRefresh = () => {
-  const { handleToken, token, isTokenExpired } = useStateContext();
-  const router = useRouter();
-  const [laoding, setLoading] = useState(false);
-  function refresh() {
-    const data = {
-      refresh: localStorage?.getItem("refresh"),
-    };
-    if (isTokenExpired() || !token.access) {
-      if (data.refresh) {
-        usePOST("refresh/", {
-          data: data,
-        }).then((res) => {
-          if (res.type == "success") {
-            handleToken(res);
-          } else {
-            router.replace("/login");
-          }
-        });
-      } else {
-        router.replace("/login");
-      }
-    }
-  }
-  useEffect(() => {
-    if (!token.access) {
-      setLoading(true);
-      refresh();
-      setLoading(false);
-    }
-    setInterval(() => refresh(), 240000);
-  }, []);
-  return { laoding };
 };
 
 export const useSettings = () => {
